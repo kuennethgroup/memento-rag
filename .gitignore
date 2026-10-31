@@ -1,0 +1,41 @@
+# Private runtime data and configuration
+/data
+/logs
+/backups
+config/.env
+.env
+.env.*
+!.env.example
+.webui_secret_key
+/public/
+*.db
+*.db-shm
+*.db-wal
+*.sqlite*
+*.sql
+*.dump
+
+# Python and build output
+.venv*
+__pycache__/
+*.py[cod]
+*.egg-info/
+/build/
+/dist/
+.eggs/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Editor state
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Generated evaluations
+*.log
+/evaluation/generated/
+/evaluation/RQ4/results_*/
+/evaluation/RQ4/private/

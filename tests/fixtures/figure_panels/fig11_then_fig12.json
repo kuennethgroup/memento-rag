@@ -1,0 +1,128 @@
+[
+ {
+  "type": "image",
+  "img_path": "images/cfa77856f9902ebadad707598a120ba86873fd80d191d4296e4d0a7b498ed0b9.jpg",
+  "image_caption": [
+   "Figure 11. Comparison of the cell adhesion and proliferation on pure CS and 1 wt.%GNP/CS composite surfaces at different time points: (a) blank of pure CS, (b-d) 1, 3 and 5 days on pure CS discs, (e) blank of 1 wt.%GNP/CS, (f-h) 1, 3 and 5 days on 1 wt.%GNP/CS composite. The scale bar represents 50 µm."
+  ],
+  "image_footnote": [
+   "doi:10.1371/journal.pone.0106802.g011"
+  ],
+  "content": "",
+  "bbox": [
+   130,
+   68,
+   866,
+   351
+  ],
+  "page_idx": 11
+ },
+ {
+  "type": "image",
+  "img_path": "images/b41fabfc71651892845a79cc5db8308ce6cf541d500c1c5240901f0f59173ee5.jpg",
+  "image_caption": [],
+  "image_footnote": [],
+  "content": "Microscopic surface texture image showing granular and clustered structures (no text or symbols visible)",
+  "sub_type": "natural_image",
+  "bbox": [
+   130,
+   432,
+   493,
+   646
+  ],
+  "page_idx": 11
+ },
+ {
+  "type": "image",
+  "img_path": "images/9075efcfb59c734d95f3a38f617c4948ac8076ed913734592e542e343deec84f.jpg",
+  "image_caption": [],
+  "image_footnote": [],
+  "content": "Microscopic surface texture image showing granular and fibrous structures (no text or symbols visible)",
+  "sub_type": "natural_image",
+  "bbox": [
+   130,
+   648,
+   493,
+   863
+  ],
+  "page_idx": 11
+ },
+ {
+  "type": "image",
+  "img_path": "images/6da22f0d870ead2e6174409305215f273c723bc9e762e71a5454b6eedbd77e24.jpg",
+  "image_caption": [],
+  "image_footnote": [],
+  "content": "Microscopic SEM image of a textured surface with a highlighted region, scale bar indicates 20.0μm (no text or symbols on the main subject)",
+  "sub_type": "natural_image",
+  "bbox": [
+   496,
+   510,
+   866,
+   727
+  ],
+  "page_idx": 11
+ },
+ {
+  "type": "chart",
+  "img_path": "images/6183d2a93b9c849e3db204a7d2e1afc86dcddd7c3aee6efb27b175c4274b67cd.jpg",
+  "content": "| Element | Energy (keV) |\n| --- | --- |\n| C | ~0.3 |\n| O | ~0.5 |\n| P | ~2.0 |\n| Ca | ~3.7 |\n| Ca | ~4.0 |",
+  "chart_caption": [
+   "Figure 12. FESEM micrographs and the EDS spectrum of the hFOB cells. (a) 1 wt.%GNP/CS composite without cells, (b) Pure CS with hFOB cells, (c) FESEM micrographs and the EDS spectrum of the hFOB cells, indicating a significant presence of P and CS on the 1 wt.%GNP/CS composite following 3 days of seeding."
+  ],
+  "chart_footnote": [
+   "doi:10.1371/journal.pone.0106802.g012"
+  ],
+  "sub_type": "spectrogram",
+  "bbox": [
+   496,
+   727,
+   864,
+   782
+  ],
+  "page_idx": 11
+ },
+ {
+  "type": "header",
+  "text": "Mechanical and In Vitro Performance of GNP/CS Composites",
+  "bbox": [
+   568,
+   35,
+   906,
+   46
+  ],
+  "page_idx": 11
+ },
+ {
+  "type": "footer",
+  "text": "PLOS ONE | www.plosone.org",
+  "bbox": [
+   91,
+   951,
+   263,
+   963
+  ],
+  "page_idx": 11
+ },
+ {
+  "type": "page_number",
+  "text": "12",
+  "bbox": [
+   491,
+   951,
+   506,
+   960
+  ],
+  "page_idx": 11
+ },
+ {
+  "type": "footer",
+  "text": "September 2014 | Volume 9 | Issue 9 | e106802",
+  "bbox": [
+   622,
+   951,
+   905,
+   964
+  ],
+  "page_idx": 11
+ }
+]

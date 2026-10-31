@@ -1,0 +1,316 @@
+[
+ {
+  "type": "image",
+  "img_path": "images/d9da2025db94d9e019bae4e390c99aa90503c1eb2e6a791c80a0567550f4dde5.jpg",
+  "image_caption": [
+   "(a) m No. 14",
+   "lowest energy"
+  ],
+  "image_footnote": [],
+  "content": "",
+  "bbox": [
+   127,
+   113,
+   231,
+   186
+  ],
+  "page_idx": 2
+ },
+ {
+  "type": "image",
+  "img_path": "images/8ac7b81d44bfd494b5a889889e46c63a3edabc7b8bc234762838fdf2ffddb732.jpg",
+  "image_caption": [
+   "(b) oI\\* No. 61"
+  ],
+  "image_footnote": [],
+  "content": "Molecular structure diagram showing blue and red atoms in a hexagonal lattice arrangement",
+  "sub_type": "chemical",
+  "bbox": [
+   245,
+   104,
+   403,
+   176
+  ],
+  "page_idx": 2
+ },
+ {
+  "type": "image",
+  "img_path": "images/4345f83b69839f573979085fd33177a9470f9576b593a32f39e5af94264c5271.jpg",
+  "image_caption": [
+   "(c) oI No. 61"
+  ],
+  "image_footnote": [],
+  "content": "Molecular structure diagram showing blue and red atoms arranged in a lattice with directional arrows indicating interactions",
+  "sub_type": "chemical",
+  "bbox": [
+   418,
+   109,
+   581,
+   179
+  ],
+  "page_idx": 2
+ },
+ {
+  "type": "image",
+  "img_path": "images/d18c623ea02e3c0ffc63223ea575051da2238679a4272b25a5c9adbc9e6b6150.jpg",
+  "image_caption": [
+   "(d) mIII No. 7"
+  ],
+  "image_footnote": [],
+  "content": "Molecular structure diagram showing blue, red, yellow, and orange atoms in a layered arrangement",
+  "sub_type": "chemical",
+  "bbox": [
+   589,
+   104,
+   778,
+   182
+  ],
+  "page_idx": 2
+ },
+ {
+  "type": "image",
+  "img_path": "images/03c3bdddffba64d9fadd0007c4795093b7cc79ca22959f340a57a152ca290153.jpg",
+  "image_caption": [
+   "(e) oIII No. 29"
+  ],
+  "image_footnote": [],
+  "content": "",
+  "bbox": [
+   786,
+   113,
+   880,
+   184
+  ],
+  "page_idx": 2
+ },
+ {
+  "type": "image",
+  "img_path": "images/4ba74634877143036a85d809554f57414090a0280a62f74261e479229c259f0d.jpg",
+  "image_caption": [
+   "(f) mII No. 11"
+  ],
+  "image_footnote": [],
+  "content": "",
+  "bbox": [
+   122,
+   254,
+   233,
+   328
+  ],
+  "page_idx": 2
+ },
+ {
+  "type": "image",
+  "img_path": "images/e52d881e53b7d6a6b2b78eedca06af3157769f71b3defe3efa4891036786b08a.jpg",
+  "image_caption": [
+   "(g) oV No. 62"
+  ],
+  "image_footnote": [],
+  "content": "",
+  "bbox": [
+   260,
+   260,
+   363,
+   333
+  ],
+  "page_idx": 2
+ },
+ {
+  "type": "image",
+  "img_path": "images/74864a999d4e5c6b7586dfb0fa5948f6fd22a21c621ed3a7a55965070027b46b.jpg",
+  "image_caption": [
+   "(h) oIV No. 31"
+  ],
+  "image_footnote": [],
+  "content": "",
+  "bbox": [
+   391,
+   260,
+   492,
+   332
+  ],
+  "page_idx": 2
+ },
+ {
+  "type": "image",
+  "img_path": "images/373e07b1a1a48763f98a7e75f143fe6281c19155c70682cf64393b58d9119ec0.jpg",
+  "image_caption": [
+   "(i) t No. 137"
+  ],
+  "image_footnote": [],
+  "content": "",
+  "bbox": [
+   524,
+   260,
+   620,
+   332
+  ],
+  "page_idx": 2
+ },
+ {
+  "type": "image",
+  "img_path": "images/e9b2247691e8f831d3c4c7808b6fe5fc666e15a8ed9a045d4d3de712b1c6aa31.jpg",
+  "image_caption": [
+   "(j) cII No. 215"
+  ],
+  "image_footnote": [],
+  "content": "",
+  "bbox": [
+   655,
+   260,
+   749,
+   332
+  ],
+  "page_idx": 2
+ },
+ {
+  "type": "image",
+  "img_path": "images/2b1f85c0340751277f4d6ab2ef8f522e3ff90653e1cd92b96ada3b7410d133a7.jpg",
+  "image_caption": [
+   "(k) c No. 225",
+   "highest energy",
+   "Figure 1. a) Monoclinic $P2_1/c$ ; b,c) orthorhombic Pbca (non-/antipolar); d) monoclinic Pc; e) orthorhombic $Pca2_1$ ; f) monoclinic $P2_1/m$ ; g) orthorhombic $Pnma$ ; h) orthorhombic $Pmn2_1$ ; i) tetragonal $P4_2/nmc$ ; j) cubic $P\\overline{4}3m$ ; and k) cubic $Fm\\overline{3}m$ phases. Blue colored are Hf/Zr atoms and red colored are oxygen atoms. The yellow oxygen atoms are displaced from the centrosymmetric position, which leads to polarization, and the orange atoms are polarizations mutually cancelling each other."
+  ],
+  "image_footnote": [],
+  "content": "",
+  "bbox": [
+   766,
+   260,
+   878,
+   331
+  ],
+  "page_idx": 2
+ },
+ {
+  "type": "text",
+  "text": "z-direction—the polarity is compensated locally (oI\\*-phase, nonpolar no. 61). The compensating oxygen can be considered as an interphase between oppositely polarized oIII-phase no. 29 crystals, which can be extended in the x-direction. $^{[30]}$ Considered as the building block of a domain interphase, the interphase can be interpreted as having negative energy because both structures have lower energy than two oIII-phase no. 29 structures. The energy lowering is in the order of an antipolar dipole interaction energy. $^{[8]}$",
+  "bbox": [
+   78,
+   443,
+   490,
+   572
+  ],
+  "page_idx": 2
+ },
+ {
+  "type": "text",
+  "text": "Another combination of mirror-reflected arrangements is a 24-atomic structure that is overall polar. Here, two of the polar oxygen pairs compensate for polarity, while the two others add to the polarity. The phase has the monoclinic space group $Pc$ no. 7 and, with $0.3\\mathrm{Cm}^{-2}$ , about half the remanent polarization of the polar oIII. The unit cell parameters are $a = 10.06\\AA$ , $b = 5.21\\AA$ , $c = 5.10\\AA$ for $\\mathrm{HfO}_2$ ( $a = 10.12\\AA$ , $b = 5.24\\AA$ , $c = 5.13\\AA$ for $\\mathrm{ZrO}_2$ ), and a monoclinic angle $\\beta = 85.5^\\circ$ for $\\mathrm{HfO}_2$ ( $\\beta = 85.4^\\circ$ for $\\mathrm{ZrO}_2$ ) (see also Table S2, Supporting Information). We label the phase mIII because the monoclinic ground state $m$ and another monoclinic mII-phase are already known (see below). From the perspective of the polar oxygen atoms, the monoclinic ground-state $m$ -phase no. 14 can be seen as two pairs of spacer oxygens and two pairs of polar but compensated oxygens. The mIII-phase no. 7 is a combination of the polar oIII and nonpolar $m$ -structure. The structural data of mIII are listed in Supporting Information. The polar mIII-phase is remarkable because its energy is lower than the oIII-phase. So far only the oIII-phase has clearly been identified in high-resolution transmission electron microscope (HRTEM) pictures.[32] In the next section, we discuss and show that the mIII-phase can form relatively easily. As a reason, we identify the high mobility of the polar oxygen pairs that leads to an easy polarization reversal or to a position in a nonpolar arrangement.",
+  "bbox": [
+   78,
+   572,
+   492,
+   918
+  ],
+  "page_idx": 2
+ },
+ {
+  "type": "text",
+  "text": "A second monoclinic mII-phase $(P2_{1}/m,\\ no.\\ 11)$ has been identified by Huan et al. $^{[13,14]}$ and discussed in detail by Mayr-Schmolzer. $^{[19]}$ Figure 1f shows the 12-atomic pseudocubic cell (the unit cell has only 6 atoms). Furthermore, Figure 1 depicts the higher symmetric 12-atomic structures whose energy is above the polar oIII $(Pca2_{1})$ . First the polar oIV $(Pmn21,\\ no.\\ 31)$ , found by Huan et al., $^{[13]}$ whose unit cell has 6 atoms, but is again shown as a pseudocubic 12-atomic structure in Figure 1d. The view direction is in the z-direction, and the structure can be derived from the cubic c-phase. The polar displacement is oriented in the plane diagonal and is stabilized with cell distortion. An antiparallel arrangement of oIV structures in the z-direction gives rise to the antipolar oI-phase $(Pnma,\\ no.\\ 62)$ , which was found recently by simulation. $^{[8]}$ The dipole interaction energy lowers the energy relative to the polar oIV. $^{[13,15]}$ The structure is inequivalent to the high-pressure phase oII, which is energetically too unfavorable to be listed in Table 1, as discussed in detail in the study by Azevedo Antunes et al. $^{[8]}$ . Next in line for $HfO_{2}$ is the t-phase $(P4_{2}/nmc,\\ no.\\ 137)$ that plays a prominent role in this material class. The biggest difference in the phase stability of $ZrO_{2}$ compared with $HfO_{2}$ is seen in the energy of the t-phase with respect to the m-phase. The t-phase is much easier to stabilize in $ZrO_{2}$ than in $HfO_{2}$ . The t-phase is closely related to the two cubic phases. The highest symmetric cubic phase is the c-phase $(Fm\\overline{3}m,\\ no.\\ 225)$ , which is dynamically unstable in DFT phonon calculations. Its energy is lowered when oxygen displacement is permitted; one stable option is the t-phase. Another option is the cII-phase $(P\\overline{4}3m,\\ no.\\ 215)$ , previously found experimentally $^{[33,34]}$ and theoretically, $^{[14]}$ that has a significantly lower energy compared with the c-phase and is energetically close to the t-phase. However, the cII-phase is also dynamically unstable at T = 0 K. It is expected that doping with small amounts of tetravalent dopants helps the stabilization of the",
+  "bbox": [
+   507,
+   443,
+   922,
+   918
+  ],
+  "page_idx": 2
+ },
+ {
+  "type": "header",
+  "text": "ADVANCED\nSCIENCE NEWS",
+  "bbox": [
+   80,
+   17,
+   250,
+   52
+  ],
+  "page_idx": 2
+ },
+ {
+  "type": "header",
+  "text": "www.advancedsciencenews.com",
+  "bbox": [
+   80,
+   54,
+   265,
+   66
+  ],
+  "page_idx": 2
+ },
+ {
+  "type": "header",
+  "text": "physica pss solidi rrl",
+  "bbox": [
+   781,
+   17,
+   917,
+   53
+  ],
+  "page_idx": 2
+ },
+ {
+  "type": "header",
+  "text": "www.pss-rapid.com",
+  "bbox": [
+   806,
+   54,
+   919,
+   66
+  ],
+  "page_idx": 2
+ },
+ {
+  "type": "aside_text",
+  "text": "18626270, 2022, 10, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/pssr.202100636, Wiley Online Library on [28/09/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License",
+  "bbox": [
+   966,
+   19,
+   981,
+   979
+  ],
+  "page_idx": 2
+ },
+ {
+  "type": "footer",
+  "text": "Phys. Status Solidi RRL 2022, 16, 2100636",
+  "bbox": [
+   82,
+   943,
+   292,
+   953
+  ],
+  "page_idx": 2
+ },
+ {
+  "type": "page_number",
+  "text": "2100636 (3 of 7)",
+  "bbox": [
+   369,
+   941,
+   477,
+   956
+  ],
+  "page_idx": 2
+ },
+ {
+  "type": "footer",
+  "text": "© 2022 The Authors. physica status solidi (RRL) Rapid Research Letters",
+  "bbox": [
+   556,
+   943,
+   919,
+   955
+  ],
+  "page_idx": 2
+ },
+ {
+  "type": "footer",
+  "text": "published by Wiley-VCH GmbH",
+  "bbox": [
+   759,
+   956,
+   917,
+   966
+  ],
+  "page_idx": 2
+ }
+]

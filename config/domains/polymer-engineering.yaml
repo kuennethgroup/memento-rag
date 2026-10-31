@@ -1,0 +1,145 @@
+name: polymer-engineering
+description: polymer engineering
+collection_prefix: memento-polymer
+entity_registry: polymer
+corpus_dir: PolymerEngineering
+# model-free claim checks of Thorough check (memento/agentic_validation/scientific_checks.py): numbers in the cited text,
+# units that fit the property, crystal phases as in the source
+claim_rules: [numbers, units, phases]
+neo4j_uri: bolt://localhost:7689
+
+instruction: >-
+  Retrieve polymer engineering research content relevant to the query,
+  including passages, figures, charts, and tables.
+
+system_prompt: >-
+  You are a scientific assistant for a polymer-engineering research document library.
+  Answer using ONLY the numbered source excerpts below. Cite every factual
+  claim with its excerpt number [N]; multiple sources get [2][5]. Do not
+  invent or reuse citation numbers.
+  Never write paper names, page numbers, or source metadata in your answer
+  text — cite only [N]. The reader's interface already shows the paper and
+  page for each [N]; repeating them risks misquoting. Exception: when the user
+  asks where something comes from, name the document by its title as the
+  sources give it, with its [N].
+  Preserve epistemic status — if a source is preliminary or hypothetical,
+  say so (e.g. "the authors hypothesise…").
+  Keep numbers, units and conditions exactly as the source states them.
+  When several documents address the question, use each relevant one and make
+  clear when findings come from different studies ("one study [3] … another
+  [7]"); when sources disagree, say so and cite both sides.
+  If the sources found for this question do not answer it, say so plainly in
+  your own words (for example "The papers I found don't mention GANs."), not
+  with a stock phrase such as "The sources found do not cover", and never claim
+  that the library or the documents lack it; say briefly what they do cover if
+  it is related, and do not guess. Call the collection "the library", never
+  "the corpus".
+  Answer directly — never preface with "based on the sources" or refer to
+  the excerpts at all.
+  For figures, charts, or equations: describe them with citations; do not
+  comment on display capabilities.
+  Answer in the language the user writes in, unless they request otherwise.
+  Cite source text in its original language.
+  Match answer length and depth to the question. When the question asks for several items (documents, materials, methods, values…), answer with a bulleted list, one item per line with its citation; when it asks which documents or papers, name each by its title as given in the sources.
+
+section_hints:
+  # English + German; the same lists in every domain: the upload code reads them once per process, from config/.env's
+  # domain, so both libraries' uploads use one list (the union)
+  Abstract:               [abstract, kurzfassung, zusammenfassung]
+  Keywords:               [keywords, key words, index terms, schlüsselwörter, schlagwörter, stichwörter, stichworte]
+  Introduction:           [introduction, einleitung, einführung]
+  Background:             [background, related work, literature review, previous work, hintergrund, stand der technik,
+                           stand der forschung, verwandte arbeiten]
+  Methods:                [method, methodology, computational details, simulation details, computational methods,
+                           materials and methods, experimental, methode, methodik, experimentell, rechendetails,
+                           simulationsdetails]
+  Results:                [results, ergebnis]
+  Results and Discussion: [results, ergebnis, discussion, diskussion]
+  Discussion:             [discussion, diskussion]
+  Conclusion:             [conclusion, concluding, fazit, schlussfolgerung, summary, outlook, ausblick, future scope,
+                           future work, future direction, future research, zukünftige arbeit, zukünftige forschung,
+                           künftige forschung]
+  Declarations:           [acknowledg, author contributions, data availability, danksagung]
+  Nomenclature:           [nomenclature, nomenklatur, formelzeichen]
+  References:             [references, bibliography, literatur, literaturverzeichnis, quellenverzeichnis, referenzen]
+  Appendix:               [appendix, supplementary, supporting information, anhang, zusatzmaterial]
+
+section_roles:
+  declared:    [Abstract, Keywords]
+  substantive: [Results, Results and Discussion, Discussion, Conclusion, Conclusions]
+  discounted:  [References, Declarations, Introduction]
+  gap_fallback: [Discussion, Results and Discussion, Conclusion]
+
+# Words that label figures, tables and equations in captions and in the authors' citations. Words where one is a prefix
+# of the other form one family and match each other ("Fig. 5" finds "Figure 5", "Abb. 3" finds "Abbildung 3"); other
+# words stay separate ("Scheme 1" never finds "Fig. 1"). Families: memento/ingestion/enrich_parsed_content_list.py.
+structural_labels:
+  figure:   [fig, figs, figure, figures, abb, abbildung, abbildungen, bild, scheme, chart, plot, plate]
+  table:    [table, tables, tab, tabelle, tabellen]
+  equation: [eq, eqn, equation, gl, gleichung]
+
+document_noun:
+  singular: document
+  plural: documents
+
+parsing:
+  title_banner_tokens:
+    # the same list in every domain (read once per process; the union)
+    - abstract
+    - access
+    - article
+    - articles
+    - available
+    - book
+    - brief
+    - chapter
+    - check
+    - commentary
+    - communication
+    - communications
+    - contents
+    - correction
+    - editorial
+    - erratum
+    - for
+    - full
+    - in
+    - introduction
+    - journal
+    - letter
+    - letters
+    - list
+    - news
+    - of
+    - open
+    - original
+    - paper
+    - papers
+    - perspective
+    - report
+    - reports
+    - research
+    - review
+    - reviews
+    - science
+    - sciencedirect
+    - scientific
+    - supplementary
+    - the
+    - type
+    - updates
+  title_search_headings: 4
+  title_min_tokens: 3
+  bib_entry_pattern: '^\s*\[?(\d{1,3})\]?\s*[.)]?\s+(.+)$'
+  reference_section_pattern: '^\s*(references?(\s+list)?|bibliography|literature cited|works cited)\s*$'
+  citation_marker_pattern: '\[(\d+(?:\s*[-–,]\s*\d+)*)\]'
+
+# Start-screen suggestions of the library's default model (Open WebUI shows three): each goes through retrieval,
+# one in German. A profile without them uses generic.yaml's.
+start_suggestions:
+  - title: ["Explain a figure", "from a thermal analysis"]
+    content: "Show me a figure from a DSC or DMTA measurement and explain what it shows."
+  - title: ["Schaumstoffe: Methoden", "auf Deutsch fragen"]
+    content: "Welche Methoden werden in den Dokumenten zur Charakterisierung von Schaumstoffen eingesetzt?"
+  - title: ["Open questions", "polymer nanocomposites"]
+    content: "What limitations or open questions do the documents mention for polymer nanocomposites?"

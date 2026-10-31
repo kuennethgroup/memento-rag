@@ -1,0 +1,14 @@
+{
+ "input_files": [],
+ "library_rows": [],
+ "llm_calls": [],
+ "locks": [
+  "lock",
+  "unlock"
+ ],
+ "manifest": {},
+ "mineru": [],
+ "qdrant": [],
+ "reply": "⚠ **paper.pdf**: unable to access the uploaded file, please try attaching it again\nLibrary Upload doesn't answer messages. It only adds documents to the library.\n\nTo add documents, attach files with **+ → Upload Files** and send. To ask about a file without adding it to the library, use [Document Chat](/?model=memento-document-chat).\nTo ask a question, open a new chat with [Library Chat](/?model=memento-query).\n",
+ "status": []
+}

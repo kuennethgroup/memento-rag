@@ -1,0 +1,221 @@
+[
+ {
+  "type": "image",
+  "img_path": "images/594aba8d10aa1a228b6d26d8ee38f61f96001c67524a7d82aed29e26c98b7b2b.jpg",
+  "image_caption": [
+   "(a)"
+  ],
+  "image_footnote": [],
+  "content": "Two piles of white powder on blue and red background (no text or symbols visible)",
+  "sub_type": "natural_image",
+  "bbox": [
+   145,
+   104,
+   410,
+   189
+  ],
+  "page_idx": 3
+ },
+ {
+  "type": "image",
+  "img_path": "images/f018180b154f3967cc51bbcc7db0499a1205b0251082f3561e9518c6f961ba7d.jpg",
+  "image_caption": [
+   "(b)"
+  ],
+  "image_footnote": [],
+  "content": "Green industrial machine with internal cylindrical component (no visible text or symbols)",
+  "sub_type": "natural_image",
+  "bbox": [
+   450,
+   104,
+   584,
+   186
+  ],
+  "page_idx": 3
+ },
+ {
+  "type": "image",
+  "img_path": "images/543b57420256c93b1b276dab6709906256f4159064d950e0fd7fc275a87ad262.jpg",
+  "image_caption": [
+   "(c)"
+  ],
+  "image_footnote": [],
+  "content": "Exterior view of a modern office building (no signage)",
+  "sub_type": "natural_image",
+  "bbox": [
+   620,
+   104,
+   728,
+   198
+  ],
+  "page_idx": 3
+ },
+ {
+  "type": "image",
+  "img_path": "images/50f124ee56d096d448641422b0c294c8ca8c353be476f5c8323367820a6ff2f4.jpg",
+  "image_caption": [
+   "(d)"
+  ],
+  "image_footnote": [],
+  "content": "",
+  "bbox": [
+   748,
+   104,
+   852,
+   193
+  ],
+  "page_idx": 3
+ },
+ {
+  "type": "image",
+  "img_path": "images/0b8a79f9479988fa6df9f060b5d3e5c3facab724ee1d69d295e9feee718fb573.jpg",
+  "image_caption": [
+   "(e)"
+  ],
+  "image_footnote": [],
+  "content": "Laboratory apparatus with glassware and mechanical components (no visible text or symbols)",
+  "sub_type": "natural_image",
+  "bbox": [
+   145,
+   229,
+   285,
+   325
+  ],
+  "page_idx": 3
+ },
+ {
+  "type": "image",
+  "img_path": "images/40f2aa8b571cf5e6cde475ecb070ace1c7e795995a287c7fbdb3091d1a7b63de.jpg",
+  "image_caption": [
+   "(f)"
+  ],
+  "image_footnote": [],
+  "content": "Blue industrial machine with digital display and control panel (no visible text or symbols)",
+  "sub_type": "natural_image",
+  "bbox": [
+   326,
+   229,
+   501,
+   333
+  ],
+  "page_idx": 3
+ },
+ {
+  "type": "image",
+  "img_path": "images/d27190ecda97bfce88d8ea245b05f598a6a7319d715ffec38cec0c2e30c27c5d.jpg",
+  "image_caption": [
+   "(g)"
+  ],
+  "image_footnote": [],
+  "content": "Exterior view of a modern office building (no signage)",
+  "sub_type": "natural_image",
+  "bbox": [
+   555,
+   229,
+   733,
+   333
+  ],
+  "page_idx": 3
+ },
+ {
+  "type": "image",
+  "img_path": "images/3bf44b1717a678604f4732c86a9ce09fbea268d610822fda219f579f13e56d30.jpg",
+  "image_caption": [
+   "(h)",
+   "Figure 1. The procedure to fabricate $Al_{2}O_{3}-ZrO_{2}$ cutting tool (a) Preparing $Al_{2}O_{3}$ and $ZrO_{2}$ powders (b) Ball milling for 12 hours (c) Weighting of powders (d) Inserting powders into the mould (e) Pressing the powders by hydraulic press (f) Pressing the powders by Cold Isostatic Press (g) Sintering the compacted powders (h) Finish product of ceramic cutting tool."
+  ],
+  "image_footnote": [],
+  "content": "",
+  "bbox": [
+   772,
+   229,
+   851,
+   292
+  ],
+  "page_idx": 3
+ },
+ {
+  "type": "text",
+  "text": "Optimum Content of Zirconia",
+  "text_level": 1,
+  "bbox": [
+   133,
+   489,
+   392,
+   507
+  ],
+  "page_idx": 3
+ },
+ {
+  "type": "text",
+  "text": "As the optimum sintering temperature determined, the weight of $Al_{2}O_{3}$ and $ZrO_{2}$ powders were varied in order to get optimum composition for the structure. The process similarly replicate the processing flow as shown in Figure 1. Table 2 shows the variation of composition to fabricate $Al_{2}O_{3}-ZrO_{2}$ cutting tool.",
+  "bbox": [
+   132,
+   507,
+   864,
+   578
+  ],
+  "page_idx": 3
+ },
+ {
+  "type": "table",
+  "img_path": "images/7f48190bc74d4beee79b1b8d38de327dbcabba73b25506465de59a25048ba9ad.jpg",
+  "table_caption": [
+   "Table 2. Composition to fabricate $Al_{2}O_{3}-ZrO_{2}$ cutting tool"
+  ],
+  "table_footnote": [],
+  "table_body": "<table><tr><td>Sample</td><td>Composition</td></tr><tr><td>A</td><td>90 wt%  $Al_{2}O_{3}$  and 10 wt%  $ZrO_{2}$ </td></tr><tr><td>B</td><td>85 wt%  $Al_{2}O_{3}$  and 15 wt%  $ZrO_{2}$ </td></tr><tr><td>C</td><td>80 wt%  $Al_{2}O_{3}$  and 20 wt%  $ZrO_{2}$ </td></tr></table>",
+  "bbox": [
+   259,
+   626,
+   728,
+   703
+  ],
+  "page_idx": 3
+ },
+ {
+  "type": "text",
+  "text": "Machining Performance",
+  "text_level": 1,
+  "bbox": [
+   133,
+   719,
+   344,
+   734
+  ],
+  "page_idx": 3
+ },
+ {
+  "type": "text",
+  "text": "Further, the performance of cutting tool were tested in machining with AISI 1045. Cutting tool that possess maximum density and hardness were selected for the cutting trials. The tests were held by using CNC (Computer Numerical Control) Turning Machine with cutting parameters according to the Table 3. Tool wear for each trial were measured by using optical microscope according to guidance ISO 3685 [20]. For each measurement, the images of worn cutting tool were captured using optical microscope to observe the wear mechanism. Figure 2(a) shows the cutting tool and tool holder used in this study. Figure 2(b) shows the machining setup with AISI 1045 workpiece.",
+  "bbox": [
+   132,
+   736,
+   864,
+   876
+  ],
+  "page_idx": 3
+ },
+ {
+  "type": "header",
+  "text": "Hadzley et. al / Journal of Mechanical Engineering and Sciences 13(1) 2019 4648-4660",
+  "bbox": [
+   202,
+   44,
+   795,
+   59
+  ],
+  "page_idx": 3
+ },
+ {
+  "type": "page_number",
+  "text": "4651",
+  "bbox": [
+   477,
+   936,
+   517,
+   952
+  ],
+  "page_idx": 3
+ }
+]

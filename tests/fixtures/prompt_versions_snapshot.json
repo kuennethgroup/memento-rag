@@ -1,0 +1,32 @@
+{
+ "prompt_versions": {
+  "gaps|ceramics|think=False|A study of sample hardness": "d7daf926a59eaee3",
+  "gaps|ceramics|think=False|Talk: Results of the group": "21e8e9077430e557",
+  "gaps|ceramics|think=True|A study of sample hardness": "cdc9aad25fc2c1fc",
+  "gaps|ceramics|think=True|Talk: Results of the group": "716d24bc0bd5f584",
+  "gaps|computational-materials|think=False|A study of sample hardness": "d7daf926a59eaee3",
+  "gaps|computational-materials|think=False|Talk: Results of the group": "21e8e9077430e557",
+  "gaps|computational-materials|think=True|A study of sample hardness": "cdc9aad25fc2c1fc",
+  "gaps|computational-materials|think=True|Talk: Results of the group": "716d24bc0bd5f584",
+  "gaps|generic|think=False|A study of sample hardness": "d7daf926a59eaee3",
+  "gaps|generic|think=False|Talk: Results of the group": "21e8e9077430e557",
+  "gaps|generic|think=True|A study of sample hardness": "cdc9aad25fc2c1fc",
+  "gaps|generic|think=True|Talk: Results of the group": "716d24bc0bd5f584",
+  "gaps|polymer-engineering|think=False|A study of sample hardness": "d7daf926a59eaee3",
+  "gaps|polymer-engineering|think=False|Talk: Results of the group": "21e8e9077430e557",
+  "gaps|polymer-engineering|think=True|A study of sample hardness": "cdc9aad25fc2c1fc",
+  "gaps|polymer-engineering|think=True|Talk: Results of the group": "716d24bc0bd5f584",
+  "summary|ceramics|None": "df369366796be6d4",
+  "summary|ceramics|partial": "40a5226678a8b826",
+  "summary|ceramics|whole": "df369366796be6d4",
+  "summary|computational-materials|None": "61af921139b55d23",
+  "summary|computational-materials|partial": "e8a4051ab4100ff0",
+  "summary|computational-materials|whole": "61af921139b55d23",
+  "summary|generic|None": "fda60ed698fca973",
+  "summary|generic|partial": "408c441e486d6dfa",
+  "summary|generic|whole": "fda60ed698fca973",
+  "summary|polymer-engineering|None": "6ce67a28cd18d6bd",
+  "summary|polymer-engineering|partial": "75d813d885d217ca",
+  "summary|polymer-engineering|whole": "6ce67a28cd18d6bd"
+ }
+}

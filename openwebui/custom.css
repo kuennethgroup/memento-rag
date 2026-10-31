@@ -1,0 +1,617 @@
+/* Memento additions to Open WebUI's look, loaded as /static/custom.css. scripts/services.sh copies this file into
+   open_webui/frontend/static/ and open_webui/static/ at every start (Open WebUI rebuilds static/ from
+   frontend/static/), so it survives restarts and upgrades without editing Open WebUI's own files. */
+
+/* "Still writing" marker: Open WebUI shows a 2 px grey bar after streaming text that fades only to half opacity and
+   looks like a stray "|" in the answer; shown instead: three dots that fade in and out. Matches only that marker
+   (ResponseMessage.svelte: inline-block w-[0.125rem] h-3.5 … animate-pulse align-text-bottom), not Open WebUI's other
+   loading animations. */
+span.inline-block.animate-pulse.align-text-bottom[class*="w-[0.125rem]"] {
+  width: auto !important;
+  height: auto !important;
+  background: none !important;
+  animation: none !important;
+  vertical-align: baseline !important;
+  margin-left: 0.25rem !important;
+}
+
+span.inline-block.animate-pulse.align-text-bottom[class*="w-[0.125rem]"]::after {
+  content: "•••";
+  letter-spacing: 0.15em;
+  color: #9ca3af;
+  animation: memento-writing 1.2s ease-in-out infinite;
+}
+
+@keyframes memento-writing {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+/* "+" menu in the chat input: Open WebUI 0.11.4 has no switches for these items. Hidden, scoped to the menu's list
+   container (InputMenu.svelte): Attach Files / Attach Knowledge / Reference Chats (the rows that open a sub-list:
+   earlier Open WebUI uploads, knowledge bases and other chats, none of which Memento reads), and any greyed-out item
+   (opacity-50), shown but unusable. Upload Files stays; Capture is hidden by loader.js. */
+div.max-h-72.overflow-y-auto.overflow-x-hidden.scrollbar-thin button:has(> div.justify-between),
+div.max-h-72.overflow-y-auto.overflow-x-hidden.scrollbar-thin button.opacity-50 {
+  display: none !important;
+}
+
+/* Start-screen suggestions: Open WebUI centres them in a narrower box (max-w-2xl + mx-5 + px-2.5), so their text did
+   not line up with the chat box; now the list takes the chat box's width. Scoped to the suggestion list
+   (Suggestions.svelte buttons carry the "waterfall" class). */
+div.mx-auto.max-w-2xl:has(button.waterfall) { max-width: none; margin-left: 0.5rem; margin-right: 0.5rem; }
+div.mx-auto.max-w-2xl:has(button.waterfall) > .mx-5 { margin-left: 0; margin-right: 0; }
+button.waterfall { padding-left: 15px !important; }
+/* Document Chat: its three suggestions as one centred row of buttons, styled like Library Chat's start-screen
+   buttons (no "Suggested" heading, title only) */
+html[data-mem-model="doc"] div.mx-auto.max-w-2xl:has(button.waterfall) div.mb-1.flex { display: none !important; }
+html[data-mem-model="doc"] div.mx-auto.max-w-2xl:has(button.waterfall) div.h-36 { height: auto; }
+html[data-mem-model="doc"] div.mx-auto.max-w-2xl:has(button.waterfall) div[role="list"] {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; max-height: none; overflow: visible; }
+html[data-mem-model="doc"] button.waterfall {
+  width: auto; flex: 0 0 auto; border: 1px solid var(--mem-line); border-radius: 999px;
+  padding: 7px 14px !important; background: var(--mem-card) !important; color: var(--mem-ink); }
+html[data-mem-model="doc"] button.waterfall:hover { border-color: var(--mem-g); background: var(--mem-g-soft) !important; }
+html[data-mem-model="doc"] button.waterfall:hover div { color: var(--mem-g) !important; }
+html[data-mem-model="doc"] button.waterfall > div > div:first-child { font-size: 13px; line-height: 1.3; color: var(--mem-ink); }
+html[data-mem-model="doc"] button.waterfall > div > div:nth-child(2) { display: none; }
+/* greyed until every attached file has uploaded (loader.js sets aria-disabled and the tip) */
+html[data-mem-model="doc"] button.waterfall { position: relative; }
+html[data-mem-model="doc"] button.waterfall[aria-disabled="true"],
+html[data-mem-model="doc"] button.waterfall[aria-disabled="true"]:hover { border-color: var(--mem-line);
+  background: var(--mem-card) !important; cursor: default; }
+html[data-mem-model="doc"] button.waterfall[aria-disabled="true"] div,
+html[data-mem-model="doc"] button.waterfall[aria-disabled="true"]:hover div { color: var(--mem-mute) !important; }
+html[data-mem-model="doc"] button.waterfall[data-tip]:hover::after {
+  content: attr(data-tip); position: absolute; left: 50%; bottom: calc(100% + 8px); transform: translateX(-50%);
+  width: 240px; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--mem-line); background: var(--mem-card);
+  color: var(--mem-ink); font-size: 12px; line-height: 1.45; text-align: left; white-space: normal; z-index: 60;
+  box-shadow: 0 4px 14px rgba(0,0,0,.10); pointer-events: none; }
+
+/* Cloud quota in the model picker: a caption under each cloud model; greyed out while the quota is used up */
+/* the picker is widened (26rem + 70 px for the Local / Cloud labels), so long model names are not cut; only the
+   picker holding the Memento models, and the caption gets its own line. */
+div.z-40:has(> div > div[role="listbox"] > button[role="option"][data-value^="memento-query"]) { width: calc(26rem + 70px) !important; }
+button[role="option"]:has(> .memento-quota) { height: auto; flex-wrap: wrap; padding-top: 4px; padding-bottom: 4px; }
+button[role="option"] .memento-quota { flex-basis: 100%; padding-left: 24px; font-size: 11px; font-weight: 500; line-height: 1.3; color: #b45309; text-align: left; }
+.dark button[role="option"] .memento-quota { color: #fbbf24; }   /* amber: the quota is shared, worth a glance */
+button[role="option"].memento-unavailable { opacity: 0.45; cursor: not-allowed; pointer-events: none; }
+button[role="option"].memento-unavailable .memento-quota { color: #dc2626; }     /* used up: red, not amber */
+.dark button[role="option"].memento-unavailable .memento-quota { color: #f87171; }
+/* the selected model in the chat box is capped at 13rem, which cut model names to look alike; room for the full name
+   on screens from 640px; phones keep Open WebUI's width. */
+@media (min-width: 640px) {
+  div.flex.min-w-0.items-center:has(#model-selector-model-button[aria-label*=": Memento"]) { max-width: 19rem !important; }
+}
+/* start-screen model description: two lines cut the cloud models' last sentence ("Speed depends on the..."); four fit */
+div.line-clamp-2.max-w-xl.markdown { -webkit-line-clamp: 4; line-clamp: 4; }
+
+/* ── Look and feel ── Found by Open WebUI 0.11.4's structure; after an Open WebUI upgrade look at both start screens
+   (openwebui/README.md, "Look and feel add-ons"). Nothing here changes a feature. */
+:root {
+  --mem-g: #009260; --mem-g-soft: rgba(0,146,96,.08); --mem-g-soft2: rgba(0,146,96,.15);
+  --mem-ink: #1f2328; --mem-mute: #6b7378; --mem-line: #e6e9ea; --mem-card: #fff;
+  --mem-dot: rgba(0,146,96,.40); --mem-dot-start: rgba(0,146,96,.22); --mem-glow: rgba(0,146,96,.14);
+  --mem-sidebar: var(--color-gray-50); --mem-sidebar-line: rgba(0,146,96,.18);
+  --mem-draw: var(--mem-g);
+}
+.dark {
+  --mem-g: #2bb383; --mem-g-soft: rgba(43,179,131,.14); --mem-g-soft2: rgba(43,179,131,.24);
+  --mem-ink: #e7eaec; --mem-mute: #9aa4aa; --mem-line: #2b3035; --mem-card: #1f1f1f;
+  --mem-dot: rgba(43,179,131,.30); --mem-dot-start: rgba(43,179,131,.22); --mem-glow: rgba(43,179,131,.10);
+  --mem-sidebar: var(--color-gray-950); --mem-sidebar-line: rgba(43,179,131,.22);
+  /* dark mode: a black page and a lighter charcoal sidebar. Open WebUI paints the page with gray-900 and the sidebar
+     with gray-950; swapping the two keeps every fade, menu and panel built on them consistent */
+  --color-gray-900: oklch(13% 0 0); --color-gray-950: oklch(20% 0 0);
+}
+
+/* start screen: soft green glow (::after) and a dot grid that fades out (::before), behind the top half */
+div.m-auto.w-full.py-24:has(div.line-clamp-2.max-w-xl.markdown) { position: relative; }
+div.m-auto.w-full.py-24:has(div.line-clamp-2.max-w-xl.markdown)::before,
+div.m-auto.w-full.py-24:has(div.line-clamp-2.max-w-xl.markdown)::after {
+  content: ""; position: absolute; inset: -40px -120px 0; z-index: -1; pointer-events: none;
+}
+div.m-auto.w-full.py-24:has(div.line-clamp-2.max-w-xl.markdown)::before {
+  background: radial-gradient(circle, var(--mem-dot-start) 1.1px, transparent 1.3px) 0 0 / 18px 18px;
+  -webkit-mask-image: radial-gradient(ellipse 60% 60% at 50% 30%, #000 25%, transparent 72%);
+          mask-image: radial-gradient(ellipse 60% 60% at 50% 30%, #000 25%, transparent 72%);
+}
+div.m-auto.w-full.py-24:has(div.line-clamp-2.max-w-xl.markdown)::after {
+  background: radial-gradient(ellipse 48% 40% at 50% 28%, var(--mem-glow), transparent 70%);
+}
+
+/* chat (not the start screen): dot grid at the left and right edges, the drawing as a watermark bottom right. The
+   pseudo-elements sit behind #chat-pane's content (z-index -1 inside the pane's own stacking context) and never
+   take clicks. */
+#chat-container:not(:has(div.line-clamp-2.max-w-xl.markdown)) #chat-pane { position: relative; }
+#chat-container:not(:has(div.line-clamp-2.max-w-xl.markdown)) #chat-pane::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: radial-gradient(circle, var(--mem-dot) 1.1px, transparent 1.3px) 0 0 / 18px 18px;
+  /* dots only in the margins beside the answer column (about 54rem wide; 56rem leaves a little air), fading out at
+     its edge (a percentage fade would reach behind the first letters) */
+  -webkit-mask-image: linear-gradient(90deg, #000 0, transparent calc((100% - 56rem) / 2),
+                                      transparent calc(100% - (100% - 56rem) / 2), #000 100%);
+          mask-image: linear-gradient(90deg, #000 0, transparent calc((100% - 56rem) / 2),
+                                      transparent calc(100% - (100% - 56rem) / 2), #000 100%);
+}
+#chat-container:not(:has(div.line-clamp-2.max-w-xl.markdown)) #chat-pane::after {
+  /* sized to the free margin right of the answer column, never over it (at most 260 px) */
+  content: ""; position: absolute; right: 12px; bottom: 120px; z-index: -1;
+  width: clamp(0px, calc((100% - 56rem) / 2 - 24px), 260px); aspect-ratio: 260 / 72; height: auto;
+  pointer-events: none; opacity: .8;
+  /* the drawing as a mask over the selected model's colour: green for ours, a cloud model's accent */
+  background: var(--mem-draw);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 60' fill='none' stroke='%23009260' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M25 22V5h11l4 4v13'/%3E%3Cpath d='M36 5v4h4'/%3E%3Cpath stroke-opacity='.6' d='M31 22V10h12l4 4v8'/%3E%3Cellipse cx='36' cy='24' rx='17' ry='5' fill='%23009260' fill-opacity='.15'/%3E%3Cpath d='M19 24v20c0 2.8 7.6 5 17 5s17-2.2 17-5V24'/%3E%3Cpath d='M19 34c0 2.8 7.6 5 17 5s17-2.2 17-5'/%3E%3Cpath d='M56 26 C 72 26, 72 16, 88 16 M56 30 C 74 30, 74 44, 88 44'/%3E%3Cg fill='%23009260' stroke='none'%3E%3Ccircle cx='92' cy='16' r='3.5'/%3E%3Ccircle cx='92' cy='44' r='3.5'/%3E%3Ccircle cx='110' cy='30' r='4.5'/%3E%3Ccircle cx='128' cy='14' r='3'/%3E%3Ccircle cx='128' cy='46' r='3'/%3E%3C/g%3E%3Cpath d='M92 16 L110 30 L92 44 M110 30 L128 14 M110 30 L128 46'/%3E%3Cpath d='M136 30 H150'/%3E%3Cpath d='M156 12h46a6 6 0 0 1 6 6v18a6 6 0 0 1-6 6h-34l-7 7v-7h-5a6 6 0 0 1-6-6V18a6 6 0 0 1 6-6z'/%3E%3Cpath d='M164 23h24M164 31h16'/%3E%3Cpath d='M186 28h8v7h-8z'/%3E%3C/svg%3E") no-repeat center / contain;
+}
+.dark #chat-container:not(:has(div.line-clamp-2.max-w-xl.markdown)) #chat-pane::after {
+  opacity: .45;
+}
+@media (max-width: 1099px) {    /* !important: the rules above are more specific */
+  #chat-container #chat-pane::before, #chat-container #chat-pane::after { display: none !important; }
+}
+
+/* citation pills in the theme green (content unchanged): a group "[1] Title… (p. 4) +1" (Open WebUI's hover-preview
+   trigger) and a single "[1] Title… (p. 4)" (a plain button "View source: [1] …"). The list under the answer ("View
+   source: <file name>", id source-…) keeps Open WebUI's look. */
+a[data-link-preview-trigger] > button[aria-label^="["],
+button[aria-label*=": ["]:not([id^="source-"]) {
+  color: var(--mem-cite, var(--mem-g)) !important; background: var(--mem-cite-soft, var(--mem-g-soft)) !important; font-weight: 600;
+}
+a[data-link-preview-trigger] > button[aria-label^="["]:hover,
+button[aria-label*=": ["]:not([id^="source-"]):hover { background: var(--mem-cite-soft2, var(--mem-g-soft2)) !important; }
+/* an answer written by a cloud model: its citations in that model's colour (loader.js marks each answer from the
+   model named in its header and gives it the model's colours) */
+div[id^="message-"][data-mem-answer="cloud"] { --mem-cite: var(--mem-accent, var(--mem-cloud)); }
+.dark div[id^="message-"][data-mem-answer="cloud"] { --mem-cite: var(--mem-accent-dark, var(--mem-accent, var(--mem-cloud))); }
+div[id^="message-"][data-mem-answer="cloud"] { --mem-cite-soft: color-mix(in srgb, var(--mem-cite) 9%, transparent);
+                                               --mem-cite-soft2: color-mix(in srgb, var(--mem-cite) 17%, transparent); }
+/* the model named above an answer and the "Answered by …" line below it, in that model's colour */
+div[id^="message-"][data-mem-answer] #response-message-model-name,
+div[id^="message-"][data-mem-answer] em.memento-answered-by { color: var(--mem-cite, var(--mem-g)) !important; }
+a[data-link-preview-trigger] > button[aria-label^="["] span span { color: inherit !important; opacity: .7; }
+
+/* start-screen drawing (draws itself once) and the step labels under the chat box */
+svg.memento-drawing { width: min(360px, 62%); height: auto; margin: 0 auto 10px; display: block; overflow: visible; }
+svg.memento-drawing path, svg.memento-drawing circle:not(.d) {
+  fill: none; stroke: var(--mem-draw); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round;
+  stroke-dasharray: 1; stroke-dashoffset: 1; animation: memento-draw 1.6s ease forwards;
+}
+svg.memento-drawing .d { fill: var(--mem-draw); opacity: 0; animation: memento-fade .5s ease 1.2s forwards; }
+svg.memento-drawing .f { fill: color-mix(in srgb, var(--mem-draw) 15%, transparent); stroke: var(--mem-draw); stroke-width: 1.4; opacity: 0;
+                         animation: memento-fade .5s ease .8s forwards; }
+svg.memento-drawing.memento-drawn path, svg.memento-drawing.memento-drawn circle:not(.d) { animation: none; stroke-dashoffset: 0; }
+svg.memento-drawing.memento-drawn .d, svg.memento-drawing.memento-drawn .f { animation: none; opacity: 1; }
+@keyframes memento-draw { to { stroke-dashoffset: 0; } }
+@keyframes memento-fade { to { opacity: 1; } }
+
+div.memento-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; width: 88%;
+                    max-width: 640px; margin: 14px auto 0; }
+button.memento-step { background: none; border: 0; border-radius: 10px; padding: 6px 8px; cursor: pointer;
+                      text-align: center; font-size: 12px; line-height: 1.35; color: var(--mem-mute); }
+button.memento-step b { display: block; font-weight: 500; font-size: 12.5px; color: var(--mem-ink);
+                        text-decoration: underline dotted var(--mem-g); text-underline-offset: 3px; }
+button.memento-step span { display: block; overflow-wrap: anywhere; }
+button.memento-step:hover b, button.memento-step[aria-expanded="true"] b { color: var(--mem-g); }
+button.memento-step:hover { background: var(--mem-g-soft); }
+button.memento-step:focus-visible { outline: 2px solid var(--mem-g); outline-offset: 2px; }
+/* video-guide labels: a play icon before the title and a hover text, like the action buttons; the text opens below
+   the label, so it never covers the "Draft a proposal" button */
+button.memento-step { position: relative; }
+svg.memento-play { display: inline-block; width: 13px; height: 13px; margin: 0 5px 0 0; vertical-align: -2px;
+                   fill: none; stroke: var(--mem-g); stroke-width: 1.4; }
+svg.memento-play path { fill: var(--mem-g); stroke: none; }
+button.memento-step[data-tip]:hover::after, button.memento-step[data-tip]:focus-visible::after {
+  content: attr(data-tip); position: absolute; left: 50%; top: calc(100% + 6px); transform: translateX(-50%);
+  width: max-content; max-width: 220px; padding: 6px 10px; border-radius: 8px; border: 1px solid var(--mem-line);
+  background: var(--mem-card); color: var(--mem-ink); font-size: 12px; line-height: 1.4; white-space: normal; z-index: 60;
+  box-shadow: 0 4px 14px rgba(0,0,0,.10); pointer-events: none; }
+button.memento-step[aria-expanded="true"]::after { display: none; }
+@media (max-width: 640px) { div.memento-steps { width: 100%; gap: 4px; } button.memento-step { font-size: 11px; padding: 4px; } }
+
+@media (prefers-reduced-motion: reduce) {
+  svg.memento-drawing path, svg.memento-drawing circle:not(.d) { animation: none; stroke-dashoffset: 0; }
+  svg.memento-drawing .d, svg.memento-drawing .f { animation: none; opacity: 1; }
+}
+
+/* quick actions (Library Chat start screen): buttons in place of Open WebUI's suggestions, and the document picker
+   under them (above them when the window has no room below) */
+div.m-auto.w-full.py-24:has(> div.memento-actions) div.mx-auto.max-w-2xl.mt-2:has(button.waterfall, div.h-36) { display: none; }
+div.memento-actions { position: relative; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+                      width: 88%; max-width: 760px; margin: 18px auto 0; }   /* 4 buttons on one line */
+button.memento-action { border: 1px solid var(--mem-line); border-radius: 999px; padding: 7px 14px; cursor: pointer;
+                        background: var(--mem-card); color: var(--mem-ink); font-size: 13px; line-height: 1.3;
+                        transition: background .15s, border-color .15s, color .15s; }
+button.memento-action:hover, button.memento-action[aria-expanded="true"] { border-color: var(--mem-g);
+                        color: var(--mem-g); background: var(--mem-g-soft); }
+button.memento-action:focus-visible { outline: 2px solid var(--mem-g); outline-offset: 2px; }
+/* dimmed: text and border only, so the tip above it (::after) stays fully readable */
+button.memento-action[aria-disabled="true"],
+button.memento-action[aria-disabled="true"]:hover { color: var(--mem-mute); border-color: var(--mem-line);
+                        background: var(--mem-card); cursor: default; }
+button.memento-action[aria-disabled="true"] span.memento-beta { opacity: .5; }
+div.memento-picker { position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%); z-index: 40;
+                     box-sizing: border-box; width: min(520px, calc(100vw - 32px)); padding: 10px;
+                     background: var(--mem-card); color: var(--mem-ink); border: 1px solid var(--mem-line);
+                     border-radius: 14px; box-shadow: 0 16px 48px rgba(0,0,0,.18); text-align: left; }
+div.memento-picker.memento-picker-up { top: auto; bottom: calc(100% + 8px); }
+input.memento-picker-search { box-sizing: border-box; width: 100%; padding: 8px 12px; font-size: 14px; outline: none;
+                              border: 1px solid var(--mem-line); border-radius: 9px; background: transparent; color: var(--mem-ink); }
+input.memento-picker-search:focus { border-color: var(--mem-g); box-shadow: 0 0 0 3px var(--mem-g-soft); }
+ul.memento-picker-list { list-style: none; margin: 8px 0 0; padding: 0; max-height: 264px; overflow-y: auto; }
+ul.memento-picker-list li[role="option"] { padding: 7px 10px; border-radius: 8px; cursor: pointer; }
+ul.memento-picker-list li[aria-selected="true"] { background: var(--mem-g-soft2); }
+div.memento-picker-title { font-size: 13.5px; line-height: 1.35; overflow: hidden; text-overflow: ellipsis;
+                           display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+div.memento-picker-file { font-size: 11.5px; color: var(--mem-mute); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+div.memento-picker mark { background: none; color: var(--mem-g); font-weight: 600; }
+li.memento-picker-none, p.memento-picker-empty { padding: 14px 10px; margin: 0; font-size: 13.5px; color: var(--mem-mute); }
+div.memento-picker > a.memento-guide-link { display: inline-block; margin: 0 10px 8px; font-size: 13px; }
+div.memento-picker-foot { display: flex; justify-content: space-between; gap: 8px; margin: 8px 4px 0;
+                          font-size: 11.5px; color: var(--mem-mute); }
+@media (max-width: 640px) { div.memento-actions { width: 100%; } div.memento-picker-foot span + span { display: none; } }
+
+/* guide window (opens on a label click): centred over a dimmed page */
+div.memento-guide-backdrop { position: fixed; inset: 0; z-index: 60; display: flex; align-items: center;
+                             justify-content: center; padding: 16px; background: rgba(15, 20, 18, .45); }
+.dark div.memento-guide-backdrop { background: rgba(0, 0, 0, .6); }
+div.memento-guide { position: relative; box-sizing: border-box; width: min(960px, 92vw); max-height: calc(100vh - 32px); overflow: auto;
+                    padding: 14px; background: var(--mem-card); color: var(--mem-ink); border: 1px solid var(--mem-line);
+                    border-radius: 16px; box-shadow: 0 24px 64px rgba(0,0,0,.25); text-align: left; }
+div.memento-guide video { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: contain; border-radius: 10px;
+                          background: var(--mem-g-soft); }
+button.memento-guide-close { position: absolute; top: 20px; right: 20px; z-index: 1; width: 30px; height: 30px;
+                             border: 0; border-radius: 50%; cursor: pointer; font-size: 14px;
+                             background: rgba(0,0,0,.55); color: #fff; }
+button.memento-guide-close:hover { background: rgba(0,0,0,.75); }
+button.memento-guide-close:focus-visible { outline: 2px solid var(--mem-g); outline-offset: 2px; }
+div.memento-guide h4 { margin: 12px 4px 4px; font-size: 16px; font-weight: 600; }
+div.memento-guide p { margin: 0 4px; font-size: 14px; line-height: 1.55; color: var(--mem-mute); }
+div.memento-guide p b { color: var(--mem-ink); font-weight: 600; }
+div.memento-guide-foot { display: flex; justify-content: space-between; align-items: center; margin: 12px 4px 2px;
+                         font-size: 12.5px; color: var(--mem-mute); }
+a.memento-guide-link { color: #fff; background: var(--mem-g); border-radius: 8px; padding: 6px 12px; font-weight: 500;
+                       text-decoration: none; }
+.dark a.memento-guide-link { color: #0c1a15; }
+a.memento-guide-link:hover { filter: brightness(1.08); }
+
+/* upload progress (Library Upload): the status line as a full-width bar with a small icon beside it */
+.memento-hidden { display: none !important; }
+div.memento-upload { display: flex; align-items: center; gap: 12px; padding: 4px 0; }
+svg.memento-upload-icon { width: 40px; height: 32px; flex: none; overflow: visible; }
+svg.memento-upload-icon * { fill: none; stroke: var(--mem-g); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+svg.memento-upload-icon .memento-page { animation: memento-drop 1.6s ease-in infinite; }
+svg.memento-upload-icon .memento-tick { display: none; }
+div.memento-upload-done svg.memento-upload-icon .memento-page { display: none; }
+div.memento-upload-done svg.memento-upload-icon .memento-tick { display: inline; }
+@keyframes memento-drop { 0% { transform: translate(0,-10px); opacity: 0; } 25% { opacity: 1; }
+                          70% { transform: translate(0,7px); opacity: 1; } 100% { transform: translate(0,9px); opacity: 0; } }
+div.memento-upload-main { width: min(420px, 62vw); }
+div.memento-upload-bar { height: 6px; border-radius: 3px; background: var(--mem-g-soft2); overflow: hidden; }
+div.memento-upload-bar i { display: block; height: 100%; width: 0; background: var(--mem-g); border-radius: 3px;
+  transition: width .6s ease;
+  background-image: linear-gradient(90deg, rgba(255,255,255,0) 0, rgba(255,255,255,.35) 50%, rgba(255,255,255,0) 100%);
+  background-size: 70px 100%; background-repeat: no-repeat; animation: memento-sheen 1.8s linear infinite; }
+div.memento-upload-done div.memento-upload-bar i { animation: none; background-image: none; }
+/* a finished upload with a failed document: the bar and its "Done with errors" in amber, the colour of the quota
+   hint; the failed files are named in the reply */
+div.memento-upload-errors div.memento-upload-bar i { background: #b45309; }
+div.memento-upload-errors div.memento-upload-meta b { color: #b45309; }
+div.memento-upload-errors svg.memento-upload-icon * { stroke: #b45309; }
+.dark div.memento-upload-errors div.memento-upload-bar i { background: #fbbf24; }
+.dark div.memento-upload-errors div.memento-upload-meta b { color: #fbbf24; }
+.dark div.memento-upload-errors svg.memento-upload-icon * { stroke: #fbbf24; }
+@keyframes memento-sheen { from { background-position: -70px 0; } to { background-position: 420px 0; } }
+div.memento-upload-meta { display: flex; justify-content: space-between; margin-top: 5px; font-size: 12px; color: var(--mem-mute); }
+div.memento-upload-meta b { color: var(--mem-ink); font-weight: 500; }
+@media (prefers-reduced-motion: reduce) {
+  svg.memento-upload-icon .memento-page { animation: none; }
+  div.memento-upload-bar i { animation: none; transition: none; background-image: none; }
+}
+
+/* app name in the sidebar: the serif Fraunces at 23 px. The font is served by Memento itself (static/memento/fonts/,
+   SIL Open Font License, OFL-Fraunces.txt), so no request goes to Google at runtime. Latin letters only (the name is
+   "Memento"). */
+@font-face {
+  font-family: "Memento Fraunces";
+  src: url("/static/memento/fonts/fraunces-600-latin.woff2") format("woff2");
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+#sidebar-webui-name { font-family: "Memento Fraunces", Georgia, serif !important; font-size: 23px !important;
+                      font-weight: 600 !important; letter-spacing: -.01em; line-height: 1.2; }
+
+/* sidebar: Open WebUI's own grey (dark mode: the lighter charcoal, see the palette swap above), more room between
+   the title and New Chat / Search, and a thin green line under the title. The sticky title and account rows get the
+   same solid colour, so chats scrolling under them do not show through. */
+#sidebar { background: var(--mem-sidebar) !important; }
+#sidebar div.sidebar.sticky { background: var(--mem-sidebar); }
+#sidebar div.sidebar.sticky.top-0 { padding-top: 12px !important; padding-bottom: 8px !important; margin-bottom: 0 !important;
+                                    border-bottom: 1px solid var(--mem-sidebar-line); }
+#sidebar div.sidebar.sticky.top-0 + div { padding-top: 22px !important; }
+
+/* model dropdown: ours green with "Local", cloud with "Cloud" (the labels need the extra 70 px of the width rule
+   above) */
+/* keyed on our "Local"/"Cloud" label, not on a row class: Open WebUI rewrites the rows' class attribute while the
+   search box filters the list */
+button[role="option"]:has(span.memento-kind[data-kind="ours"]) .line-clamp-1 { color: var(--mem-g); font-weight: 500; }
+/* cloud model names in the model's colour, set per model in config/query_models.yaml (accent, accent_dark; loader.js
+   puts them on the row as --mem-accent / --mem-accent-dark); unset: a default blue (#0369a1 light, #00adee dark) */
+:root { --mem-cloud: #0369a1; }
+.dark { --mem-cloud: #00adee; }
+button[role="option"]:has(span.memento-kind[data-kind="cloud"]) .line-clamp-1 { color: var(--mem-accent, var(--mem-cloud)); }
+.dark button[role="option"]:has(span.memento-kind[data-kind="cloud"]) .line-clamp-1 {
+  color: var(--mem-accent-dark, var(--mem-accent, var(--mem-cloud))); }
+/* the selected model in the chat box, same colours (loader.js sets data-mem-kind) */
+#model-selector-model-button[data-mem-kind="ours"] > div { color: var(--mem-g) !important; }
+#model-selector-model-button[data-mem-kind="cloud"] > div { color: var(--mem-accent, var(--mem-cloud)) !important; }
+.dark #model-selector-model-button[data-mem-kind="cloud"] > div {
+  color: var(--mem-accent-dark, var(--mem-accent, var(--mem-cloud))) !important; }
+/* and the start-screen title's detail line (the model under "Library Chat"); the model names carry no "local" /
+   "cloud" (the dropdown's label says it), so this line adds the word */
+span.memento-name[data-mem-kind="ours"] small::after { content: " · Local"; }
+span.memento-name[data-mem-kind="cloud"] small::after { content: " · Cloud"; }
+span.memento-name[data-mem-kind="ours"] small { color: var(--mem-g); }
+span.memento-name[data-mem-kind="cloud"] small { color: var(--mem-accent, var(--mem-cloud)); }
+.dark span.memento-name[data-mem-kind="cloud"] small { color: var(--mem-accent-dark, var(--mem-accent, var(--mem-cloud))); }
+/* hover details in the dropdown: our models have no info icon (their description is the start screen's first line);
+   a cloud model's icon shows its hint (loader.js) */
+button[role="option"]:has(span.memento-kind[data-kind="ours"]) div:has(> svg > path[d^="m11.25 11.25"]) {
+  display: none !important; }
+span.memento-kind { flex-shrink: 0; white-space: nowrap; margin-left: 8px; padding: 0 7px; border-radius: 999px;
+                    font-size: 10.5px; line-height: 17px; font-weight: 500; }
+span.memento-kind[data-kind="ours"] { color: var(--mem-g); background: var(--mem-g-soft2); }
+span.memento-kind[data-kind="cloud"] { color: var(--mem-mute); background: rgba(128, 138, 144, .14); }
+/* the same chip after the model name above an answer and in the sidebar's pinned models (loader.js) */
+span.memento-kind.memento-kind-inline { margin-left: 6px; font-size: 10px; line-height: 16px; align-self: center; }
+
+/* start-screen title: the model name in the sidebar's serif, its detail on a small line under it; loader.js hides
+   Open WebUI's own name span and shows this copy */
+.memento-name-src { display: none !important; }
+div.memento-title { display: flex !important; -webkit-line-clamp: unset !important; overflow: visible !important; }
+span.memento-name { display: block; font-family: "Memento Fraunces", Georgia, serif; font-weight: 600; font-size: 30px;
+                    line-height: 1.2; letter-spacing: -.01em; text-align: center; }
+span.memento-name small { display: block; margin-top: 3px; font-family: var(--font-sans, Inter, sans-serif);
+                          font-weight: 400; font-size: 14px; letter-spacing: 0; line-height: 1.3; color: var(--mem-mute); }
+
+/* footer, bottom right: the group's name, © year, credit to Open WebUI (the " (Open WebUI)" name suffix is off:
+   openwebui/README.md, "Licence and branding"); hidden on narrow screens, where it would crowd the chat box */
+div.memento-footer { position: fixed; right: 14px; bottom: 1px; z-index: 5; display: flex; align-items: center; gap: 5px;
+                     line-height: 13px;   /* stays below the message box (its bottom edge is 16 px above the page bottom) */
+                     font-size: 11px; color: var(--mem-mute); }
+a.memento-credit { color: var(--mem-mute); text-decoration: none; }
+a.memento-credit:hover { color: var(--mem-g); text-decoration: underline; }
+@media (max-width: 1099px) { div.memento-footer { display: none; } }
+
+/* the group's logo, large and centred at the bottom of the start screens */
+div.memento-brand { display: flex; flex-direction: column; align-items: center; gap: 8px; margin: 64px auto 0; }
+/* start screens line up: the same height on every model, so nothing jumps when switching. The block is anchored near
+   the top instead of centred; the empty suggestions area on Library Upload is gone, and Library Upload gets the room of
+   Library Chat's detail line and button row, so its chat box, labels and logo sit where Library Chat's do. Only once
+   loader.js has painted. */
+div.m-auto.w-full.py-24:has(> .memento-steps) { margin-top: clamp(0px, calc((100vh - 760px) / 2), 180px) !important;
+                                                margin-bottom: auto !important; }
+div.m-auto.w-full.py-24:has(> .memento-steps) > div.mx-auto.max-w-2xl.mt-2:not(:has(button.waterfall)) { display: none !important; }
+div.line-clamp-2.max-w-xl.markdown p { margin-top: 0 !important; margin-bottom: 0 !important; }  /* a cloud model's 2 lines */
+span.memento-name:not(:has(small))::after { content: ""; display: block; height: calc(3px + 14px * 1.3); }
+div.memento-steps[data-v="ingest"] { margin-top: calc(14px + 18px + 33px); }   /* plus Library Chat's button row
+                                                                                  above them */
+div.memento-brand span { font-size: 12px; letter-spacing: .04em; color: var(--mem-mute); }
+div.memento-brand img { height: 64px; width: auto; display: block; }
+.dark div.memento-brand img { filter: brightness(1.9) saturate(.9); }   /* lifted for dark, colours kept */
+/* light mode: the recoloured copy, mirroring dark mode */
+html:not(.dark) div.memento-brand img.memento-logo-dark, .dark div.memento-brand img.memento-logo-light { display: none; }
+
+/* Open WebUI clutter off: the "Add a tag..." field at the bottom of the chat title menu (Share, Download, Copy,
+   Archive stay; matched by its combobox input, as the placeholder is translated), and the "Memento · v0.11.4" line Open
+   WebUI shows on a start screen without suggestions (Suggestions.svelte footer: the centred row; the left-aligned
+   "Suggested" header stays) */
+div.app-dropdown-menu div.max-h-28:has(input[role="combobox"]) { display: none !important; }
+div.mx-auto.max-w-2xl div.mb-1.flex:has(> div.justify-center.text-center.self-start) { display: none !important; }
+
+/* Library Upload's chat box hint: it only takes files; questions belong in Library Chat. Open WebUI draws the hint
+   from the empty first line's data-placeholder; only the text is replaced, its style and the other models' hints stay
+   Open WebUI's own. loader.js sets data-mem-model from the selected model. */
+html[data-mem-model="ingest"] #chat-input p.is-editor-empty:first-child::before {
+  content: "Attach files here; please ask questions in Library Chat" !important;
+}
+html[data-mem-model="doc"] #chat-input p.is-editor-empty:first-child::before {
+  content: "Attach a file and ask about it" !important;
+}
+
+/* light/dark toggle at the top right (loader.js), the same switch as Settings → Theme */
+#memento-theme { position: fixed; top: 10px; right: 16px; z-index: 60; width: 34px; height: 34px; border-radius: 999px;
+                 display: grid; place-items: center; border: 1px solid var(--mem-line); background: var(--mem-card);
+                 color: var(--mem-ink); box-shadow: 0 1px 3px rgba(0,0,0,.08); cursor: pointer; }
+#memento-theme:hover { border-color: var(--mem-g); color: var(--mem-g); }
+#memento-theme:focus-visible { outline: 2px solid var(--mem-g); outline-offset: 2px; }
+#memento-theme svg { width: 17px; height: 17px; }
+/* in the chat's top bar (sticky, so the button's containing block): its right end, clear of an open citation panel */
+nav.drag-region > #memento-theme.memento-theme-bar { position: absolute; top: 5px; right: 16px; }
+@media print { #memento-theme { display: none; } }
+
+/* many attached files (loader.js): a sent message shows its first 3 file chips and "+ N more files"; clicking shows
+   all of them, "Show fewer" folds them again */
+.memento-files-folded > div.self-end:nth-child(n+4) { display: none !important; }
+button.memento-files-more { align-self: flex-end; margin-top: 2px; padding: 3px 12px; border-radius: 999px; font-size: 12.5px;
+                            color: var(--mem-g); background: var(--mem-g-soft); border: 1px solid var(--mem-g-soft2); cursor: pointer; }
+button.memento-files-more:hover { background: var(--mem-g-soft2); }
+
+/* light mode reads darker: Open WebUI's secondary text greys (labels, fold-out rows such as the upload lines,
+   timestamps, placeholders) darkened, order kept (400 lightest … 700 darkest); dark mode unchanged. Fold-out rows and
+   the sidebar's section labels turn green on hover. */
+html:not(.dark) { --color-gray-400: oklch(55% 0 0); --color-gray-500: oklch(42% 0 0);
+                  --color-gray-600: oklch(40% 0 0); --color-gray-700: oklch(37% 0 0); }
+html:not(.dark) .markdown-prose button.text-gray-500:hover,
+html:not(.dark) #sidebar button.text-gray-400:hover { color: var(--mem-g) !important; }
+
+/* citation side panel: Open WebUI's pane around the viewer (its header with the document link and the close button)
+   takes the sidebar's colour; the viewer uses the same grey for its toolbar, desk and footer (services/file_server.py),
+   so the whole panel is one surface and only the cited page is a sheet */
+#controls-container { background: var(--mem-sidebar); }
+
+/* no editing of answers: Open WebUI lets anyone rewrite a model's answer in place, unmarked, which would put text
+   the model never wrote into exported chats and into the history of follow-up questions. The pencil is hidden on
+   answers only; a user can still edit their own question (it is sent again). */
+div[id^="message-"]:not(.user-message) div.flex:has(> button:is([aria-label="Edit"], [aria-label="Bearbeiten"])) { display: none !important; }
+
+/* the chat's bottom-right drawing follows the selected model: Library Chat keeps its drawing above, Library Upload
+   shows its own (document to database to tick, the start screen's drawing), switching at once when the model changes
+   mid-chat (data-mem-model, set by loader.js) */
+/* Document Chat's watermark: its own drawing, a document with a paperclip */
+html[data-mem-model="doc"] #chat-container:not(:has(div.line-clamp-2.max-w-xl.markdown)) #chat-pane::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 60' fill='none' stroke='%23009260' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 6h20l7 7v33H22z M42 6v7h7'/%3E%3Cpath d='M27 22h16M27 29h16M27 36h11'/%3E%3Cpath d='M30 15 V3.5 a4 4 0 0 1 8 0 V17 a2.5 2.5 0 0 1 -5 0 V7'/%3E%3Cpath d='M56 26 C 72 26, 72 16, 88 16 M56 30 C 74 30, 74 44, 88 44'/%3E%3Cg fill='%23009260' stroke='none'%3E%3Ccircle cx='92' cy='16' r='3.5'/%3E%3Ccircle cx='92' cy='44' r='3.5'/%3E%3Ccircle cx='110' cy='30' r='4.5'/%3E%3Ccircle cx='128' cy='14' r='3'/%3E%3Ccircle cx='128' cy='46' r='3'/%3E%3C/g%3E%3Cpath d='M92 16 L110 30 L92 44 M110 30 L128 14 M110 30 L128 46'/%3E%3Cpath d='M136 30 H150'/%3E%3Cpath d='M156 12h46a6 6 0 0 1 6 6v18a6 6 0 0 1-6 6h-34l-7 7v-7h-5a6 6 0 0 1-6-6V18a6 6 0 0 1 6-6z'/%3E%3Cpath d='M164 23h24M164 31h16'/%3E%3Cpath d='M186 28h8v7h-8z'/%3E%3C/svg%3E");
+}
+html[data-mem-model="ingest"] #chat-container:not(:has(div.line-clamp-2.max-w-xl.markdown)) #chat-pane::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 60' fill='none' stroke='%23009260' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 14h17l6 6v28H18z M35 14v6h6'/%3E%3Cpath opacity='.55' d='M24 8h17l6 6'/%3E%3Cpath opacity='.3' d='M30 2h17l6 6'/%3E%3Cpath d='M60 30 H96 M88 24 l8 6 -8 6'/%3E%3Cellipse cx='128' cy='14' rx='20' ry='6' fill='%23009260' fill-opacity='.15'/%3E%3Cpath d='M108 14v30c0 3.3 9 6 20 6s20-2.7 20-6V14'/%3E%3Cpath d='M108 29c0 3.3 9 6 20 6s20-2.7 20-6'/%3E%3Cpath d='M166 30 H176'/%3E%3Ccircle cx='196' cy='30' r='13'/%3E%3Cpath d='M190 30l4.5 4.5L203 26'/%3E%3C/svg%3E"); mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 60' fill='none' stroke='%23009260' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 14h17l6 6v28H18z M35 14v6h6'/%3E%3Cpath opacity='.55' d='M24 8h17l6 6'/%3E%3Cpath opacity='.3' d='M30 2h17l6 6'/%3E%3Cpath d='M60 30 H96 M88 24 l8 6 -8 6'/%3E%3Cellipse cx='128' cy='14' rx='20' ry='6' fill='%23009260' fill-opacity='.15'/%3E%3Cpath d='M108 14v30c0 3.3 9 6 20 6s20-2.7 20-6V14'/%3E%3Cpath d='M108 29c0 3.3 9 6 20 6s20-2.7 20-6'/%3E%3Cpath d='M166 30 H176'/%3E%3Ccircle cx='196' cy='30' r='13'/%3E%3Cpath d='M190 30l4.5 4.5L203 26'/%3E%3C/svg%3E");
+}
+
+/* the drawings (start screen, chat watermark) in the selected model's colour: green for ours, a cloud model's accent
+   from config/query_models.yaml (loader.js puts it on <html> as --mem-draw-l / --mem-draw-d) */
+html[data-mem-cloud] { --mem-draw: var(--mem-draw-l, var(--mem-cloud)); }
+html.dark[data-mem-cloud] { --mem-draw: var(--mem-draw-d, var(--mem-draw-l, var(--mem-cloud))); }
+
+/* pinned models ("Keep in Sidebar") in the dropdown's colours (loader.js marks each link) */
+#pinned-models-list a[data-mem-kind="ours"] div.line-clamp-1 { color: var(--mem-g); }
+#pinned-models-list a[data-mem-kind="cloud"] div.line-clamp-1 { color: var(--mem-accent, var(--mem-cloud)); }
+.dark #pinned-models-list a[data-mem-kind="cloud"] div.line-clamp-1 { color: var(--mem-accent-dark, var(--mem-accent, var(--mem-cloud))); }
+
+/* ── chat view details ── */
+/* Open WebUI's own "N Sources" row under an answer stays: it is the only place listing every passage the answer
+   model was given, uncited ones included. Its numbering differs from the [N] in the text. */
+/* the chat's top bar was see-through (Open WebUI's gradient is 90 % → 50 % opaque), so answer text ran under the
+   chat title, its "⋯" and the theme switch: opaque behind the bar, fading out just below it */
+#navbar-bg-gradient-to-b {
+  background-image: linear-gradient(to bottom, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 55%, rgb(255 255 255 / 0) 100%) !important;
+}
+.dark #navbar-bg-gradient-to-b {
+  background-image: linear-gradient(to bottom, var(--color-gray-900) 0%, var(--color-gray-900) 55%, transparent 100%) !important;
+}
+/* "Thorough check" as one labelled switch in the chat box (loader.js). Open WebUI's own icon chip for the
+   switched-on filter is hidden (the switch shows the state) but stays clickable for the switch */
+#message-input-container div.flex:has(> button img[alt="Thorough check"]) { display: none !important; }
+/* Open WebUI's Integrations button (the diamond icon left of the switch) holds only "Thorough check": hidden too,
+   but kept in the page and clickable, since the switch opens its menu to flip the toggle */
+#message-input-container div.flex:has(> #integration-menu-button) {
+  position: absolute !important; width: 1px !important; height: 1px !important; overflow: hidden !important;
+  clip-path: inset(50%) !important; opacity: 0 !important; pointer-events: none !important; }
+button.memento-thorough { margin-left: 0 !important; }
+/* the switch's explanation (loader.js), above it on hover / keyboard focus */
+#memento-thorough-tip {
+  position: fixed; z-index: 9999; max-width: 340px; padding: 10px 12px; border-radius: 10px; pointer-events: none;
+  font-size: 12.5px; line-height: 1.45; color: var(--color-gray-800); background: #fff;
+  border: 1px solid var(--color-gray-200); box-shadow: 0 6px 24px rgba(0, 0, 0, .12);
+  opacity: 0; transform: translateY(4px); transition: opacity .12s, transform .12s; }
+#memento-thorough-tip.show { opacity: 1; transform: none; }
+#memento-thorough-tip b:first-child { color: var(--mem-g); }
+#memento-thorough-tip p { margin: 6px 0 0; }
+.dark #memento-thorough-tip { color: var(--color-gray-200); background: var(--color-gray-850, #262626);
+                              border-color: var(--color-gray-700); }
+button.memento-thorough {
+  display: inline-flex; align-items: center; gap: .35rem; flex-shrink: 0; margin-left: .25rem;
+  height: 1.875rem; padding: 0 .7rem; border-radius: 9999px; font-size: .8125rem; line-height: 1;
+  color: var(--color-gray-600); border: 1px solid var(--color-gray-200); background: transparent; cursor: pointer;
+  transition: color .15s, background .15s, border-color .15s;
+}
+.dark button.memento-thorough { color: var(--color-gray-300); border-color: var(--color-gray-700); }
+button.memento-thorough:hover { border-color: var(--mem-g); color: var(--mem-g); }
+button.memento-thorough svg { width: .95rem; height: .95rem; }
+button.memento-thorough[aria-pressed="true"] { color: var(--mem-g); background: var(--mem-g-soft); border-color: var(--mem-g); }
+/* loader.js writes "· on" into the label, so no ::after "on" here */
+/* figures under an answer at most 280 px high; each has a caption "Figure (5): …" naming its source, written by the
+   Query pipe */
+div[id^="message-"] .markdown-prose img { max-height: 280px !important; width: auto !important; max-width: 100%; }
+
+/* "Research gaps" topic box (loader.js openTopic): the picker's box with one field and a button */
+div.memento-topic .memento-topic-row { display: flex; gap: 8px; align-items: center; }
+div.memento-topic .memento-topic-row input { flex: 1; }
+button.memento-topic-go { padding: 6px 14px; border-radius: 8px; border: 1px solid var(--mem-g); color: var(--mem-g);
+                          background: transparent; cursor: pointer; font-weight: 600; }
+button.memento-topic-go:hover, button.memento-topic-go:focus-visible { background: var(--mem-g); color: #fff; }
+/* "Or pick a document" above the document list in the "Draft a proposal" box */
+div.memento-topic p.memento-topic-or { margin: 4px 4px 8px; padding-top: 10px; border-top: 1px solid var(--mem-line);
+                                       font-size: 12.5px; font-weight: 600; color: var(--mem-mute); }
+
+
+/* Sign-in / sign-up page (loader.js): the Memento logo above the title, a tagline, the group's logo under the form;
+   Open WebUI's tiny corner logo hidden */
+#auth-page div.fixed.m-10:has(img#logo) { display: none !important; }
+div.memento-auth-head { display: flex; justify-content: center; margin-bottom: 18px; }
+img.memento-auth-logo { width: 88px; height: 88px; border-radius: 50%; display: block; }
+p.memento-auth-tagline { margin: 8px auto 8px; max-width: 30rem; font-size: 14px; line-height: 1.5; color: var(--mem-mute); }
+p.memento-auth-tagline b { display: inline-block; margin-bottom: 2px; font-size: 16px; font-weight: 500; color: var(--mem-ink); }
+div.memento-auth-brand { margin-top: 40px; }
+div.memento-auth-brand img { height: 48px; }
+.dark img.memento-auth-logo { filter: brightness(1.9) saturate(.9); }   /* as the group's logo in dark mode */
+div.memento-auth-title { font-size: 30px !important; font-weight: 500 !important; letter-spacing: .01em; }
+
+/* Start-screen actions: the newer ones on their own row with a "Beta" tag; a hover / focus text on every button
+   saying what it is for (loader.js: data-tip) */
+div.memento-actions-break { flex-basis: 100%; height: 0; }
+span.memento-beta { margin-left: 6px; padding: 1px 6px; border-radius: 999px; font-size: 10px; font-weight: 600;
+                    letter-spacing: .04em; text-transform: uppercase; vertical-align: 1px;
+                    background: var(--mem-g-soft2); color: var(--mem-g); }
+button.memento-action { position: relative; }
+button.memento-action[data-tip]:hover::after, button.memento-action[data-tip]:focus-visible::after {
+  content: attr(data-tip); position: absolute; left: 50%; bottom: calc(100% + 8px); transform: translateX(-50%);
+  width: 280px; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--mem-line); background: var(--mem-card);
+  color: var(--mem-ink); font-size: 12px; line-height: 1.45; text-align: left; white-space: normal; z-index: 60;
+  box-shadow: 0 4px 14px rgba(0,0,0,.10); pointer-events: none; }
+button.memento-action[aria-expanded="true"]::after { display: none; }
+input.memento-picker-search[aria-invalid="true"] { border-color: var(--mem-g); }
+
+/* "Draft a proposal on this question" under each question of the latest research-gaps report (loader.js) */
+button.memento-propose { display: inline-block; margin: 2px 0 14px 18px; padding: 4px 12px; border-radius: 999px;
+                         border: 1px solid var(--mem-g); background: transparent; color: var(--mem-g); font-size: 13px;
+                         cursor: pointer; }
+button.memento-propose:hover, button.memento-propose:focus-visible { background: var(--mem-g); color: #fff; }
+/* a library report: "Show its questions" in each row of "Open questions by document", "Show the next questions" */
+button.memento-propose.memento-showdoc { margin: 4px 0 2px; padding: 2px 10px; font-size: 12.5px; white-space: nowrap; }
+/* a research-gaps report: "Draft a proposal" in each row of its question table, after the Literature status */
+button.memento-propose.memento-inrow { margin: 2px 0 2px 8px; padding: 2px 10px; font-size: 12.5px; white-space: nowrap; }
+button.memento-propose.memento-next { margin: 0 0 14px 0; }
+
+
+/* Upload replies (loader.js paintUploadList): the status line with the upload bar does not open its history of every
+   "n of N" update; only the latest 20 files are listed, the earlier ones behind a button */
+button:has(.status-description .memento-upload) { pointer-events: none; cursor: default; }
+[data-mem-old] { display: none !important; }
+button.memento-earlier { align-self: flex-start; margin: 4px 0 2px; padding: 3px 12px; border-radius: 999px;
+                         border: 1px solid var(--mem-line); background: var(--mem-card); color: var(--mem-mute);
+                         font-size: 13px; cursor: pointer; }
+button.memento-earlier:hover { border-color: var(--mem-g); color: var(--mem-g); }
+
+/* Start-screen buttons all the same size: three equal columns as wide as the widest label, and "Draft a proposal" on
+   the second row under "Summarize a document"; one column on narrow screens */
+div.memento-actions { display: grid; grid-template-columns: repeat(3, 1fr); width: max-content; max-width: 100%; }
+div.memento-actions-break { display: none; }
+button.memento-action { white-space: nowrap; text-align: center; }
+button.memento-action[data-action="proposal"] { grid-column: 2; }
+@media (max-width: 640px) {
+  div.memento-actions { grid-template-columns: 1fr; width: 100%; }
+  button.memento-action[data-action="proposal"] { grid-column: auto; }
+}
+
+/* Library Chat takes no attachments: its models have file_upload off, so Open WebUI refuses files and greys out
+   "Upload Files", which the rule above hides; the "+" menu would open empty, so the button goes too. Document Chat and
+   Library Upload keep it. data-mem-model is set by loader.js (markModel). */
+html[data-mem-model="query"] #input-menu-button { display: none !important; }
+
+/* the note after switching to another kind of model opened a new chat (loader.js) */
+#memento-note { position: fixed; top: 56px; left: 50%; transform: translateX(-50%); z-index: 70; max-width: min(92vw, 560px);
+                padding: 9px 16px; border-radius: 10px; border: 1px solid var(--mem-line); background: var(--mem-card);
+                color: var(--mem-ink); font-size: 13.5px; box-shadow: 0 2px 10px rgba(0,0,0,.18); transition: opacity .5s; }
+#memento-note.memento-note-out { opacity: 0; }
+/* a proposal's "Download as PDF": Memento green, a red PDF file icon in front (loader.js marks it) */
+a.memento-pdf-link { display: inline-flex; align-items: center; gap: 6px; color: var(--mem-g) !important;
+                     font-weight: 600; text-decoration: none !important; }
+a.memento-pdf-link:hover { text-decoration: underline !important; }
+a.memento-pdf-link::before { content: ""; flex: none; width: 18px; height: 22px; background: no-repeat center / contain
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 22'%3E%3Cpath d='M2 0h10l6 6v14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z' fill='%23d93025'/%3E%3Cpath d='M12 0v4a2 2 0 0 0 2 2h4z' fill='%23f28b82'/%3E%3Ctext x='9' y='17' font-family='Arial,Helvetica,sans-serif' font-size='5.6' font-weight='700' fill='%23fff' text-anchor='middle'%3EPDF%3C/text%3E%3C/svg%3E"); }
+/* Memento's own blocks, marked by loader.js (Open WebUI renders <details> as its Collapsible, without the type): the
+   model's suggestions and a proposal's proposed work set apart with a dashed border */
+[data-memento-block="ideas"], [data-memento-block="proposed"] { margin: 8px 0; padding: 4px 12px;
+  border: 1px dashed var(--mem-line); border-radius: 10px; }
+[data-memento-block="evidence"] { margin: 4px 0; }
+/* Document Chat's file limit (loader.js): the line above the message box, amber like an upload's errors */
+#memento-file-limit { margin: 0 12px 6px; font-size: 12.5px; line-height: 1.4; color: #b45309; }
+.dark #memento-file-limit { color: #fbbf24; }
+#send-message-button[data-mem-limit] { opacity: 0.35; cursor: not-allowed; }

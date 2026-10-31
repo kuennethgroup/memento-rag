@@ -1,0 +1,183 @@
+{
+ "runs": [
+  {
+   "answer": "Answer [1].\n\n_Answered by Qwen 3.8 Flash-Next (Local)._\n\n\n<details type=\"memento_sources\">\n<summary>Cited in this answer: 1 passage of this document</summary>\n\nAll from **Gamma**.\n\n_The numbers match the links in the text._\n\n- (1) p. 2\n</details>\n",
+   "events": [
+    {
+     "done": false,
+     "hidden": null,
+     "status": "Looking for answer..."
+    },
+    {
+     "done": false,
+     "hidden": null,
+     "status": "Searching the library..."
+    },
+    {
+     "done": false,
+     "hidden": null,
+     "status": "Reading the whole document..."
+    },
+    {
+     "citation": "Gamma (p. 2)",
+     "pages": [
+      1
+     ]
+    },
+    {
+     "done": false,
+     "hidden": null,
+     "status": "Generating answer..."
+    },
+    {
+     "done": true,
+     "hidden": true,
+     "status": "Done"
+    }
+   ],
+   "llm_calls": [
+    {
+     "extra_body": [
+      "chat_template_kwargs"
+     ],
+     "last_message": "Latest message: Summarize the document \"Paper Gamma: processing routes\"",
+     "max_tokens": 256,
+     "messages": 2,
+     "model": "local-model",
+     "stream": false,
+     "system_sha": "93b1fc7c2055"
+    },
+    {
+     "extra_body": [
+      "chat_template_kwargs"
+     ],
+     "last_message": "Sources (all from the document \"Gamma\"):\n[1] page 2, Section: Methods\nGamma passage: three processing routes are compared.\n\nQuestion: Summarize the document \"Paper Gamma: processing routes\"",
+     "max_tokens": 16384,
+     "messages": 2,
+     "model": "local-model",
+     "stream": true,
+     "system_sha": "12f0fcab920b"
+    }
+   ],
+   "qdrant": [
+    {
+     "collection": "memento-x-rag",
+     "filter": {
+      "must": [
+       {
+        "key": "source",
+        "match": {
+         "value": "Gamma"
+        }
+       }
+      ],
+      "must_not": [
+       {
+        "key": "section",
+        "match": {
+         "value": "Keywords"
+        }
+       }
+      ]
+     },
+     "hybrid": false,
+     "limit": 80,
+     "op": "query"
+    },
+    {
+     "collection": "memento-x-rag",
+     "filter": {
+      "must": [
+       {
+        "key": "source",
+        "match": {
+         "value": "Gamma"
+        }
+       }
+      ]
+     },
+     "op": "scroll"
+    }
+   ]
+  },
+  {
+   "answer": "Answer [1].\n\n_Answered by Qwen 3.8 Flash-Next (Local)._\n\n\n<details type=\"memento_sources\">\n<summary>Cited in this answer: 1 passage of this document</summary>\n\nAll from **Gamma**.\n\n_The numbers match the links in the text._\n\n- (1) p. 2\n</details>",
+   "events": [
+    {
+     "done": false,
+     "hidden": null,
+     "status": "Looking for answer..."
+    },
+    {
+     "done": false,
+     "hidden": null,
+     "status": "Searching the library..."
+    },
+    {
+     "citation": "Gamma (p. 2)",
+     "pages": [
+      1
+     ]
+    },
+    {
+     "done": true,
+     "hidden": true,
+     "status": "Done"
+    }
+   ],
+   "llm_calls": [
+    {
+     "extra_body": [
+      "chat_template_kwargs"
+     ],
+     "last_message": "Latest message: Summarize the document \"Paper Gamma: processing routes\"",
+     "max_tokens": 256,
+     "messages": 2,
+     "model": "local-model",
+     "stream": false,
+     "system_sha": "93b1fc7c2055"
+    }
+   ],
+   "qdrant": [
+    {
+     "collection": "memento-x-rag",
+     "filter": {
+      "must": [
+       {
+        "key": "source",
+        "match": {
+         "value": "Gamma"
+        }
+       }
+      ],
+      "must_not": [
+       {
+        "key": "section",
+        "match": {
+         "value": "Keywords"
+        }
+       }
+      ]
+     },
+     "hybrid": false,
+     "limit": 80,
+     "op": "query"
+    },
+    {
+     "collection": "memento-x-rag",
+     "filter": {
+      "must": [
+       {
+        "key": "source",
+        "match": {
+         "value": "Gamma"
+        }
+       }
+      ]
+     },
+     "op": "scroll"
+    }
+   ]
+  }
+ ]
+}

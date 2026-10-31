@@ -1,0 +1,42 @@
+# Dockerfile.mineru — MinerU 3.x with full backend support (pipeline + vlm + hybrid)
+#FROM docker.io/nvidia/cuda:12.6.3-runtime-ubuntu22.04
+FROM docker.io/vllm/vllm-openai:v0.21.0
+
+# System deps. Fonts matter even for English papers — MinerU's intermediate
+# rendering uses them, missing CJK fonts cause silent layout drift.
+# NOTE: do NOT install nvidia-utils here — it conflicts with the host driver
+# when passed through the container runtime. CUDA access comes via /dev/nvidia*.
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        fonts-noto-core fonts-noto-cjk fontconfig \
+        libgl1 \
+        wget curl ca-certificates \
+        build-essential \
+        python3-dev \
+    && fc-cache -fv \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+
+RUN python3 -m pip install -U 'mineru[core]==3.4.0' --break-system-packages && \
+    python3 -m pip install --no-cache-dir -U "opencv-python-headless>=4.8.0" --break-system-packages && \
+    python3 -m pip cache purge
+
+# Download ALL models,
+#   -m pipeline → doclayout, OCR, formula, table models   (~500MB)
+#   -m vlm      → MinerU2.5-Pro-2605-1.2B VLM weights      (~2.5GB)
+#   -m all      → both, required for hybrid-auto-engine
+# Models bake into the image at /root/.mineru/models, ~3GB extra.
+# If image size becomes painful, externalize: drop this RUN, mount
+# ~/.mineru.json + a models volume at runtime instead.
+RUN /bin/bash -c "mineru-models-download -s huggingface -m all"
+
+# Use the baked-in models at runtime (no re-download)
+ENV MINERU_MODEL_SOURCE=local
+ENV MINERU_API_OUTPUT_ROOT=/data/output
+ENV MINERU_API_MAX_CONCURRENT_REQUESTS=8
+ENV MINERU_PDF_RENDER_THREADS=16
+
+EXPOSE 8000
+
+ENTRYPOINT ["/bin/bash", "-c", "export MINERU_MODEL_SOURCE=local && exec \"$@\"", "--"]
+CMD ["mineru-api", "--host", "0.0.0.0", "--port", "8000", "--enable-vlm-preload", "true"]

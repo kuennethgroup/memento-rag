@@ -1,0 +1,29 @@
+{
+ "answer": "To ask about a file, please attach it with **+** next to the message box, then **Upload Files** (PDF, Word, PowerPoint or Excel).\n\nTo ask the group's library instead, [ask it in Library Chat](/?model=memento-query&q=What%20does%20the%20attached%20file%20say%3F).",
+ "events": [
+  {
+   "done": false,
+   "hidden": null,
+   "status": "Looking for answer..."
+  },
+  {
+   "done": true,
+   "hidden": true,
+   "status": "Done"
+  }
+ ],
+ "llm_calls": [
+  {
+   "extra_body": [
+    "chat_template_kwargs"
+   ],
+   "last_message": "Latest message: What does the attached file say?",
+   "max_tokens": 256,
+   "messages": 2,
+   "model": "local-model",
+   "stream": false,
+   "system_sha": "93b1fc7c2055"
+  }
+ ],
+ "qdrant": []
+}

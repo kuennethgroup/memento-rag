@@ -1,0 +1,67 @@
+# config/query_models.yaml: the Memento Query models users can pick. Order = picker order. Keys are named by environment
+# variable, never written here. The local entry takes its endpoint and model from the Query pipe's Valves (LLM_BASE_URL,
+# LLM_MODEL). checker = the model that runs Thorough check (only "local" is used). enabled: false removes a variant
+# without code changes.
+# name: without "local" / "cloud": the dropdown tags each model "Local" or "Cloud" (from provider), and the start
+# screen's small title line adds the word; label (the answer's "Answered by …" line) keeps it.
+# accent / accent_dark: the model's colour in the chat box and the model dropdown, light and dark mode ("#rrggbb";
+# accent_dark defaults to accent). Leave both out for the local model: it takes the theme green; a cloud model without
+# them takes custom.css's default blue (#0369a1 light, #00adee dark), the pair set below.
+# host: a cloud model's line on where it runs (markdown); without it the start screen says "Runs on a cloud service."
+# The cloud entries are examples: any OpenAI-compatible chat-completions API can serve them. Set the API's address and
+# key in the variables the entry names (base_url_env, key_env; by default OPENAI_BASE_URL and CLOUD_API_KEY) and model
+# to a name that API serves. A cloud entry is offered only while its key variable is set; describe the provider in
+# label and host so users know where their questions go.
+- id: local
+  name: "Library Chat (Qwen 3.8 Flash-Next)"
+  label: "Qwen 3.8 Flash-Next (Local)"
+  provider: local
+  model: qwen-flash-next
+  vision: true
+  thinking: true
+  checker: local
+  enabled: true
+  description: ""          # the start screen's first line says it all; its small title line adds "local"
+- id: qwen35
+  name: "Library Chat (Qwen 3.5 397B)"
+  label: "Qwen 3.5 397B (Cloud)"
+  provider: cloud
+  model: qwen3.5-397b-a17b
+  base_url_env: OPENAI_BASE_URL
+  key_env: CLOUD_API_KEY
+  vision: true
+  thinking: true
+  checker: local
+  enabled: true
+  description: "The strongest; slower."
+  accent: "#0369a1"
+  accent_dark: "#00adee"
+- id: qwen36
+  name: "Library Chat (Qwen 3.6 35B)"
+  label: "Qwen 3.6 35B (Cloud)"
+  provider: cloud
+  model: qwen3.6-35b-a3b
+  base_url_env: OPENAI_BASE_URL
+  key_env: CLOUD_API_KEY
+  vision: true
+  thinking: true
+  checker: local
+  enabled: true
+  description: "Fast and well-rounded."
+  accent: "#0369a1"
+  accent_dark: "#00adee"
+# Disabled: it garbles answers with three or more images. No thinking switch (thinking: false).
+- id: gemma
+  name: "Library Chat (Gemma 4 31B)"
+  label: "Gemma 4 31B (Cloud)"
+  provider: cloud
+  model: gemma-4-31b-it
+  base_url_env: OPENAI_BASE_URL
+  key_env: CLOUD_API_KEY
+  vision: true
+  thinking: false
+  checker: local
+  enabled: false
+  description: "Fast; made by Google."
+  accent: "#0369a1"
+  accent_dark: "#00adee"

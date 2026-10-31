@@ -1,0 +1,138 @@
+[
+ {
+  "type": "image",
+  "img_path": "images/88a0a3134e03d9134994c504ff481f096fb620fb7a98907b2e1e6345ba1980cc.jpg",
+  "image_caption": [
+   "a"
+  ],
+  "image_footnote": [],
+  "content": "VO₂ [001]ₓ\n1 nm\nTiO₂ [001]ₓ",
+  "sub_type": "text_image",
+  "bbox": [
+   119,
+   124,
+   327,
+   327
+  ],
+  "page_idx": 12
+ },
+ {
+  "type": "image",
+  "img_path": "images/cf0ae4a24c2f31b9c5fe50d4f2ee41ad9fd7b82f44f885ff889538c2746a65f5.jpg",
+  "image_caption": [
+   "b"
+  ],
+  "image_footnote": [],
+  "content": "V\nTi\nO\nH\n1hm",
+  "sub_type": "text_image",
+  "bbox": [
+   381,
+   124,
+   588,
+   327
+  ],
+  "page_idx": 12
+ },
+ {
+  "type": "chart",
+  "img_path": "images/8ce14432d269a68260b8eb093ff3c1dfe2864fc9c5a53e8d0157d25dc5bd9c34.jpg",
+  "content": "| Temperature \\(({}^{\\circ}C)\\) | IV (HVO2) | M-VO2 (Red) | M-VO2 (Blue) | I (Red dashed) | II (Blue dashed) | III (Red dashed) | R-VO2 (Blue dashed) |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| 20 | ~3e7 | — | — | — | — | — | — |\n| 40 | ~1.5e7 | ~3e5 | ~2.5e5 | ~1.5e4 | ~2e4 | ~3e3 | ~1.5e2 |\n| 60 | ~8e6 | ~1e5 | ~8e4 | ~1e3 | ~1e3 | ~1e2 | ~1e2 |\n| 80 | ~4e6 | ~1e2 | ~1e2 | ~1e2 | ~1e2 | ~1e2 | ~1e2 |\n| 100 | ~2e6 | ~1e2 | ~1e2 | ~1e2 | ~1e2 | ~1e2 | ~1e2 |\n| 120 | ~1.5e6 | ~1e2 | ~1e2 | ~1e2 | ~1e2 | ~1e2 | ~1e2 |",
+  "chart_caption": [
+   "C"
+  ],
+  "chart_footnote": [],
+  "sub_type": "line",
+  "bbox": [
+   620,
+   127,
+   902,
+   331
+  ],
+  "page_idx": 12
+ },
+ {
+  "type": "image",
+  "img_path": "images/a077b9699282f01f38c8f78470aa538b467c18417e709d11348f66593ce1b527.jpg",
+  "image_caption": [
+   "d",
+   "Fig. 11 Hydrogen-doped VO₂. a HAADF-STEM and b ABF-STEM images of the (100) fully hydrogenated HVO₂ epitaxial film grown on TiO₂(100) substrates with a [001]R zone axis. c The temperature-dependent sheet resistance in HₓVO₂ thin films from plot I to plot IV with increasing hydrogen content (x)⁷⁸. Copyright© 2016 Nature Publishing Group. d A schematic illustration of the contiguous electron–proton co-doping mechanism with the metal-acid treatment of a semiconductor: First, the electrons flow to the semiconductor when the metal contacts the VO₂ film. Once the metal/VO₂ is immersed in the acid solution, the chemical reactions proceed sequentially as M−x[e−] → M⁺⁺ and VO₂ + x[e−] + x[H⁺] → HₓVO₂⁷⁹. Copyright© 2018 Nature Publishing Group"
+  ],
+  "image_footnote": [],
+  "content": "```mermaid\ngraph LR\n  A[\"Semiconductor\"] --> B[\"Metal Electrode\"]\n  B --> C[\"H-doped Semiconductor\"]\n  C --> D[\"Semiconductor\"]\n  D --> E[\"Metal Electrode\"]\n  E --> F[\"H-doped Semiconductor\"]\n```",
+  "sub_type": "flowchart",
+  "bbox": [
+   115,
+   344,
+   905,
+   612
+  ],
+  "page_idx": 12
+ },
+ {
+  "type": "text",
+  "text": "create a controllable and reversible trigger temperature, or even a convenient trigger, rather than heating directly. Answering this question would provide a better determination of the scope for utilizing $VO_{2}$ in ultrafast electronic devices, as well as open an alternative direction in modulating other correlated materials. As a controllable and convenient means, electrical control has a great prospect in this regard. In fact, several efforts have been put into the transition modulation. However, the mechanism of the electrical triggers could be not the same exactly and might come from electron injection, Joule heating effects, dielectric attraction, or ion doping. Here, we divide this section into two subsections: two-terminal",
+  "bbox": [
+   87,
+   729,
+   492,
+   925
+  ],
+  "page_idx": 12
+ },
+ {
+  "type": "text",
+  "text": "and three-terminal electrical triggers. The detailed introductions follow.",
+  "bbox": [
+   505,
+   729,
+   905,
+   758
+  ],
+  "page_idx": 12
+ },
+ {
+  "type": "text",
+  "text": "Electrical current heating",
+  "text_level": 1,
+  "bbox": [
+   505,
+   774,
+   678,
+   788
+  ],
+  "page_idx": 12
+ },
+ {
+  "type": "text",
+  "text": "In 2000, Stefanovich et al. $^{82}$ reported that electric field or electron injection into $VO_{2}$ can trigger the MIT. Additionally, an abundance of follow-up two-terminal switches utilizing the electrically triggered MIT have been reported $^{83-85}$ . For example, Leroy et al. $^{86}$ reported a fast MIT phenomenon of the $VO_{2}$ thin film in the picosecond range induced by an electric field pulse voltage (see Fig. 12). In 2004, Kim et al. $^{87}$ reported that the critical voltage of the MIT phase was decreased as the",
+  "bbox": [
+   504,
+   789,
+   907,
+   926
+  ],
+  "page_idx": 12
+ },
+ {
+  "type": "header",
+  "text": "Shao et al. NPG Asia Materials (2018) 10: 581-605",
+  "bbox": [
+   90,
+   39,
+   403,
+   53
+  ],
+  "page_idx": 12
+ },
+ {
+  "type": "page_number",
+  "text": "593",
+  "bbox": [
+   880,
+   40,
+   905,
+   51
+  ],
+  "page_idx": 12
+ }
+]

@@ -1,0 +1,29 @@
+{
+ "answer": "I could not find any documents you uploaded to the library. You can add files with [Library Upload](/?model=memento-ingestion-prod), or ask about the library's most recent documents.",
+ "events": [
+  {
+   "done": false,
+   "hidden": null,
+   "status": "Looking for answer..."
+  },
+  {
+   "done": true,
+   "hidden": true,
+   "status": "Done"
+  }
+ ],
+ "llm_calls": [
+  {
+   "extra_body": [
+    "chat_template_kwargs"
+   ],
+   "last_message": "Latest message: Summarize my latest uploads",
+   "max_tokens": 256,
+   "messages": 2,
+   "model": "local-model",
+   "stream": false,
+   "system_sha": "93b1fc7c2055"
+  }
+ ],
+ "qdrant": []
+}

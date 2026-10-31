@@ -1,0 +1,45 @@
+{
+ "answer": "Answer [1].\n\n---\n_Answered directly, not from the library, so there are no sources._\n\n_Answered by Qwen 3.8 Flash-Next (Local)._\n",
+ "events": [
+  {
+   "done": false,
+   "hidden": null,
+   "status": "Looking for answer..."
+  },
+  {
+   "done": false,
+   "hidden": null,
+   "status": "Answering directly..."
+  },
+  {
+   "done": true,
+   "hidden": true,
+   "status": "Done"
+  }
+ ],
+ "llm_calls": [
+  {
+   "extra_body": [
+    "chat_template_kwargs"
+   ],
+   "last_message": "Latest message: What is 12 times 12?",
+   "max_tokens": 256,
+   "messages": 2,
+   "model": "local-model",
+   "stream": false,
+   "system_sha": "93b1fc7c2055"
+  },
+  {
+   "extra_body": [
+    "chat_template_kwargs"
+   ],
+   "last_message": "What is 12 times 12?",
+   "max_tokens": 2048,
+   "messages": 2,
+   "model": "local-model",
+   "stream": true,
+   "system_sha": "a5e5c9820e6f"
+  }
+ ],
+ "qdrant": []
+}

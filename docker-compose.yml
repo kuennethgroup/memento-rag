@@ -1,0 +1,387 @@
+# docker-compose.yml: Memento backend services (podman-compose compatible)
+#
+# Usage:
+# podman-compose --env-file config/.env up -d            # start all services
+# podman-compose --env-file config/.env down             # stop all services
+# podman-compose --env-file config/.env logs -f          # follow all logs
+# podman-compose --env-file config/.env ps               # status
+# podman-compose --env-file config/.env restart mineru   # restart one service
+#
+# Open WebUI is not in this file: it runs as a host process (bash scripts/services.sh start openwebui) in the project's
+# .venv, because the pipes import the project's packages (MEMENTO_DIR on sys.path) and services.sh patches the branding
+# into the installed open_webui package at every start.
+#
+# GPU assignment: EMBEDDER_GPU (default 1), MINERU_GPU (0), RERANKER_GPU (2), one GPU per service; override them in
+# config/.env. GPU indices: nvidia-smi --query-gpu=index,name,memory.total --format=csv
+#
+# Prerequisites: config/.env with MEMENTO_DIR, POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB (see config/.env.example).
+
+services:
+
+  # ── Databases ───────────────────────────────────────────────────────────────
+
+  postgres:
+    image: docker.io/postgres:16
+    container_name: memento-postgres
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - ${HOME}/.memento-rag/postgres:/var/lib/postgresql/data:z
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  qdrant:
+    image: docker.io/qdrant/qdrant:latest
+    container_name: qdrant
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:6333:6333"
+      - "127.0.0.1:6334:6334"
+    volumes:
+      - ${HOME}/.memento-rag/qdrant/storage:/qdrant/storage:z
+      - ${HOME}/.memento-rag/qdrant/snapshots:/qdrant/snapshots:z
+    environment:
+      QDRANT__LOG_LEVEL: INFO
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/localhost/6333'"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # Knowledge-graph store (RQ2 dual-graph retrieval). Community edition; the initial username is fixed to "neo4j" by the
+  # image, only the password is configurable. Browser UI at http://localhost:7474, driver connections via
+  # bolt://localhost:7687.
+  # Heap and page cache are sized for a small corpus; raise NEO4J_server_memory_* (and the container's memory limit) for
+  # larger ones: https://neo4j.com/docs/operations-manual/current/performance/memory-configuration/
+  neo4j:
+    image: docker.io/neo4j:5-community
+    container_name: memento-neo4j
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:7474:7474"   # HTTP — Neo4j Browser
+      - "127.0.0.1:7687:7687"   # Bolt — driver connections
+    volumes:
+      - ${HOME}/.memento-rag/neo4j/data:/data:z
+      - ${HOME}/.memento-rag/neo4j/logs:/logs:z
+    environment:
+      NEO4J_AUTH: "neo4j/${NEO4J_PASSWORD}"
+      NEO4J_server_memory_heap_max__size: 1G
+      NEO4J_server_memory_pagecache_size: 512M
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/localhost/7687'"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
+
+  # One Neo4j instance per corpus (Community edition = one database), selected by the domain YAML's neo4j_uri. Not
+  # started by a plain services.sh start: start them by name.
+  neo4j-ceramics:
+    image: docker.io/neo4j:5-community
+    container_name: memento-neo4j-ceramics
+    restart: unless-stopped
+    ports: ["127.0.0.1:7475:7474", "127.0.0.1:7688:7687"]
+    volumes:
+      - ${HOME}/.memento-rag/neo4j-ceramics/data:/data:z
+      - ${HOME}/.memento-rag/neo4j-ceramics/logs:/logs:z
+    environment:
+      NEO4J_AUTH: "neo4j/${NEO4J_PASSWORD}"
+      NEO4J_server_memory_heap_max__size: 2G
+      NEO4J_server_memory_pagecache_size: 1G
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/localhost/7687'"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
+
+  neo4j-polymer:
+    image: docker.io/neo4j:5-community
+    container_name: memento-neo4j-polymer
+    restart: unless-stopped
+    ports: ["127.0.0.1:7476:7474", "127.0.0.1:7689:7687"]
+    volumes:
+      - ${HOME}/.memento-rag/neo4j-polymer/data:/data:z
+      - ${HOME}/.memento-rag/neo4j-polymer/logs:/logs:z
+    environment:
+      NEO4J_AUTH: "neo4j/${NEO4J_PASSWORD}"
+      NEO4J_server_memory_heap_max__size: 2G
+      NEO4J_server_memory_pagecache_size: 1G
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/localhost/7687'"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
+
+  # RQ2 G2-lite rungs (no LLM at indexing): same corpora, entities from the entity registry
+  # ("-no-llm") or registry + GLiNER ("-no-llm-gliner"). Selected with NEO4J_URI_OVERRIDE;
+  # never mixed with the LLM graphs above.
+  neo4j-ceramics-no-llm:
+    image: docker.io/neo4j:5-community
+    container_name: memento-neo4j-ceramics-no-llm
+    restart: unless-stopped
+    ports: ["127.0.0.1:7478:7474", "127.0.0.1:7691:7687"]
+    volumes:
+      - ${HOME}/.memento-rag/neo4j-ceramics-no-llm/data:/data:z
+      - ${HOME}/.memento-rag/neo4j-ceramics-no-llm/logs:/logs:z
+    environment:
+      NEO4J_AUTH: "neo4j/${NEO4J_PASSWORD}"
+      NEO4J_server_memory_heap_max__size: 2G
+      NEO4J_server_memory_pagecache_size: 1G
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/localhost/7687'"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
+
+  neo4j-polymer-no-llm:
+    image: docker.io/neo4j:5-community
+    container_name: memento-neo4j-polymer-no-llm
+    restart: unless-stopped
+    ports: ["127.0.0.1:7479:7474", "127.0.0.1:7692:7687"]
+    volumes:
+      - ${HOME}/.memento-rag/neo4j-polymer-no-llm/data:/data:z
+      - ${HOME}/.memento-rag/neo4j-polymer-no-llm/logs:/logs:z
+    environment:
+      NEO4J_AUTH: "neo4j/${NEO4J_PASSWORD}"
+      NEO4J_server_memory_heap_max__size: 2G
+      NEO4J_server_memory_pagecache_size: 1G
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/localhost/7687'"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
+
+  neo4j-ceramics-no-llm-gliner:
+    image: docker.io/neo4j:5-community
+    container_name: memento-neo4j-ceramics-no-llm-gliner
+    restart: unless-stopped
+    ports: ["127.0.0.1:7480:7474", "127.0.0.1:7693:7687"]
+    volumes:
+      - ${HOME}/.memento-rag/neo4j-ceramics-no-llm-gliner/data:/data:z
+      - ${HOME}/.memento-rag/neo4j-ceramics-no-llm-gliner/logs:/logs:z
+    environment:
+      NEO4J_AUTH: "neo4j/${NEO4J_PASSWORD}"
+      NEO4J_server_memory_heap_max__size: 2G
+      NEO4J_server_memory_pagecache_size: 1G
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/localhost/7687'"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
+
+  neo4j-polymer-no-llm-gliner:
+    image: docker.io/neo4j:5-community
+    container_name: memento-neo4j-polymer-no-llm-gliner
+    restart: unless-stopped
+    ports: ["127.0.0.1:7481:7474", "127.0.0.1:7694:7687"]
+    volumes:
+      - ${HOME}/.memento-rag/neo4j-polymer-no-llm-gliner/data:/data:z
+      - ${HOME}/.memento-rag/neo4j-polymer-no-llm-gliner/logs:/logs:z
+    environment:
+      NEO4J_AUTH: "neo4j/${NEO4J_PASSWORD}"
+      NEO4J_server_memory_heap_max__size: 2G
+      NEO4J_server_memory_pagecache_size: 1G
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/localhost/7687'"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
+
+  # Ephemeral (no volume): integration tests only.
+  neo4j-test:
+    image: docker.io/neo4j:5-community
+    container_name: memento-neo4j-test
+    ports: ["127.0.0.1:7477:7474", "127.0.0.1:7690:7687"]
+    environment:
+      NEO4J_AUTH: "neo4j/${NEO4J_PASSWORD}"
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/localhost/7687'"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 20s
+
+  # ── ML services, each on its own GPU ──
+  # embedder → EMBEDDER_GPU, mineru → MINERU_GPU, reranker → RERANKER_GPU. Embedder and reranker: the official vLLM
+  # image, with the arguments the RQ1/RQ2 results were produced with. Images reach them as base64 in the request
+  # (memento/common/model_servers.py), so only the weights and a compile cache are mounted.
+
+  embedder:
+    image: docker.io/vllm/vllm-openai:v0.30.0
+    container_name: embedder
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8021:8021"
+    shm_size: '8gb'
+    security_opt:
+      - label=disable
+    volumes:
+      - ${MODEL_PATH}:/models/Qwen3-VL-Embedding-8B:ro
+      - ${HOME}/.memento-rag/vllm-cache:/root/.cache/vllm:z
+    environment:
+      NVIDIA_VISIBLE_DEVICES: "${EMBEDDER_GPU:-1}"
+      NVIDIA_DRIVER_CAPABILITIES: all
+    command: ["/models/Qwen3-VL-Embedding-8B", "--served-model-name", "Qwen3-VL-Embedding-8B",
+              "--runner", "pooling", "--max-model-len", "8192", "--dtype", "bfloat16", "--port", "8021",
+              "--gpu-memory-utilization", "${EMBEDDER_GPU_MEM:-0.5}", "--trust-remote-code",
+              "--mm-processor-kwargs", '{"size": {"shortest_edge": 4096, "longest_edge": 1843200}}']
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:8021/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 60
+      start_period: 180s
+
+  mineru:
+    image: mineru:latest
+    container_name: mineru-api-server
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8010:8000"
+    shm_size: '16gb'
+    # VLM preload off by default — Flip to "true" if
+    # vlm-engine/hybrid-engine backends need to avoid per-request cold starts.
+    command: ["mineru-api", "--host", "0.0.0.0", "--port", "8000", "--enable-vlm-preload", "${MINERU_VLM_PRELOAD:-false}"]
+    environment:
+      NVIDIA_VISIBLE_DEVICES: "${MINERU_GPU:-0}"
+      NVIDIA_DRIVER_CAPABILITIES: all
+      VLLM_USE_FLASHINFER_SAMPLER: "0"
+      OMP_NUM_THREADS: "4"
+      MINERU_PROCESSING_WINDOW_SIZE: "${MINERU_PROCESSING_WINDOW_SIZE:-64}"
+      PYTORCH_CUDA_ALLOC_CONF: "expandable_segments:True"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:8000/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 60
+      start_period: 180s
+
+  reranker:
+    image: docker.io/vllm/vllm-openai:v0.30.0
+    container_name: reranker
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8022:8022"
+    shm_size: '8gb'
+    security_opt:
+      - label=disable
+    volumes:
+      - ${RERANKER_MODEL_PATH}:/models/Qwen3-VL-Reranker-8B:ro
+      - ${MEMENTO_DIR}/config/templates/qwen3_vl_reranker.jinja:/templates/qwen3_vl_reranker.jinja:ro
+      - ${HOME}/.memento-rag/vllm-cache:/root/.cache/vllm:z
+    environment:
+      NVIDIA_VISIBLE_DEVICES: "${RERANKER_GPU:-2}"
+      NVIDIA_DRIVER_CAPABILITIES: all
+    command: ["/models/Qwen3-VL-Reranker-8B", "--served-model-name", "Qwen3-VL-Reranker-8B",
+              "--runner", "pooling", "--max-model-len", "10240",
+              "--hf_overrides", '{"architectures": ["Qwen3VLForSequenceClassification"], "classifier_from_token": ["no", "yes"], "is_original_qwen3_reranker": true, "text_config": {"tie_word_embeddings": false}}',
+              "--chat-template", "/templates/qwen3_vl_reranker.jinja",
+              "--dtype", "bfloat16", "--port", "8022",
+              "--gpu-memory-utilization", "${RERANKER_GPU_MEM:-0.5}", "--trust-remote-code",
+              "--mm-processor-kwargs", '{"size": {"shortest_edge": 4096, "longest_edge": 1843200}}']
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:8022/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 60
+      start_period: 180s
+
+  # ── Static file server — serves cited PDFs (data/input) and figures
+  # (data/output) so OpenWebUI citation links can open the source PDF
+  # directly instead of just showing the cited excerpt text. Independent of the ML services' lifecycle.
+  files:
+    image: memento-fileserver:latest
+    container_name: memento-files
+    restart: unless-stopped
+    # host network, listening on 127.0.0.1 only: it asks Open WebUI (a host process on 127.0.0.1) whose login a Document
+    # Chat file request carries
+    network_mode: host
+    volumes:
+      # all corpora: a cited file is found recursively under /data/input
+      - ${INPUT_ROOT:?set INPUT_ROOT in config/.env}:/data/input:ro
+      - ${OUTPUT_ROOT:?set OUTPUT_ROOT in config/.env}:/data/output:ro
+    environment:
+      # collision-renamed inputs are symlinks in OUTPUT_ROOT/_staged with host-path targets
+      HOST_INPUT_ROOT: ${INPUT_ROOT}
+      # the default library, for lists written before each library had its own file
+      MEMENTO_DEFAULT_COLLECTION: ${MEMENTO_DEFAULT_COLLECTION:-}
+      FILES_HOST: 127.0.0.1
+      OPENWEBUI_URL: http://127.0.0.1:${OPENWEBUI_PORT:-8086}
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:8024/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  # ── Remote access proxy (Caddy) ──
+  # The one port users outside the server reach (PROXY_PORT, default 8443): Open WebUI at /, the file server at /files
+  # (login required). Host network, so it reaches Open WebUI (host process) and the file server on 127.0.0.1. Routes and
+  # the certificate note: docker/Caddyfile. Remote users need FILES_URL=http://<host>:8443/files.
+  proxy:
+    image: docker.io/library/caddy:2
+    container_name: memento-proxy
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - ./docker/Caddyfile:/etc/caddy/Caddyfile:ro,z
+    environment:
+      PROXY_PORT: ${PROXY_PORT:-8443}
+      PROXY_BIND: ${PROXY_BIND:-127.0.0.1}
+      OPENWEBUI_PORT: ${OPENWEBUI_PORT:-8086}
+      FILES_PORT: "8024"
+
+  # ── Generator — local LLM (optional, disabled by default) ───────────────────
+  #
+  # By default the query pipe calls an external OpenAI-compatible API
+  # (OPENAI_BASE_URL in config/.env).
+  #
+  # To run generation fully local with no external API, use a vision-capable
+  # model — image/chart sources are sent to the generator as actual images,
+  # not just captions, and a text-only model loses that.
+  #   1. Uncomment this service.
+  #   2. Set REASONING_GPU in config/.env to a free GPU (sized for your model).
+  #   3. Download the model weights:
+  #        huggingface-cli download <org>/<vision-capable-model> \
+  #          --local-dir ~/models/<model>
+  #   4. Build the image: bash scripts/build_images.sh reasoning
+  #   5. In OpenWebUI → Memento Query → Valves, set:
+  #        LLM_BASE_URL = http://localhost:8023/v1
+  #        LLM_MODEL    = <model name vLLM exposes>
+  #
+  reasoning:
+    image: qwen3-vl-reasoning:latest
+    container_name: reasoning
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8023:8023"
+    devices:
+      - "nvidia.com/gpu=${REASONING_GPU:-0}"
+    shm_size: '16gb'
+    volumes:
+      - ${REASONING_MODEL_PATH}:/models/reasoning:ro
+    environment:
+      CUDA_VISIBLE_DEVICES: "0"
+      MODEL_PATH: /models/reasoning
+      REASONING_PORT: "8023"
+      VLLM_USE_FLASHINFER_SAMPLER: "0"   # permanent — nvcc not in runtime image
+      OMP_NUM_THREADS: "4"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:8023/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 60
+      start_period: 300s              # large model takes ~3-5 min to load

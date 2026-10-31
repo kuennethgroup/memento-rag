@@ -1,0 +1,29 @@
+{
+ "answer": "The library currently contains **3** documents:\n\n1. [Paper Alpha: hardness measurements (Alpha)](http://files.test/view/Alpha/0)\n2. [Paper Beta: thermal stability (Beta)](http://files.test/view/Beta/0)\n3. [Paper Gamma: processing routes (Gamma)](http://files.test/view/Gamma/0)\n\n",
+ "events": [
+  {
+   "done": false,
+   "hidden": null,
+   "status": "Looking for answer..."
+  },
+  {
+   "done": true,
+   "hidden": true,
+   "status": "Done"
+  }
+ ],
+ "llm_calls": [
+  {
+   "extra_body": [
+    "chat_template_kwargs"
+   ],
+   "last_message": "Latest message: What's in the library?",
+   "max_tokens": 256,
+   "messages": 2,
+   "model": "local-model",
+   "stream": false,
+   "system_sha": "93b1fc7c2055"
+  }
+ ],
+ "qdrant": []
+}

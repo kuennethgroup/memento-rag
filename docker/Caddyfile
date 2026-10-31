@@ -1,0 +1,49 @@
+# docker/Caddyfile: remote access for users outside the server (compose service proxy, port PROXY_PORT)
+#
+# One port serves both parts of Memento a browser loads:
+# /          → Open WebUI (chat, uploads, live streaming, websockets)
+# /files/…   → the file server (citation side panel), only for users logged in to Open WebUI: every request is first
+# checked against Open WebUI's /api/v1/users/user/info with the user's own session cookie (token), which admits
+# approved accounts only (not pending ones).
+# Every other service stays on 127.0.0.1 (docker-compose.yml binds all ports to localhost).
+#
+# Plain HTTP without a certificate. With one, add a tls /certs/<host>.crt /certs/<host>.key line to the site block (and
+# mount the files), and switch FILES_URL to https://.
+
+{
+	admin off
+	auto_https off
+}
+
+:{$PROXY_PORT:8443} {
+	# only the server itself by default; PROXY_BIND=0.0.0.0 in config/.env serves other computers
+	bind {$PROXY_BIND:127.0.0.1}
+	handle_path /files/* {
+  # a signed download link (made by a page view that passed the login; the file server checks the signature): Open
+  # WebUI's side panel is a sandboxed frame that sends no login cookie
+		@signed {
+			path /download-original/* /download-parsed/*
+			expression {http.request.uri.query.t} != ""
+		}
+		handle @signed {
+			reverse_proxy 127.0.0.1:{$FILES_PORT:8024} {
+				header_up X-Forwarded-Prefix /files
+			}
+		}
+		handle {
+			forward_auth 127.0.0.1:{$OPENWEBUI_PORT:8086} {
+				uri /api/v1/users/user/info
+			}
+			reverse_proxy 127.0.0.1:{$FILES_PORT:8024} {
+				header_up X-Forwarded-Prefix /files
+			}
+		}
+	}
+	handle {
+		reverse_proxy 127.0.0.1:{$OPENWEBUI_PORT:8086}
+	}
+	log {
+		output stdout
+		format console
+	}
+}

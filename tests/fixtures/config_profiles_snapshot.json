@@ -1,0 +1,119 @@
+{
+ "ceramics": {
+  "collection_prefix": "memento-ceramics",
+  "corpus_dir": "Ceramics",
+  "corpus_dirs": [
+   "/in/Ceramics",
+   "/out/Ceramics"
+  ],
+  "instruction": "8b5052fbed0686874dab8ab6bf152672a5153c6bf5e8d312536aac2c5abd38d8",
+  "keys": [
+   "claim_rules",
+   "collection_prefix",
+   "corpus_dir",
+   "description",
+   "document_noun",
+   "entity_registry",
+   "instruction",
+   "name",
+   "neo4j_uri",
+   "parsing",
+   "rerank_instruction",
+   "section_hints",
+   "section_roles",
+   "set_query_vocabulary",
+   "structural_labels",
+   "system_prompt"
+  ],
+  "name": "ceramics",
+  "system_prompt": "bdf6b36b31e167d268ee188f5c7f27fffaf91787be75c55e520b2657062502bc"
+ },
+ "computational-materials": {
+  "collection_prefix": "memento-comp-mat",
+  "corpus_dir": "ComputationalMaterials",
+  "corpus_dirs": [
+   "/in/ComputationalMaterials",
+   "/out/ComputationalMaterials"
+  ],
+  "instruction": "9c642f322fa00276cdb403f8d0fe5c2337fd4a4ab89c9cbffba5644b7539b1f2",
+  "keys": [
+   "claim_rules",
+   "collection_prefix",
+   "corpus_dir",
+   "description",
+   "document_noun",
+   "entity_registry",
+   "instruction",
+   "name",
+   "parsing",
+   "rerank_instruction",
+   "section_hints",
+   "section_roles",
+   "set_query_vocabulary",
+   "start_suggestions",
+   "structural_labels",
+   "system_prompt"
+  ],
+  "name": "computational-materials",
+  "system_prompt": "22d432bf423f99c58d66230c336d0f8ef538ec889ddc570e07424f74e105f06e"
+ },
+ "generic": {
+  "collection_prefix": "memento-generic",
+  "corpus_dir": "Generic",
+  "corpus_dirs": [
+   "/in/Generic",
+   "/out/Generic"
+  ],
+  "instruction": "826de78b04609cea8c70b711b8468604e32c35f821275b93356ebfd6160ea78c",
+  "keys": [
+   "claim_rules",
+   "collection_prefix",
+   "corpus_dir",
+   "description",
+   "document_noun",
+   "entity_registry",
+   "instruction",
+   "name",
+   "parsing",
+   "rerank_instruction",
+   "section_hints",
+   "section_roles",
+   "set_query_vocabulary",
+   "start_suggestions",
+   "structural_labels",
+   "system_prompt"
+  ],
+  "name": "generic",
+  "system_prompt": "7d46d7f93e32a1944ab2b2de3e62e60cc4739892cd72c906afc84e612992e1e8"
+ },
+ "polymer-engineering": {
+  "collection_prefix": "memento-polymer",
+  "corpus_dir": "PolymerEngineering",
+  "corpus_dirs": [
+   "/in/PolymerEngineering",
+   "/out/PolymerEngineering"
+  ],
+  "instruction": "c511f1383ab77d9a76e4b15ebf42d6c565a47130e42a369d3732794bc4a7912e",
+  "keys": [
+   "claim_rules",
+   "collection_prefix",
+   "corpus_dir",
+   "description",
+   "document_noun",
+   "entity_registry",
+   "instruction",
+   "name",
+   "neo4j_uri",
+   "parsing",
+   "rerank_instruction",
+   "section_hints",
+   "section_roles",
+   "set_query_vocabulary",
+   "start_suggestions",
+   "structural_labels",
+   "system_prompt"
+  ],
+  "name": "polymer-engineering",
+  "system_prompt": "132dba56d8dbe0ff7c3039094dac52c2cc5d87e921d08bb5a7baebcb482628e1"
+ }
+}

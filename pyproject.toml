@@ -1,0 +1,42 @@
+[project]
+name = "memento"
+version = "0.1.0"
+description = "Multimodal Agentic RAG for Institutional Knowledge Preservation"
+readme = "README.md"
+requires-python = ">=3.12"
+
+dynamic = ["dependencies"]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements/runtime.txt"]}
+
+[tool.setuptools.packages.find]
+include = ["memento*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = [".", "tests",
+              "tests/common",
+              "tests/config",
+              "tests/contracts",
+              "tests/document_chat",
+              "tests/graph",
+              "tests/ingestion",
+              "tests/library",
+              "tests/openwebui",
+              "tests/query",
+              "tests/research_gaps",
+              "tests/retrieval",
+              "tests/services",
+              "tests/verification",
+              ]
+markers = [
+    "unit: tests that run without any live services",
+]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"

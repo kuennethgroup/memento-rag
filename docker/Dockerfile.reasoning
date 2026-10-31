@@ -1,0 +1,53 @@
+# docker/Dockerfile.reasoning: a local reasoning service for any Qwen3(.x)-VL-family chat model (MODEL_PATH). Standalone
+# image (not based on retrieval-base: a different dependency tree).
+#
+# Build: podman build -t qwen3-vl-reasoner:latest -f docker/Dockerfile.reasoning .
+#
+# Container paths: /app/reasoning_api.py (API server, from services/); /models/reasoning (model weights, mounted at
+# runtime).
+#
+# Runtime env (all overridable via -e): MODEL_PATH /models/reasoning, REASONING_PORT 8023, MAX_MODEL_LEN 32768,
+# MAX_NUM_SEQS 4 (concurrent requests), GPU_DEVICE 0 (always 0 inside the container; the host GPU comes via --device),
+# LOG_LEVEL INFO.
+
+FROM docker.io/nvidia/cuda:12.6.3-cudnn-devel-ubuntu22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+# System deps
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        python3 python3-pip python3-dev \
+        curl wget git \
+    && rm -rf /var/lib/apt/lists/* \
+    && ln -sf python3 /usr/bin/python
+
+# ── vLLM ──────────────────────────────────────────────────────────────────────
+RUN pip install --no-cache-dir "vllm>=0.19.0"
+
+# ── Thin extra deps for the FastAPI wrapper ────────────────────────────────────
+RUN pip install --no-cache-dir \
+        "transformers>=4.57.0" \
+        "pillow" \
+        "fastapi>=0.110.0" \
+        "uvicorn[standard]>=0.29.0"
+
+# ── API server ─────────────────────────────────────────────────────────────────
+COPY services/reasoning_api.py /app/reasoning_api.py
+
+# ── Offline mode ───────────────────────────────────────────────────────────────
+ENV HF_HUB_OFFLINE=1
+ENV TRANSFORMERS_OFFLINE=1
+
+# ── Default env ────────────────────────────────────────────────────────────────
+ENV MODEL_PATH=/models/reasoning
+ENV REASONING_PORT=8023
+ENV MAX_MODEL_LEN=32768
+ENV MAX_NUM_SEQS=4
+ENV GPU_DEVICE=0
+ENV LOG_LEVEL=INFO
+
+EXPOSE 8023
+
+CMD ["python", "/app/reasoning_api.py"]

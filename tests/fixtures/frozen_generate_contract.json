@@ -1,0 +1,491 @@
+{
+ "default": {
+  "answer": "Hardness is 12 GPa [1].",
+  "calls": [
+   {
+    "image": null,
+    "instruction": "Retrieve polymer engineering research content relevant to the query, including passages, figures, charts, and tables.",
+    "model": "Qwen3-VL-Embedding-8B",
+    "op": "embed",
+    "text": "hardness of annealed samples",
+    "timeout": 30,
+    "url": "http://127.0.0.1:9"
+   },
+   {
+    "docs": [
+     {
+      "image": null,
+      "text": "Hardness reaches 12 GPa."
+     },
+     {
+      "image": null,
+      "text": "Samples were annealed."
+     },
+     {
+      "image": null,
+      "text": "Table 1 hardness"
+     },
+     {
+      "image": null,
+      "text": "Figure 2 microstructure"
+     }
+    ],
+    "extra": [],
+    "instruction": "Retrieve polymer engineering research content relevant to the query, including passages, figures, charts, and tables.",
+    "model": "Qwen3-VL-Reranker-8B",
+    "op": "rerank",
+    "query": "hardness of annealed samples",
+    "top_n": 4,
+    "url": "http://127.0.0.1:9"
+   }
+  ],
+  "hits": [
+   {
+    "bbox": [
+     0,
+     0,
+     50,
+     50
+    ],
+    "caption": "Figure 2",
+    "from_graph": false,
+    "img_path": "/nonexistent/fig2.png",
+    "is_neighbor": false,
+    "page": 3,
+    "page_end": null,
+    "paper_id": "paper_b",
+    "qdrant_id": "1003",
+    "rerank_score": 1.0,
+    "text": "Figure 2 microstructure",
+    "type": "image",
+    "vector_score": 0.6
+   },
+   {
+    "bbox": [
+     0,
+     5,
+     100,
+     50
+    ],
+    "caption": "Table 1",
+    "from_graph": false,
+    "img_path": null,
+    "is_neighbor": false,
+    "page": 2,
+    "page_end": null,
+    "paper_id": "paper_b",
+    "qdrant_id": "1002",
+    "rerank_score": 0.9,
+    "text": "Table 1 hardness",
+    "type": "table",
+    "vector_score": 0.7
+   },
+   {
+    "bbox": [
+     0,
+     30,
+     100,
+     40
+    ],
+    "caption": null,
+    "from_graph": false,
+    "img_path": null,
+    "is_neighbor": false,
+    "page": 0,
+    "page_end": null,
+    "paper_id": "paper_a",
+    "qdrant_id": "1001",
+    "rerank_score": 0.8,
+    "text": "Samples were annealed.",
+    "type": "text",
+    "vector_score": 0.8
+   },
+   {
+    "bbox": [
+     0,
+     10,
+     100,
+     20
+    ],
+    "caption": null,
+    "from_graph": false,
+    "img_path": null,
+    "is_neighbor": false,
+    "page": 0,
+    "page_end": null,
+    "paper_id": "paper_a",
+    "qdrant_id": "1000",
+    "rerank_score": 0.7,
+    "text": "Hardness reaches 12 GPa.",
+    "type": "text",
+    "vector_score": 0.9
+   }
+  ],
+  "llm": [
+   {
+    "api_key_set": true,
+    "base_url": "http://localhost:8023/v1",
+    "op": "client"
+   },
+   {
+    "extra_body": {
+     "enable_thinking": false,
+     "reasoning_effort": "low"
+    },
+    "max_tokens": 16384,
+    "messages": [
+     {
+      "content": "You are a scientific assistant for a polymer-engineering research document library. Answer using ONLY the numbered source excerpts below. Cite every factual claim with its excerpt number [N]; multiple sources get [2][5]. Do not invent or reuse citation numbers. Never write paper names, page numbers, or source metadata in your answer text — cite only [N]. The reader's interface already shows the paper and page for each [N]; repeating them risks misquoting. Exception: when the user asks where something comes from, name the document by its title as the sources give it, with its [N]. Preserve epistemic status — if a source is preliminary or hypothetical, say so (e.g. \"the authors hypothesise…\"). Keep numbers, units and conditions exactly as the source states them. When several documents address the question, use each relevant one and make clear when findings come from different studies (\"one study [3] … another [7]\"); when sources disagree, say so and cite both sides. If the sources found for this question do not answer it, say so plainly in your own words (for example \"The papers I found don't mention GANs.\"), not with a stock phrase such as \"The sources found do not cover\", and never claim that the library or the documents lack it; say briefly what they do cover if it is related, and do not guess. Call the collection \"the library\", never \"the corpus\". Answer directly — never preface with \"based on the sources\" or refer to the excerpts at all. For figures, charts, or equations: describe them with citations; do not comment on display capabilities. Answer in the language the user writes in, unless they request otherwise. Cite source text in its original language. Match answer length and depth to the question. When the question asks for several items (documents, materials, methods, values…), answer with a bulleted list, one item per line with its citation; when it asks which documents or papers, name each by its title as given in the sources.",
+      "role": "system"
+     },
+     {
+      "content": [
+       {
+        "text": "Question: hardness of annealed samples\n\n────────────────────────────────────────────────────────────\nSources (4 chunks retrieved and reranked):\n\n[Source 1]  paper=paper_b  page=3  type=image\n[Figure: fig2.png]\nFigure 2 microstructure\n\n[Source 2]  paper=paper_b  page=2  type=table\nTable 1 hardness\n\n[Source 3]  paper=paper_a  page=0  type=text\nSamples were annealed.\n\n[Source 4]  paper=paper_a  page=0  type=text\nHardness reaches 12 GPa.\n────────────────────────────────────────────────────────────\n\nPlease answer the question based strictly on the sources above.",
+        "type": "text"
+       },
+       {
+        "text": "Image for Source 1:",
+        "type": "text"
+       },
+       {
+        "image_url": {
+         "url": "data:image/png;base64,</nonexistent/fig2.png>"
+        },
+        "type": "image_url"
+       }
+      ],
+      "role": "user"
+     }
+    ],
+    "model": "/models/reasoning",
+    "op": "create",
+    "temperature": 0.15,
+    "top_p": 0.9
+   }
+  ],
+  "model": "fake-model",
+  "qdrant": [
+   {
+    "kwargs": [
+     "url"
+    ],
+    "op": "client"
+   },
+   {
+    "collection_name": "memento-polymer-rag",
+    "limit": 4,
+    "op": "query_points",
+    "query": [
+     0.1,
+     0.2,
+     0.3
+    ],
+    "query_filter": {
+     "must": [],
+     "must_not": [
+      {
+       "key": "section",
+       "match": {
+        "value": "Keywords"
+       }
+      }
+     ]
+    },
+    "using": "dense",
+    "with_payload": true
+   },
+   {
+    "collection_name": "memento-polymer-rag",
+    "limit": 200,
+    "offset": null,
+    "op": "scroll",
+    "scroll_filter": {
+     "must": [
+      {
+       "key": "source",
+       "match": {
+        "value": "paper_b"
+       }
+      },
+      {
+       "key": "page",
+       "match": {
+        "value": 3
+       }
+      }
+     ]
+    },
+    "with_payload": true
+   },
+   {
+    "collection_name": "memento-polymer-rag",
+    "limit": 200,
+    "offset": null,
+    "op": "scroll",
+    "scroll_filter": {
+     "must": [
+      {
+       "key": "source",
+       "match": {
+        "value": "paper_b"
+       }
+      },
+      {
+       "key": "page",
+       "match": {
+        "value": 2
+       }
+      }
+     ]
+    },
+    "with_payload": true
+   },
+   {
+    "collection_name": "memento-polymer-rag",
+    "limit": 200,
+    "offset": null,
+    "op": "scroll",
+    "scroll_filter": {
+     "must": [
+      {
+       "key": "source",
+       "match": {
+        "value": "paper_a"
+       }
+      },
+      {
+       "key": "page",
+       "match": {
+        "value": 0
+       }
+      }
+     ]
+    },
+    "with_payload": true
+   }
+  ],
+  "thinking": "thought",
+  "timing_keys": [
+   "generate_s",
+   "retrieve_s",
+   "total_s",
+   "validate_s"
+  ],
+  "usage": {
+   "completion_tokens": 5,
+   "prompt_tokens": 10,
+   "total_tokens": 15
+  }
+ },
+ "think_no_expand": {
+  "answer": "Hardness is 12 GPa [1].",
+  "calls": [
+   {
+    "image": null,
+    "instruction": "Retrieve polymer engineering research content relevant to the query, including passages, figures, charts, and tables.",
+    "model": "Qwen3-VL-Embedding-8B",
+    "op": "embed",
+    "text": "hardness of annealed samples",
+    "timeout": 30,
+    "url": "http://127.0.0.1:9"
+   },
+   {
+    "docs": [
+     {
+      "image": null,
+      "text": "Hardness reaches 12 GPa."
+     },
+     {
+      "image": null,
+      "text": "Samples were annealed."
+     },
+     {
+      "image": null,
+      "text": "Table 1 hardness"
+     },
+     {
+      "image": null,
+      "text": "Figure 2 microstructure"
+     }
+    ],
+    "extra": [],
+    "instruction": "Retrieve polymer engineering research content relevant to the query, including passages, figures, charts, and tables.",
+    "model": "Qwen3-VL-Reranker-8B",
+    "op": "rerank",
+    "query": "hardness of annealed samples",
+    "top_n": 4,
+    "url": "http://127.0.0.1:9"
+   }
+  ],
+  "hits": [
+   {
+    "bbox": [
+     0,
+     0,
+     50,
+     50
+    ],
+    "caption": "Figure 2",
+    "from_graph": false,
+    "img_path": "/nonexistent/fig2.png",
+    "is_neighbor": false,
+    "page": 3,
+    "page_end": null,
+    "paper_id": "paper_b",
+    "qdrant_id": "1003",
+    "rerank_score": 1.0,
+    "text": "Figure 2 microstructure",
+    "type": "image",
+    "vector_score": 0.6
+   },
+   {
+    "bbox": [
+     0,
+     5,
+     100,
+     50
+    ],
+    "caption": "Table 1",
+    "from_graph": false,
+    "img_path": null,
+    "is_neighbor": false,
+    "page": 2,
+    "page_end": null,
+    "paper_id": "paper_b",
+    "qdrant_id": "1002",
+    "rerank_score": 0.9,
+    "text": "Table 1 hardness",
+    "type": "table",
+    "vector_score": 0.7
+   },
+   {
+    "bbox": [
+     0,
+     30,
+     100,
+     40
+    ],
+    "caption": null,
+    "from_graph": false,
+    "img_path": null,
+    "is_neighbor": false,
+    "page": 0,
+    "page_end": null,
+    "paper_id": "paper_a",
+    "qdrant_id": "1001",
+    "rerank_score": 0.8,
+    "text": "Samples were annealed.",
+    "type": "text",
+    "vector_score": 0.8
+   },
+   {
+    "bbox": [
+     0,
+     10,
+     100,
+     20
+    ],
+    "caption": null,
+    "from_graph": false,
+    "img_path": null,
+    "is_neighbor": false,
+    "page": 0,
+    "page_end": null,
+    "paper_id": "paper_a",
+    "qdrant_id": "1000",
+    "rerank_score": 0.7,
+    "text": "Hardness reaches 12 GPa.",
+    "type": "text",
+    "vector_score": 0.9
+   }
+  ],
+  "llm": [
+   {
+    "api_key_set": true,
+    "base_url": "http://localhost:8023/v1",
+    "op": "client"
+   },
+   {
+    "extra_body": {
+     "enable_thinking": true,
+     "reasoning_effort": "high"
+    },
+    "max_tokens": 16384,
+    "messages": [
+     {
+      "content": "You are a scientific assistant for a polymer-engineering research document library. Answer using ONLY the numbered source excerpts below. Cite every factual claim with its excerpt number [N]; multiple sources get [2][5]. Do not invent or reuse citation numbers. Never write paper names, page numbers, or source metadata in your answer text — cite only [N]. The reader's interface already shows the paper and page for each [N]; repeating them risks misquoting. Exception: when the user asks where something comes from, name the document by its title as the sources give it, with its [N]. Preserve epistemic status — if a source is preliminary or hypothetical, say so (e.g. \"the authors hypothesise…\"). Keep numbers, units and conditions exactly as the source states them. When several documents address the question, use each relevant one and make clear when findings come from different studies (\"one study [3] … another [7]\"); when sources disagree, say so and cite both sides. If the sources found for this question do not answer it, say so plainly in your own words (for example \"The papers I found don't mention GANs.\"), not with a stock phrase such as \"The sources found do not cover\", and never claim that the library or the documents lack it; say briefly what they do cover if it is related, and do not guess. Call the collection \"the library\", never \"the corpus\". Answer directly — never preface with \"based on the sources\" or refer to the excerpts at all. For figures, charts, or equations: describe them with citations; do not comment on display capabilities. Answer in the language the user writes in, unless they request otherwise. Cite source text in its original language. Match answer length and depth to the question. When the question asks for several items (documents, materials, methods, values…), answer with a bulleted list, one item per line with its citation; when it asks which documents or papers, name each by its title as given in the sources.",
+      "role": "system"
+     },
+     {
+      "content": [
+       {
+        "text": "Question: hardness of annealed samples\n\n────────────────────────────────────────────────────────────\nSources (4 chunks retrieved and reranked):\n\n[Source 1]  paper=paper_b  page=3  type=image\n[Figure: fig2.png]\nFigure 2 microstructure\n\n[Source 2]  paper=paper_b  page=2  type=table\nTable 1 hardness\n\n[Source 3]  paper=paper_a  page=0  type=text\nSamples were annealed.\n\n[Source 4]  paper=paper_a  page=0  type=text\nHardness reaches 12 GPa.\n────────────────────────────────────────────────────────────\n\nPlease answer the question based strictly on the sources above.",
+        "type": "text"
+       },
+       {
+        "text": "Image for Source 1:",
+        "type": "text"
+       },
+       {
+        "image_url": {
+         "url": "data:image/png;base64,</nonexistent/fig2.png>"
+        },
+        "type": "image_url"
+       }
+      ],
+      "role": "user"
+     }
+    ],
+    "model": "/models/reasoning",
+    "op": "create",
+    "temperature": 0.15,
+    "top_p": 0.9
+   }
+  ],
+  "model": "fake-model",
+  "qdrant": [
+   {
+    "kwargs": [
+     "url"
+    ],
+    "op": "client"
+   },
+   {
+    "collection_name": "memento-polymer-rag",
+    "limit": 4,
+    "op": "query_points",
+    "query": [
+     0.1,
+     0.2,
+     0.3
+    ],
+    "query_filter": {
+     "must": [],
+     "must_not": [
+      {
+       "key": "section",
+       "match": {
+        "value": "Keywords"
+       }
+      }
+     ]
+    },
+    "using": "dense",
+    "with_payload": true
+   }
+  ],
+  "thinking": "thought",
+  "timing_keys": [
+   "generate_s",
+   "retrieve_s",
+   "total_s",
+   "validate_s"
+  ],
+  "usage": {
+   "completion_tokens": 5,
+   "prompt_tokens": 10,
+   "total_tokens": 15
+  }
+ }
+}

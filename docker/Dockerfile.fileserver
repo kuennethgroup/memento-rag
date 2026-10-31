@@ -1,0 +1,33 @@
+# Dockerfile.fileserver — static file server for cited PDFs/figures
+#
+# No GPU — FastAPI + uvicorn + PyMuPDF, serving data/input (PDFs, rendered
+# per-page as PNG for citations) and data/output (MinerU figures) read-only.
+# Independent of the embedder/reranker/mineru lifecycle so citation links
+# keep working even while those services are stopped/restarting.
+#
+# Build:
+#   podman build -t memento-fileserver:latest -f docker/Dockerfile.fileserver .   (from the repo root)
+#
+# Container paths:
+#   ${INPUT_DIR}/   ← data/input  (mounted at runtime, read-only)
+#   ${OUTPUT_DIR}/  ← data/output (mounted at runtime, read-only)
+
+FROM docker.io/library/python:3.12-slim
+
+WORKDIR /app
+
+COPY requirements/fileserver.txt requirements/fileserver.txt
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        curl \
+    && rm -rf /var/lib/apt/lists/* \
+    && pip install --no-cache-dir -r requirements/fileserver.txt
+
+COPY services/file_server.py /app/file_server.py
+
+ENV INPUT_DIR=/data/input
+ENV OUTPUT_DIR=/data/output
+ENV FILES_PORT=8024
+
+EXPOSE 8024
+
+CMD ["python", "/app/file_server.py"]

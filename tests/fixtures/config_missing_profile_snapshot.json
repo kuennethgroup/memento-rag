@@ -1,0 +1,27 @@
+{
+ "profile": {
+  "collection_prefix": "memento-generic",
+  "corpus_dir": "Generic",
+  "instruction": "826de78b04609cea8c70b711b8468604e32c35f821275b93356ebfd6160ea78c",
+  "keys": [
+   "claim_rules",
+   "collection_prefix",
+   "corpus_dir",
+   "description",
+   "document_noun",
+   "entity_registry",
+   "instruction",
+   "name",
+   "parsing",
+   "rerank_instruction",
+   "section_hints",
+   "section_roles",
+   "set_query_vocabulary",
+   "start_suggestions",
+   "structural_labels",
+   "system_prompt"
+  ],
+  "name": "generic",
+  "system_prompt": "7d46d7f93e32a1944ab2b2de3e62e60cc4739892cd72c906afc84e612992e1e8"
+ }
+}

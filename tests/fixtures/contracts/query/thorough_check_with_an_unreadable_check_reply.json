@@ -1,0 +1,142 @@
+{
+ "answer": "Answer [1].\n\n_⚠ Verification unavailable for this answer (ClaimSplitError)._\n\n_Answered by Qwen 3.8 Flash-Next (Local)._\n\n\n<details type=\"memento_sources\">\n<summary>Cited in this answer: 1 passage of this document</summary>\n\nAll from **Alpha**.\n\n_The numbers match the links in the text._\n\n- (1) p. 1\n</details>\n",
+ "events": [
+  {
+   "done": false,
+   "hidden": null,
+   "status": "Thorough check is on: answers take longer."
+  },
+  {
+   "done": false,
+   "hidden": null,
+   "status": "Looking for answer..."
+  },
+  {
+   "done": false,
+   "hidden": null,
+   "status": "Searching the library..."
+  },
+  {
+   "citation": "Alpha (p. 1)",
+   "pages": [
+    0
+   ]
+  },
+  {
+   "citation": "Alpha (p. 2)",
+   "pages": [
+    1
+   ]
+  },
+  {
+   "citation": "Alpha (p. 3)",
+   "pages": [
+    2
+   ]
+  },
+  {
+   "citation": "Alpha (p. 4)",
+   "pages": [
+    3
+   ]
+  },
+  {
+   "citation": "Beta (p. 2)",
+   "pages": [
+    1
+   ]
+  },
+  {
+   "citation": "Beta (p. 3)",
+   "pages": [
+    2
+   ]
+  },
+  {
+   "citation": "Gamma (p. 2)",
+   "pages": [
+    1
+   ]
+  },
+  {
+   "done": false,
+   "hidden": null,
+   "status": "Generating answer..."
+  },
+  {
+   "done": false,
+   "hidden": null,
+   "status": "Thorough check: refining the answer..."
+  },
+  {
+   "done": true,
+   "hidden": true,
+   "status": "Done"
+  }
+ ],
+ "llm_calls": [
+  {
+   "extra_body": [
+    "chat_template_kwargs"
+   ],
+   "last_message": "Latest message: What hardness do the samples reach?",
+   "max_tokens": 256,
+   "messages": 2,
+   "model": "local-model",
+   "stream": false,
+   "system_sha": "93b1fc7c2055"
+  },
+  {
+   "extra_body": [
+    "chat_template_kwargs",
+    "thinking_token_budget"
+   ],
+   "last_message": " up to 400 °C.\n\n---\n\n[6] Paper Beta: thermal stability (Beta), page 3, Section: Results\nFigure 2: stability map of the films.\n\n---\n\n[7] Paper Gamma: processing routes (Gamma), page 2, Section: Methods\nGamma passage: three processing routes are compared.\n\nQuestion: What hardness do the samples reach?",
+   "max_tokens": 16384,
+   "messages": 2,
+   "model": "local-model",
+   "stream": true,
+   "system_sha": "4b769718e941"
+  },
+  {
+   "extra_body": [
+    "chat_template_kwargs"
+   ],
+   "last_message": "S1: Answer [1].",
+   "max_tokens": 8192,
+   "messages": 2,
+   "model": "local-model",
+   "stream": false,
+   "system_sha": "42e80e6068d2"
+  },
+  {
+   "extra_body": [
+    "chat_template_kwargs"
+   ],
+   "last_message": "Output ONLY the JSON list, nothing else.",
+   "max_tokens": 8192,
+   "messages": 3,
+   "model": "local-model",
+   "stream": false,
+   "system_sha": "42e80e6068d2"
+  }
+ ],
+ "qdrant": [
+  {
+   "collection": "memento-x-rag",
+   "filter": {
+    "must_not": [
+     {
+      "key": "section",
+      "match": {
+       "value": "Keywords"
+      }
+     }
+    ]
+   },
+   "hybrid": false,
+   "limit": 80,
+   "op": "query"
+  }
+ ]
+}

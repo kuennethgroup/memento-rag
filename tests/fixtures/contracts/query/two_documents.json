@@ -1,0 +1,135 @@
+{
+ "answer": "Answer [1].\n\n_Answered by Qwen 3.8 Flash-Next (Local)._\n\n\n<details type=\"memento_sources\">\n<summary>Cited in this answer: 1 passage of this document</summary>\n\nAll from **Alpha**.\n\n_The numbers match the links in the text._\n\n- (1) p. 1\n</details>\n",
+ "events": [
+  {
+   "done": false,
+   "hidden": null,
+   "status": "Looking for answer..."
+  },
+  {
+   "done": false,
+   "hidden": null,
+   "status": "Searching the library..."
+  },
+  {
+   "citation": "Alpha (p. 1)",
+   "pages": [
+    0
+   ]
+  },
+  {
+   "citation": "Alpha (p. 2)",
+   "pages": [
+    1
+   ]
+  },
+  {
+   "citation": "Alpha (p. 3)",
+   "pages": [
+    2
+   ]
+  },
+  {
+   "citation": "Alpha (p. 4)",
+   "pages": [
+    3
+   ]
+  },
+  {
+   "citation": "Beta (p. 2)",
+   "pages": [
+    1
+   ]
+  },
+  {
+   "citation": "Beta (p. 3)",
+   "pages": [
+    2
+   ]
+  },
+  {
+   "done": false,
+   "hidden": null,
+   "status": "Generating answer..."
+  },
+  {
+   "done": true,
+   "hidden": true,
+   "status": "Done"
+  }
+ ],
+ "llm_calls": [
+  {
+   "extra_body": [
+    "chat_template_kwargs"
+   ],
+   "last_message": "Latest message: Compare Paper Alpha: hardness measurements with Paper Beta: thermal stability",
+   "max_tokens": 256,
+   "messages": 2,
+   "model": "local-model",
+   "stream": false,
+   "system_sha": "93b1fc7c2055"
+  },
+  {
+   "extra_body": [
+    "chat_template_kwargs"
+   ],
+   "last_message": " thermal stability (Beta), page 2, Section: Results\nBeta passage: the films are stable up to 400 °C.\n\n---\n\n[6] Paper Beta: thermal stability (Beta), page 3, Section: Results\nFigure 2: stability map of the films.\n\nQuestion: Compare Paper Alpha: hardness measurements with Paper Beta: thermal stability",
+   "max_tokens": 16384,
+   "messages": 2,
+   "model": "local-model",
+   "stream": true,
+   "system_sha": "dd9187436eec"
+  }
+ ],
+ "qdrant": [
+  {
+   "collection": "memento-x-rag",
+   "filter": {
+    "must": [
+     {
+      "key": "source",
+      "match": {
+       "value": "Alpha"
+      }
+     }
+    ],
+    "must_not": [
+     {
+      "key": "section",
+      "match": {
+       "value": "Keywords"
+      }
+     }
+    ]
+   },
+   "hybrid": false,
+   "limit": 40,
+   "op": "query"
+  },
+  {
+   "collection": "memento-x-rag",
+   "filter": {
+    "must": [
+     {
+      "key": "source",
+      "match": {
+       "value": "Beta"
+      }
+     }
+    ],
+    "must_not": [
+     {
+      "key": "section",
+      "match": {
+       "value": "Keywords"
+      }
+     }
+    ]
+   },
+   "hybrid": false,
+   "limit": 40,
+   "op": "query"
+  }
+ ]
+}

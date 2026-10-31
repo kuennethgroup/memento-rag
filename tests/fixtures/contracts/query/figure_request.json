@@ -1,0 +1,84 @@
+{
+ "answer": "Answer [1].\n\n_Answered by Qwen 3.8 Flash-Next (Local)._\n\n\n<details type=\"memento_sources\">\n<summary>Cited in this answer: 1 passage of this document</summary>\n\nAll from **Beta**.\n\n_The numbers match the links in the text._\n\n- (1) p. 3\n</details>\n",
+ "events": [
+  {
+   "done": false,
+   "hidden": null,
+   "status": "Looking for answer..."
+  },
+  {
+   "done": false,
+   "hidden": null,
+   "status": "Searching the library..."
+  },
+  {
+   "citation": "Beta (p. 3)",
+   "pages": [
+    2
+   ]
+  },
+  {
+   "done": false,
+   "hidden": null,
+   "status": "Generating answer..."
+  },
+  {
+   "done": true,
+   "hidden": true,
+   "status": "Done"
+  }
+ ],
+ "llm_calls": [
+  {
+   "extra_body": [
+    "chat_template_kwargs"
+   ],
+   "last_message": "Latest message: Show the stability map figure",
+   "max_tokens": 256,
+   "messages": 2,
+   "model": "local-model",
+   "stream": false,
+   "system_sha": "93b1fc7c2055"
+  },
+  {
+   "extra_body": [
+    "chat_template_kwargs"
+   ],
+   "last_message": "Sources:\n[1] Paper Beta: thermal stability (Beta), page 3, Section: Results\nFigure 2: stability map of the films.\n\nQuestion: Show the stability map figure",
+   "max_tokens": 16384,
+   "messages": 2,
+   "model": "local-model",
+   "stream": true,
+   "system_sha": "dd9187436eec"
+  }
+ ],
+ "qdrant": [
+  {
+   "collection": "memento-x-rag",
+   "filter": {
+    "must": [
+     {
+      "key": "type",
+      "match": {
+       "any": [
+        "image",
+        "chart"
+       ]
+      }
+     }
+    ],
+    "must_not": [
+     {
+      "key": "section",
+      "match": {
+       "value": "Keywords"
+      }
+     }
+    ]
+   },
+   "hybrid": false,
+   "limit": 80,
+   "op": "query"
+  }
+ ]
+}

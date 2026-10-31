@@ -1,0 +1,64 @@
+{
+ "input_files": [
+  "Generic/paper.pdf"
+ ],
+ "library_rows": [],
+ "llm_calls": [],
+ "locks": [
+  "lock",
+  "unlock"
+ ],
+ "manifest": {
+  "paper": [
+   "collection",
+   "content_hash",
+   "uploaded_by"
+  ]
+ },
+ "mineru": [
+  {
+   "op": "post",
+   "url": "/tasks"
+  },
+  {
+   "op": "get",
+   "url": "/tasks/task-1"
+  }
+ ],
+ "qdrant": [
+  {
+   "collection": "memento-x-rag",
+   "op": "create_collection"
+  },
+  {
+   "collection": "memento-x-rag",
+   "field": "source",
+   "op": "payload_index"
+  },
+  {
+   "collection": "memento-x-rag",
+   "field": "section",
+   "op": "payload_index"
+  },
+  {
+   "collection": "memento-x-rag",
+   "field": "type",
+   "op": "payload_index"
+  },
+  {
+   "collection": "memento-x-rag",
+   "field": "gap_relevant",
+   "op": "payload_index"
+  },
+  {
+   "collection": "memento-x-rag",
+   "field": "page",
+   "op": "payload_index"
+  }
+ ],
+ "reply": "\nUploading **1** file:\n\n❌ [1/1] **paper.pdf**: parse failed\n\n<details>\n<summary>Error details</summary>\n\nMinerU status: failed\n</details>\n\n\n---\n✅ Done · 0 stored · 1 failed · <t>\n❌ Failed: paper.pdf (parse)\n",
+ "status": [
+  "Uploading... 1 of 1 ready (0 parsing, 0 storing) · 0 stored · 0 unchanged · 1 failed · 0m elapsed · 100% done",
+  "Done · 0 of 1 stored · 0 unchanged · 1 failed · 0m elapsed"
+ ]
+}

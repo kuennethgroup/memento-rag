@@ -1,0 +1,41 @@
+# Runtime dependencies. Shared by requirements.txt and pyproject.toml.
+# ── PyTorch ───────────────────────────────────────────────────────────────────
+torch
+
+# ── Config ────────────────────────────────────────────────────────────────────
+python-dotenv
+
+# ── Vector database ───────────────────────────────────────────────────────────
+qdrant-client>=1.10.0
+fastembed>=0.8.0   # BM25 sparse encoding for hybrid search (memento/ingestion/embed.py)
+
+# ── Knowledge graph (RQ2 dual-graph retrieval) ────────────────────────────────
+neo4j>=5.20.0
+
+# ── HTTP / API ────────────────────────────────────────────────────────────────
+requests
+fastapi
+uvicorn[standard]
+
+# ── ML stack (embedder + reranker services) ───────────────────────────────────
+transformers>=4.45.0
+accelerate
+Pillow
+qwen-vl-utils
+einops
+scipy
+
+# ── Model download — provides the 'hf' CLI ────────────────────────────────────
+huggingface_hub[cli]
+
+# ── MinerU CLI (must match container version — see docker/Dockerfile.mineru) ──
+# 3.4.0+ required: --image-analysis flag and hybrid-engine backend (RQ1's
+# third parsing-backend condition) were both added in 3.4.0.
+mineru==3.4.0
+
+# ── PDF processing (baseline OCR pipeline) ───────────────────────────────────────
+PyMuPDF
+
+# ── OpenWebUI frontend ────────────────────────────────────────────────────────
+open-webui==0.11.4   # pinned (security and access-control fixes); test before changing
+psycopg2-binary==2.9.12   # Open WebUI's PostgreSQL driver (DATABASE_URL postgresql://)

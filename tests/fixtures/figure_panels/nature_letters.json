@@ -1,0 +1,166 @@
+[
+ {
+  "type": "chart",
+  "img_path": "images/888ec6f4b99be03c54e91ee08f0810a974952f7e8ff4e74935dcaf2d0eed1555.jpg",
+  "content": "| Wavelength (nm) | Intensity (a.u.) |\n| --- | --- |\n| 1248 | Peak |\n| 1408 | Peak |",
+  "chart_caption": [
+   "a"
+  ],
+  "chart_footnote": [],
+  "sub_type": "surface_3d",
+  "bbox": [
+   144,
+   130,
+   500,
+   306
+  ],
+  "page_idx": 5
+ },
+ {
+  "type": "chart",
+  "img_path": "images/3d7440608edc183cb7e385d2db6748a030e268c79d3f79463f643aca823ce090.jpg",
+  "content": "| Bi2O3 (mol%) | Temperature \\(({}^{\\circ}C)\\) | Emission intensity \\(({}^{\\circ}C\\) \\(cm^{-1})\\) |\n| --- | --- | --- |\n| 0 | ~51 | ~1.0 |\n| 0.5 | ~64 | ~0.6 |\n| 1.5 | ~89 | ~0.3 |\n| 2 | ~95 | ~0.2 |\n| 4 | ~96 | ~0.1 |\n| 6 | ~98 | ~0.05 |\n| 10 | ~103 | ~0.02 |",
+  "chart_caption": [
+   "b"
+  ],
+  "chart_footnote": [],
+  "sub_type": "line",
+  "bbox": [
+   526,
+   124,
+   850,
+   306
+  ],
+  "page_idx": 5
+ },
+ {
+  "type": "chart",
+  "img_path": "images/05a577242bb25f8dbcb202999ac95e1eb10f8287c1571c059f7226feafb5ee1b.jpg",
+  "content": "| Time (ms) | 0.05 mol% | 0.5 mol% | 1.5 mol% | 2.0 mol% | 4.0 mol% | 6.0 mol% | 10.0 mol% |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| 0.0 | e^0 | e^0 | e^0 | e^0 | e^0 | e^0 | e^0 |\n| 0.5 | ~1e-2 | ~8e-3 | ~6e-3 | ~4e-3 | ~3e-3 | ~2e-3 | ~1e-3 |\n| 1.0 | ~2e-3 | ~1e-3 | ~8e-4 | ~4e-4 | ~2e-4 | ~1e-4 | ~5e-5 |\n| 1.5 | ~3e-4 | ~1e-4 | ~8e-5 | ~4e-5 | ~2e-5 | ~1e-5 | ~5e-5 |\n| 2.0 | ~3e-5 | ~1e-5 | ~8e-6 | ~4e-6 | ~2e-6 | ~1e-6 | ~5e-6 |",
+  "chart_caption": [
+   "c"
+  ],
+  "chart_footnote": [],
+  "sub_type": "line",
+  "bbox": [
+   142,
+   324,
+   381,
+   530
+  ],
+  "page_idx": 5
+ },
+ {
+  "type": "chart",
+  "img_path": "images/2d0756a14dfd16bb4a34d67a2e4c55d01b9837b54526344bebe642e77fd3910c.jpg",
+  "content": "| Bi2O3 (mol%) | Lifetime \\((\\mu s)\\) |\n| --- | --- |\n| 0 | ~325 |\n| 0.5 | ~250 |\n| 1.5 | ~200 |\n| 2 | ~185 |\n| 4 | ~155 |\n| 6 | ~135 |\n| 10 | ~125 |",
+  "chart_caption": [
+   "d"
+  ],
+  "chart_footnote": [],
+  "sub_type": "line",
+  "bbox": [
+   396,
+   326,
+   628,
+   530
+  ],
+  "page_idx": 5
+ },
+ {
+  "type": "chart",
+  "img_path": "images/442c70e4885fd87ef0350ab184da7d1ff01f67c93332c69c5ce72e9d5ad3493a.jpg",
+  "content": "| Wavelength (nm) | x=0.05 | x=0.5 | x=1.5 | x=2 | x=4 | x=6 | x=10 |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| 250 | ~0.1 | ~0.3 | ~0.4 | ~0.5 | ~0.6 | ~0.7 | ~0.8 |\n| 500 | ~0.2 | ~0.5 | ~0.6 | ~0.7 | ~0.8 | ~0.9 | ~1.0 |\n| 750 | ~0.1 | ~0.3 | ~0.4 | ~0.5 | ~0.6 | ~0.7 | ~0.8 |",
+  "chart_caption": [
+   "e"
+  ],
+  "chart_footnote": [],
+  "sub_type": "line",
+  "bbox": [
+   643,
+   325,
+   857,
+   530
+  ],
+  "page_idx": 5
+ },
+ {
+  "type": "chart",
+  "img_path": "images/171df11f8d9b986588f55664b280e2cf18d6d9021045c8a8f6d9670ace1f6b2d.jpg",
+  "content": "| Time (s) | Temperature \\(({}^{\\circ}C)\\) | Bi2O3 (mol%) |\n| --- | --- | --- |\n| 0~200 | 51 | 0.05 |\n| 0~200 | 63 | 0.5 |\n| 0~200 | 88 | 1.5 |\n| 0~200 | 94 | 2.0 |\n| 0~200 | 95 | 4.0 |\n| 0~200 | 97 | 6.0 |\n| 0~200 | 102 | 10.0 |",
+  "chart_caption": [
+   "f"
+  ],
+  "chart_footnote": [],
+  "sub_type": "area_stacked",
+  "bbox": [
+   142,
+   551,
+   510,
+   745
+  ],
+  "page_idx": 5
+ },
+ {
+  "type": "chart",
+  "img_path": "images/f61c330c3fed73f7c78bedffa50eae2f37b51991933bf92b3627029fdc4ee9a8.jpg",
+  "content": "| Column 1 | Column 2 | Column 3 | Column 4 |\n| --- | --- | --- | --- |\n| \\(50.7 {}^{\\circ}C\\) | \\(62.6 {}^{\\circ}C\\) | \\(88.0 {}^{\\circ}C\\) | — |\n| 0.05 | 0.5 | 1.5 | — |\n| \\(94.4 {}^{\\circ}C\\) | \\(97.2 {}^{\\circ}C\\) | \\(102 {}^{\\circ}C\\) | — |\n| 2.0 | 6.0 | 10.0 | — |",
+  "chart_caption": [
+   "g",
+   "Fig. 4 Enhanced PT effect by quenching luminescence in Bi-doped germanate glass. a Emission spectra of glass samples G5AxB, where the $\\mathrm{Bi}_2\\mathrm{O}_3$ content $x$ changes from 0.05 to $10\\mathrm{mol}\\%$ ; b temperature (black line) and integrated emission intensity (blue line) of glass samples G5AxB; the red line in b demonstrates the double exponential fitting curve with a correlation coefficient of $99.5\\%$ ; the inset in b demonstrates the ratio of induced temperature increase ( $\\Delta T$ ) to absorption coefficient at $808\\mathrm{nm}$ (taken from Fig. 1) as a function of $\\mathrm{Bi}_2\\mathrm{O}_3$ concentration; c decay curves of G5AxB; d lifetime of G5AxB with emission at $1300\\mathrm{nm}$ upon $808\\mathrm{nm}$ ; e excitation spectra ( $\\lambda_{\\mathrm{em}} = 1300\\mathrm{nm}$ ) of G5AxB; f temperature curves of G5AxB as a function of irradiation time; power density of $808\\mathrm{nm}$ LD was attenuated to $1\\mathrm{Wcm}^{-2}$ ; and g thermal images of G5AxB, as the sample temperature became saturated."
+  ],
+  "chart_footnote": [],
+  "sub_type": "heatmap",
+  "bbox": [
+   539,
+   548,
+   858,
+   737
+  ],
+  "page_idx": 5
+ },
+ {
+  "type": "text",
+  "text": "which Bi resides after doping is constructed by corner-sharing $SiO_{4}$ tetrahedra. The polymerization can be modulated by the addition of species such as $Na_{2}O$ , CaO, or $Al_{2}O_{3}^{46-48}$ . Considering the trade-off between PL and",
+  "bbox": [
+   87,
+   865,
+   489,
+   926
+  ],
+  "page_idx": 5
+ },
+ {
+  "type": "text",
+  "text": "PT, here, we investigate the effect of these species on PT. As Fig. 3a depicts, glass samples with no aluminum, but including sodium, exhibit a higher PT effect upon the same illumination than samples with aluminum and/or",
+  "bbox": [
+   505,
+   865,
+   907,
+   926
+  ],
+  "page_idx": 5
+ },
+ {
+  "type": "header",
+  "text": "Wang et al. Light: Science & Applications (2018)7:1",
+  "bbox": [
+   90,
+   39,
+   401,
+   53
+  ],
+  "page_idx": 5
+ },
+ {
+  "type": "page_number",
+  "text": "Page 6 of 13",
+  "bbox": [
+   826,
+   40,
+   905,
+   53
+  ],
+  "page_idx": 5
+ }
+]

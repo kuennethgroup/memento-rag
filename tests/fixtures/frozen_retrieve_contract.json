@@ -1,0 +1,802 @@
+{
+ "expand_neighbors": {
+  "calls": [
+   {
+    "image": null,
+    "instruction": "Retrieve polymer engineering research content relevant to the query, including passages, figures, charts, and tables.",
+    "model": "Qwen3-VL-Embedding-8B",
+    "op": "embed",
+    "text": "hardness of annealed samples",
+    "timeout": 30,
+    "url": "http://127.0.0.1:9"
+   },
+   {
+    "docs": [
+     {
+      "image": null,
+      "text": "Hardness reaches 12 GPa."
+     },
+     {
+      "image": null,
+      "text": "Samples were annealed."
+     },
+     {
+      "image": null,
+      "text": "Table 1 hardness"
+     },
+     {
+      "image": null,
+      "text": "Figure 2 microstructure"
+     }
+    ],
+    "extra": [],
+    "instruction": "Retrieve polymer engineering research content relevant to the query, including passages, figures, charts, and tables.",
+    "model": "Qwen3-VL-Reranker-8B",
+    "op": "rerank",
+    "query": "hardness of annealed samples",
+    "top_n": 3,
+    "url": "http://127.0.0.1:9"
+   }
+  ],
+  "hits": [
+   {
+    "bbox": [
+     0,
+     0,
+     50,
+     50
+    ],
+    "caption": "Figure 2",
+    "from_graph": false,
+    "img_path": "/nonexistent/fig2.png",
+    "is_neighbor": false,
+    "page": 3,
+    "page_end": null,
+    "paper_id": "paper_b",
+    "qdrant_id": "1003",
+    "rerank_score": 1.0,
+    "text": "Figure 2 microstructure",
+    "type": "image",
+    "vector_score": 0.6
+   },
+   {
+    "bbox": [
+     0,
+     5,
+     100,
+     50
+    ],
+    "caption": "Table 1",
+    "from_graph": false,
+    "img_path": null,
+    "is_neighbor": false,
+    "page": 2,
+    "page_end": null,
+    "paper_id": "paper_b",
+    "qdrant_id": "1002",
+    "rerank_score": 0.9,
+    "text": "Table 1 hardness",
+    "type": "table",
+    "vector_score": 0.7
+   },
+   {
+    "bbox": [
+     0,
+     30,
+     100,
+     40
+    ],
+    "caption": null,
+    "from_graph": false,
+    "img_path": null,
+    "is_neighbor": false,
+    "page": 0,
+    "page_end": null,
+    "paper_id": "paper_a",
+    "qdrant_id": "1001",
+    "rerank_score": 0.8,
+    "text": "Samples were annealed.",
+    "type": "text",
+    "vector_score": 0.8
+   },
+   {
+    "bbox": [
+     0,
+     10,
+     100,
+     20
+    ],
+    "caption": null,
+    "from_graph": false,
+    "img_path": null,
+    "is_neighbor": true,
+    "page": 0,
+    "page_end": null,
+    "paper_id": "paper_a",
+    "qdrant_id": "1000",
+    "rerank_score": null,
+    "text": "Hardness reaches 12 GPa.",
+    "type": "text",
+    "vector_score": 0.0
+   }
+  ],
+  "qdrant": [
+   {
+    "kwargs": [],
+    "op": "client"
+   },
+   {
+    "collection_name": "memento-polymer-rag",
+    "limit": 4,
+    "op": "query_points",
+    "query": [
+     0.1,
+     0.2,
+     0.3
+    ],
+    "query_filter": {
+     "must": [],
+     "must_not": [
+      {
+       "key": "section",
+       "match": {
+        "value": "Keywords"
+       }
+      }
+     ]
+    },
+    "using": "dense",
+    "with_payload": true
+   },
+   {
+    "collection_name": "memento-polymer-rag",
+    "limit": 200,
+    "offset": null,
+    "op": "scroll",
+    "scroll_filter": {
+     "must": [
+      {
+       "key": "source",
+       "match": {
+        "value": "paper_b"
+       }
+      },
+      {
+       "key": "page",
+       "match": {
+        "value": 3
+       }
+      }
+     ]
+    },
+    "with_payload": true
+   },
+   {
+    "collection_name": "memento-polymer-rag",
+    "limit": 200,
+    "offset": null,
+    "op": "scroll",
+    "scroll_filter": {
+     "must": [
+      {
+       "key": "source",
+       "match": {
+        "value": "paper_b"
+       }
+      },
+      {
+       "key": "page",
+       "match": {
+        "value": 2
+       }
+      }
+     ]
+    },
+    "with_payload": true
+   },
+   {
+    "collection_name": "memento-polymer-rag",
+    "limit": 200,
+    "offset": null,
+    "op": "scroll",
+    "scroll_filter": {
+     "must": [
+      {
+       "key": "source",
+       "match": {
+        "value": "paper_a"
+       }
+      },
+      {
+       "key": "page",
+       "match": {
+        "value": 0
+       }
+      }
+     ]
+    },
+    "with_payload": true
+   }
+  ],
+  "timing_keys": [
+   "embed_s",
+   "expand_s",
+   "graph_s",
+   "rerank_gpu_s",
+   "rerank_s",
+   "total_s",
+   "vector_search_s"
+  ]
+ },
+ "hybrid_off": {
+  "calls": [
+   {
+    "image": null,
+    "instruction": "Retrieve polymer engineering research content relevant to the query, including passages, figures, charts, and tables.",
+    "model": "Qwen3-VL-Embedding-8B",
+    "op": "embed",
+    "text": "hardness of annealed samples",
+    "timeout": 30,
+    "url": "http://127.0.0.1:9"
+   },
+   {
+    "docs": [
+     {
+      "image": null,
+      "text": "Hardness reaches 12 GPa."
+     },
+     {
+      "image": null,
+      "text": "Samples were annealed."
+     },
+     {
+      "image": null,
+      "text": "Table 1 hardness"
+     },
+     {
+      "image": null,
+      "text": "Figure 2 microstructure"
+     }
+    ],
+    "extra": [],
+    "instruction": "Retrieve polymer engineering research content relevant to the query, including passages, figures, charts, and tables.",
+    "model": "Qwen3-VL-Reranker-8B",
+    "op": "rerank",
+    "query": "hardness of annealed samples",
+    "top_n": 3,
+    "url": "http://127.0.0.1:9"
+   }
+  ],
+  "hits": [
+   {
+    "bbox": [
+     0,
+     0,
+     50,
+     50
+    ],
+    "caption": "Figure 2",
+    "from_graph": false,
+    "img_path": "/nonexistent/fig2.png",
+    "is_neighbor": false,
+    "page": 3,
+    "page_end": null,
+    "paper_id": "paper_b",
+    "qdrant_id": "1003",
+    "rerank_score": 1.0,
+    "text": "Figure 2 microstructure",
+    "type": "image",
+    "vector_score": 0.6
+   },
+   {
+    "bbox": [
+     0,
+     5,
+     100,
+     50
+    ],
+    "caption": "Table 1",
+    "from_graph": false,
+    "img_path": null,
+    "is_neighbor": false,
+    "page": 2,
+    "page_end": null,
+    "paper_id": "paper_b",
+    "qdrant_id": "1002",
+    "rerank_score": 0.9,
+    "text": "Table 1 hardness",
+    "type": "table",
+    "vector_score": 0.7
+   },
+   {
+    "bbox": [
+     0,
+     30,
+     100,
+     40
+    ],
+    "caption": null,
+    "from_graph": false,
+    "img_path": null,
+    "is_neighbor": false,
+    "page": 0,
+    "page_end": null,
+    "paper_id": "paper_a",
+    "qdrant_id": "1001",
+    "rerank_score": 0.8,
+    "text": "Samples were annealed.",
+    "type": "text",
+    "vector_score": 0.8
+   }
+  ],
+  "qdrant": [
+   {
+    "kwargs": [],
+    "op": "client"
+   },
+   {
+    "collection_name": "memento-polymer-rag",
+    "limit": 4,
+    "op": "query_points",
+    "query": [
+     0.1,
+     0.2,
+     0.3
+    ],
+    "query_filter": {
+     "must": [],
+     "must_not": [
+      {
+       "key": "section",
+       "match": {
+        "value": "Keywords"
+       }
+      }
+     ]
+    },
+    "using": "dense",
+    "with_payload": true
+   }
+  ],
+  "timing_keys": [
+   "embed_s",
+   "graph_s",
+   "rerank_gpu_s",
+   "rerank_s",
+   "total_s",
+   "vector_search_s"
+  ]
+ },
+ "hybrid_on": {
+  "calls": [
+   {
+    "image": null,
+    "instruction": "Retrieve polymer engineering research content relevant to the query, including passages, figures, charts, and tables.",
+    "model": "Qwen3-VL-Embedding-8B",
+    "op": "embed",
+    "text": "hardness of annealed samples",
+    "timeout": 30,
+    "url": "http://127.0.0.1:9"
+   },
+   {
+    "op": "sparse",
+    "text": "hardness of annealed samples"
+   },
+   {
+    "docs": [
+     {
+      "image": null,
+      "text": "Hardness reaches 12 GPa."
+     },
+     {
+      "image": null,
+      "text": "Samples were annealed."
+     },
+     {
+      "image": null,
+      "text": "Table 1 hardness"
+     },
+     {
+      "image": null,
+      "text": "Figure 2 microstructure"
+     }
+    ],
+    "extra": [],
+    "instruction": "Retrieve polymer engineering research content relevant to the query, including passages, figures, charts, and tables.",
+    "model": "Qwen3-VL-Reranker-8B",
+    "op": "rerank",
+    "query": "hardness of annealed samples",
+    "top_n": 3,
+    "url": "http://127.0.0.1:9"
+   }
+  ],
+  "hits": [
+   {
+    "bbox": [
+     0,
+     0,
+     50,
+     50
+    ],
+    "caption": "Figure 2",
+    "from_graph": false,
+    "img_path": "/nonexistent/fig2.png",
+    "is_neighbor": false,
+    "page": 3,
+    "page_end": null,
+    "paper_id": "paper_b",
+    "qdrant_id": "1003",
+    "rerank_score": 1.0,
+    "text": "Figure 2 microstructure",
+    "type": "image",
+    "vector_score": 0.6
+   },
+   {
+    "bbox": [
+     0,
+     5,
+     100,
+     50
+    ],
+    "caption": "Table 1",
+    "from_graph": false,
+    "img_path": null,
+    "is_neighbor": false,
+    "page": 2,
+    "page_end": null,
+    "paper_id": "paper_b",
+    "qdrant_id": "1002",
+    "rerank_score": 0.9,
+    "text": "Table 1 hardness",
+    "type": "table",
+    "vector_score": 0.7
+   },
+   {
+    "bbox": [
+     0,
+     30,
+     100,
+     40
+    ],
+    "caption": null,
+    "from_graph": false,
+    "img_path": null,
+    "is_neighbor": false,
+    "page": 0,
+    "page_end": null,
+    "paper_id": "paper_a",
+    "qdrant_id": "1001",
+    "rerank_score": 0.8,
+    "text": "Samples were annealed.",
+    "type": "text",
+    "vector_score": 0.8
+   }
+  ],
+  "qdrant": [
+   {
+    "kwargs": [],
+    "op": "client"
+   },
+   {
+    "collection_name": "memento-polymer-rag",
+    "limit": 4,
+    "op": "query_points",
+    "prefetch": [
+     {
+      "filter": {
+       "must": [],
+       "must_not": [
+        {
+         "key": "section",
+         "match": {
+          "value": "Keywords"
+         }
+        }
+       ]
+      },
+      "limit": 80,
+      "query": [
+       0.1,
+       0.2,
+       0.3
+      ],
+      "using": "dense"
+     },
+     {
+      "filter": {
+       "must": [],
+       "must_not": [
+        {
+         "key": "section",
+         "match": {
+          "value": "Keywords"
+         }
+        }
+       ]
+      },
+      "limit": 80,
+      "query": {
+       "indices": [
+        1,
+        2
+       ],
+       "values": [
+        1.0,
+        1.0
+       ]
+      },
+      "using": "sparse"
+     }
+    ],
+    "query": {
+     "fusion": "rrf"
+    },
+    "with_payload": true
+   }
+  ],
+  "timing_keys": [
+   "embed_s",
+   "graph_s",
+   "rerank_gpu_s",
+   "rerank_s",
+   "total_s",
+   "vector_search_s"
+  ]
+ },
+ "no_reranker": {
+  "calls": [
+   {
+    "image": null,
+    "instruction": "Retrieve polymer engineering research content relevant to the query, including passages, figures, charts, and tables.",
+    "model": "Qwen3-VL-Embedding-8B",
+    "op": "embed",
+    "text": "hardness of annealed samples",
+    "timeout": 30,
+    "url": "http://127.0.0.1:9"
+   }
+  ],
+  "hits": [
+   {
+    "bbox": [
+     0,
+     10,
+     100,
+     20
+    ],
+    "caption": null,
+    "from_graph": false,
+    "img_path": null,
+    "is_neighbor": false,
+    "page": 0,
+    "page_end": null,
+    "paper_id": "paper_a",
+    "qdrant_id": "1000",
+    "rerank_score": null,
+    "text": "Hardness reaches 12 GPa.",
+    "type": "text",
+    "vector_score": 0.9
+   },
+   {
+    "bbox": [
+     0,
+     30,
+     100,
+     40
+    ],
+    "caption": null,
+    "from_graph": false,
+    "img_path": null,
+    "is_neighbor": false,
+    "page": 0,
+    "page_end": null,
+    "paper_id": "paper_a",
+    "qdrant_id": "1001",
+    "rerank_score": null,
+    "text": "Samples were annealed.",
+    "type": "text",
+    "vector_score": 0.8
+   },
+   {
+    "bbox": [
+     0,
+     5,
+     100,
+     50
+    ],
+    "caption": "Table 1",
+    "from_graph": false,
+    "img_path": null,
+    "is_neighbor": false,
+    "page": 2,
+    "page_end": null,
+    "paper_id": "paper_b",
+    "qdrant_id": "1002",
+    "rerank_score": null,
+    "text": "Table 1 hardness",
+    "type": "table",
+    "vector_score": 0.7
+   }
+  ],
+  "qdrant": [
+   {
+    "kwargs": [],
+    "op": "client"
+   },
+   {
+    "collection_name": "memento-polymer-rag",
+    "limit": 4,
+    "op": "query_points",
+    "query": [
+     0.1,
+     0.2,
+     0.3
+    ],
+    "query_filter": {
+     "must": [],
+     "must_not": [
+      {
+       "key": "section",
+       "match": {
+        "value": "Keywords"
+       }
+      }
+     ]
+    },
+    "using": "dense",
+    "with_payload": true
+   }
+  ],
+  "timing_keys": [
+   "embed_s",
+   "graph_s",
+   "total_s",
+   "vector_search_s"
+  ]
+ },
+ "paper_filter_dense": {
+  "calls": [
+   {
+    "image": null,
+    "instruction": "Retrieve polymer engineering research content relevant to the query, including passages, figures, charts, and tables.",
+    "model": "Qwen3-VL-Embedding-8B",
+    "op": "embed",
+    "text": "hardness of annealed samples",
+    "timeout": 30,
+    "url": "http://127.0.0.1:9"
+   },
+   {
+    "docs": [
+     {
+      "image": null,
+      "text": "Hardness reaches 12 GPa."
+     },
+     {
+      "image": null,
+      "text": "Samples were annealed."
+     },
+     {
+      "image": null,
+      "text": "Table 1 hardness"
+     },
+     {
+      "image": null,
+      "text": "Figure 2 microstructure"
+     }
+    ],
+    "extra": [],
+    "instruction": "Retrieve polymer engineering research content relevant to the query, including passages, figures, charts, and tables.",
+    "model": "Qwen3-VL-Reranker-8B",
+    "op": "rerank",
+    "query": "hardness of annealed samples",
+    "top_n": 3,
+    "url": "http://127.0.0.1:9"
+   }
+  ],
+  "hits": [
+   {
+    "bbox": [
+     0,
+     0,
+     50,
+     50
+    ],
+    "caption": "Figure 2",
+    "from_graph": false,
+    "img_path": "/nonexistent/fig2.png",
+    "is_neighbor": false,
+    "page": 3,
+    "page_end": null,
+    "paper_id": "paper_b",
+    "qdrant_id": "1003",
+    "rerank_score": 1.0,
+    "text": "Figure 2 microstructure",
+    "type": "image",
+    "vector_score": 0.6
+   },
+   {
+    "bbox": [
+     0,
+     5,
+     100,
+     50
+    ],
+    "caption": "Table 1",
+    "from_graph": false,
+    "img_path": null,
+    "is_neighbor": false,
+    "page": 2,
+    "page_end": null,
+    "paper_id": "paper_b",
+    "qdrant_id": "1002",
+    "rerank_score": 0.9,
+    "text": "Table 1 hardness",
+    "type": "table",
+    "vector_score": 0.7
+   },
+   {
+    "bbox": [
+     0,
+     30,
+     100,
+     40
+    ],
+    "caption": null,
+    "from_graph": false,
+    "img_path": null,
+    "is_neighbor": false,
+    "page": 0,
+    "page_end": null,
+    "paper_id": "paper_a",
+    "qdrant_id": "1001",
+    "rerank_score": 0.8,
+    "text": "Samples were annealed.",
+    "type": "text",
+    "vector_score": 0.8
+   }
+  ],
+  "qdrant": [
+   {
+    "kwargs": [],
+    "op": "client"
+   },
+   {
+    "collection_name": "memento-polymer-rag",
+    "limit": 4,
+    "op": "query_points",
+    "query": [
+     0.1,
+     0.2,
+     0.3
+    ],
+    "query_filter": {
+     "must": [
+      {
+       "key": "source",
+       "match": {
+        "value": "paper_a"
+       }
+      }
+     ],
+     "must_not": [
+      {
+       "key": "section",
+       "match": {
+        "value": "Keywords"
+       }
+      }
+     ]
+    },
+    "using": "dense",
+    "with_payload": true
+   }
+  ],
+  "timing_keys": [
+   "embed_s",
+   "graph_s",
+   "rerank_gpu_s",
+   "rerank_s",
+   "total_s",
+   "vector_search_s"
+  ]
+ }
+}

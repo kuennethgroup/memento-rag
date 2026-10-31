@@ -1,0 +1,9 @@
+{
+ "answer_prompt_sha256": {
+  "<no domain>": "dd9187436eec8fe30ff877ce8a6bf9fc41e89869bcfd7b29c94a5d122a5f0dd5",
+  "ceramics": "d1e7da1727e04f88a0c027a752a57ca6b4d1adbaaa479c731270a228ed21de81",
+  "computational-materials": "7bddc2f14c9bea890fac2c5e34880b74a4e72d5b47b2f05ba03710f9a0e46d40",
+  "generic": "dd9187436eec8fe30ff877ce8a6bf9fc41e89869bcfd7b29c94a5d122a5f0dd5",
+  "polymer-engineering": "667cfc3d53c1eabb579645410a69bdbc7ea0246aff40cdb212d47ac3e92c4a62"
+ }
+}

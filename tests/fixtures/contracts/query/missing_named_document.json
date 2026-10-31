@@ -1,0 +1,29 @@
+{
+ "answer": "I could not find that document in the library. Could you check the title? If you like, reply **yes** and I will search the whole library instead.",
+ "events": [
+  {
+   "done": false,
+   "hidden": null,
+   "status": "Looking for answer..."
+  },
+  {
+   "done": true,
+   "hidden": true,
+   "status": "Done"
+  }
+ ],
+ "llm_calls": [
+  {
+   "extra_body": [
+    "chat_template_kwargs"
+   ],
+   "last_message": "Latest message: What does Paper Omega: unknown topics report?",
+   "max_tokens": 256,
+   "messages": 2,
+   "model": "local-model",
+   "stream": false,
+   "system_sha": "93b1fc7c2055"
+  }
+ ],
+ "qdrant": []
+}

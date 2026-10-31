@@ -1,0 +1,17 @@
+{
+ "default": [
+  "local",
+  "qwen35",
+  "qwen36"
+ ],
+ "query_models.yaml": [
+  "local",
+  "qwen35",
+  "qwen36"
+ ],
+ "query_models_study.yaml": [
+  "local",
+  "qwen35",
+  "qwen36"
+ ]
+}

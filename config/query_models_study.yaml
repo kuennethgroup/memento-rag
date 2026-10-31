@@ -1,0 +1,42 @@
+# config/query_models_study.yaml: the models the second copy (the `study` library) offers. Same format as
+# config/query_models.yaml. The local entry's endpoint, model and key come from the copy's Valves (LLM_BASE_URL,
+# LLM_MODEL, LLM_API_KEY_ENV), like the default copy's local entry; the cloud models are the same examples (any
+# OpenAI-compatible API, offered only while their key variable is set).
+- id: local
+  name: "Library Chat (Qwen 3.8 Flash-Next)"
+  label: "Qwen 3.8 Flash-Next (Local)"
+  provider: local
+  model: qwen-flash-next
+  vision: true
+  thinking: true
+  checker: local
+  enabled: true
+  description: ""
+- id: qwen35
+  name: "Library Chat (Qwen 3.5 397B)"
+  label: "Qwen 3.5 397B (Cloud)"
+  provider: cloud
+  model: qwen3.5-397b-a17b
+  base_url_env: OPENAI_BASE_URL
+  key_env: CLOUD_API_KEY
+  vision: true
+  thinking: true
+  checker: local
+  enabled: true
+  description: "The strongest; slower."
+  accent: "#0369a1"
+  accent_dark: "#00adee"
+- id: qwen36
+  name: "Library Chat (Qwen 3.6 35B)"
+  label: "Qwen 3.6 35B (Cloud)"
+  provider: cloud
+  model: qwen3.6-35b-a3b
+  base_url_env: OPENAI_BASE_URL
+  key_env: CLOUD_API_KEY
+  vision: true
+  thinking: true
+  checker: local
+  enabled: true
+  description: "Fast and well-rounded."
+  accent: "#0369a1"
+  accent_dark: "#00adee"
