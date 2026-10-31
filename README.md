@@ -16,6 +16,9 @@ What users get:
 - **Start-screen actions:** what's in the library, a summary of a document, a document's limitations and future work,
   and a draft research proposal built from the open questions of the library.
 
+<!-- evaluation -->
+Running the thesis evaluations on your own documents: [evaluation/README.md](evaluation/README.md).
+<!-- /evaluation -->
 
 License, data and what has been tested: [Publication status](#publication-status).
 
@@ -477,6 +480,15 @@ Disabled or optional features retained for the thesis evaluations. Keep their so
 
 ---
 
+<!-- evaluation -->
+## Reproducing the evaluations
+
+[`evaluation/README.md`](evaluation/README.md) lists, for RQ1 to RQ4, the commands that build the ground truth and run
+each evaluation on your own documents; no corpora, ground truth or results are included. The thesis' results come
+from an earlier revision of this code, so a new run can give other numbers.
+
+---
+<!-- /evaluation -->
 
 ## Tests
 
@@ -529,6 +541,7 @@ podman stop memento-test-pg memento-test-neo4j memento-test-qdrant
 | `scripts/` | `services.sh`, `setup_openwebui.py`, image builds, model downloads, the gap-ledger commands |
 | `services/` | the container programs: the file server (citation viewer), the optional local answer-model API |
 | `docker/`, `docker-compose.yml` | the container images and the services |
+| `evaluation/` | RQ1 to RQ4: building the ground truth and running the evaluations | <!-- evaluation -->
 | `tests/` | the test suite, one folder per package it tests |
 | `run_query.sh`, `run_ingestion.sh`, `one_click_setup.sh` | ask a question, add documents, install everything in one go |
 | `data/`, `logs/`, `backups/` | created at run time, not in git |
@@ -541,6 +554,7 @@ podman stop memento-test-pg memento-test-neo4j memento-test-qdrant
 |---|---|
 | The Open WebUI functions and their Valves | [`openwebui/README.md`](openwebui/README.md) |
 | Ingestion in detail | [`memento/ingestion/README.md`](memento/ingestion/README.md) |
+| Running the evaluations, and which code the thesis' results come from | [`evaluation/README.md`](evaluation/README.md) | <!-- evaluation -->
 
 ---
 

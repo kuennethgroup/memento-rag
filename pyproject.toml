@@ -9,6 +9,7 @@ dynamic = ["dependencies"]
 
 [project.optional-dependencies]
 dev = ["pytest"]
+evaluation = ["numpy", "scipy", "matplotlib", "pandas"]
 
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements/runtime.txt"]}
@@ -23,6 +24,7 @@ pythonpath = [".", "tests",
               "tests/config",
               "tests/contracts",
               "tests/document_chat",
+              "tests/evaluation",
               "tests/graph",
               "tests/ingestion",
               "tests/library",
