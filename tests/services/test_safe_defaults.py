@@ -35,12 +35,12 @@ def test_the_proxy_binds_to_the_server_itself_by_default():
     assert proxy["environment"]["PROXY_BIND"] == "${PROXY_BIND:-127.0.0.1}"
 
 
-def test_the_readme_says_how_to_open_access_and_sign_up():
-    readme = (PROJECT_ROOT / "README.md").read_text()
-    access = readme[readme.index("## Access from other computers"):]
+def test_the_install_guide_says_how_to_open_access_and_sign_up():
+    guide = (PROJECT_ROOT / "INSTALL.md").read_text()
+    access = guide[guide.index("## Access from other computers"):]
     assert "PROXY_BIND=0.0.0.0" in access.split("\n---")[0]
     assert 'PROXY_BIND="0.0.0.0 ::"' in access.split("\n---")[0]            # IPv6 as well (quoted: .env is sourced)
-    step8 = readme[readme.index("### Step 8"):readme.index("### Step 9")]
+    step8 = guide[guide.index("## Step 8"):guide.index("## Step 9")]
     assert "--open-signup" in step8 and "approv" in step8
 
 

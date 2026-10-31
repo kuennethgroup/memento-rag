@@ -1,3 +1,3 @@
-# Source-checkout installation (Python 3.12). See README.md.
+# Source-checkout installation (Python 3.12). See INSTALL.md.
 --extra-index-url https://download.pytorch.org/whl/cu124
 -r requirements/runtime.txt

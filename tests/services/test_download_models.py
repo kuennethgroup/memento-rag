@@ -1,4 +1,4 @@
-# scripts/download_models.sh finds the `hf` command of the project's own environment (README step 2) when it is not on
+# scripts/download_models.sh finds the `hf` command of the project's own environment (INSTALL.md step 2) when it is not on
 # PATH: a fresh account has no `hf` of its own, and on Ubuntu 24.04 a plain `pip install` outside a venv is refused.
 import shutil
 import subprocess

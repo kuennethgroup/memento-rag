@@ -22,7 +22,7 @@ set -u
 
 MODELS_DIR=${MODELS_DIR:-$HOME/models}
 
-# the `hf` command of the project's own environment (README step 2) when none is on PATH
+# the `hf` command of the project's own environment (INSTALL.md step 2) when none is on PATH
 VENV_BIN="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/.venv/bin"
 if ! command -v hf &>/dev/null && [ -x "$VENV_BIN/hf" ]; then
     PATH="$VENV_BIN:$PATH"
@@ -48,7 +48,7 @@ REASONING_DIR="$MODELS_DIR/${REASONING_REPO##*/}"
 check_hf_cli() {
     if ! command -v hf &>/dev/null && ! command -v huggingface-cli &>/dev/null; then
         echo "[ERROR] 'hf' / 'huggingface-cli' not found."
-        echo "        Create the project's environment first (README step 2):"
+        echo "        Create the project's environment first (INSTALL.md step 2):"
         echo "        python3.12 -m venv .venv && .venv/bin/pip install -r requirements.txt"
         exit 1
     fi

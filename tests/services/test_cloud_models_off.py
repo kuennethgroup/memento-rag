@@ -30,8 +30,8 @@ def test_the_shipped_cloud_entries_name_no_provider_link_or_data_policy():
 
 
 def test_the_docs_say_any_openai_compatible_api_can_serve_them():
-    readme = (PROJECT_ROOT / "README.md").read_text()
-    section = readme[readme.index("### Answer models in the model menu"):readme.index("### Important settings")]
+    guide = (PROJECT_ROOT / "REFERENCE.md").read_text()
+    section = guide[guide.index("### Answer models in the model menu"):guide.index("### Important settings")]
     assert "OpenAI-compatible" in section and "only while" in section
     assert "OpenAI-compatible" in (PROJECT_ROOT / "config" / "query_models.yaml").read_text()
 

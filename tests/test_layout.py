@@ -58,9 +58,9 @@ def test_no_legacy_top_level_imports():
 
 def _commands():
     """(where, kind, target): `python -m <module>` and `python <file>.py` in the shell scripts and in the fenced
-    shell blocks of every README.md (a *_SCRIPT= assignment counts as a file)."""
+    shell blocks of the documentation (a *_SCRIPT= assignment counts as a file)."""
     texts = [(f, (ROOT / f).read_text()) for f in SHELL]
-    for readme in sorted(ROOT.rglob("README.md")):
+    for readme in sorted(ROOT.rglob("README.md")) + [ROOT / "INSTALL.md", ROOT / "REFERENCE.md"]:
         if ".venv" in readme.parts or "build" in readme.relative_to(ROOT).parts:
             continue
         blocks = re.findall(r"```(?:bash|sh|shell|console)?\n(.*?)```", readme.read_text(), re.S)

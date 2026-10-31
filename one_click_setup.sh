@@ -8,7 +8,7 @@
 #   4. Optionally downloads model weights via huggingface-cli
 #   5. Optionally builds all container images
 #
-# Prerequisites: README.md step 1 (system packages, the NVIDIA Container Toolkit and its runtime for Podman).
+# Prerequisites: INSTALL.md step 1 (system packages, the NVIDIA Container Toolkit and its runtime for Podman).
 #
 # Usage:
 #   bash one_click_setup.sh             # guided interactive setup
@@ -43,7 +43,7 @@ echo ""
 
 log "Step 1/5 — Python virtual environment"
 
-command -v python3.12 >/dev/null || die "Python 3.12 is needed (README.md step 2)"
+command -v python3.12 >/dev/null || die "Python 3.12 is needed (INSTALL.md step 2)"
 if [ ! -d .venv ]; then
     python3.12 -m venv .venv
     log "  Created .venv"
@@ -66,7 +66,7 @@ log "Step 2/5 — Configuration"
 
 if [ -f config/.env ]; then
     log "  config/.env already exists — skipping creation"
-    log "  Review it against README.md step 3 (model paths, GPUs, the answer model, passwords)."
+    log "  Review it against INSTALL.md step 3 (model paths, GPUs, the answer model, passwords)."
 else
     cp config/.env.example config/.env
 
@@ -84,7 +84,7 @@ else
     sed -i "s|^WEBUI_SECRET_KEY=.*|WEBUI_SECRET_KEY=$(python3 -c 'import secrets; print(secrets.token_hex(32))')|" config/.env
 
     echo ""
-    echo "  config/.env has been created. Fill in these values before starting (README.md step 3):"
+    echo "  config/.env has been created. Fill in these values before starting (INSTALL.md step 3):"
     echo ""
     echo "    DOMAIN_NAME           — add this line: the domain profile, e.g. generic"
     echo "    MODEL_PATH            — absolute path to Qwen3-VL-Embedding-8B weights (step 4 puts them in ~/models)"
@@ -158,7 +158,7 @@ hr
 echo ""
 echo "  Setup complete. Next steps:"
 echo ""
-echo "  Then follow README.md steps 6 to 11:"
+echo "  Then follow INSTALL.md steps 6 to 11:"
 echo ""
 echo "  6. Start the services:"
 echo "       bash scripts/services.sh start postgres qdrant mineru embedder reranker files openwebui proxy"
